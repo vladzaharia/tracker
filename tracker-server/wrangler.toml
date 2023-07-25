@@ -7,12 +7,12 @@ triggers = { crons = [] }
 
 [env.dev]
 route = { pattern = "dev.tracker.vlad.gg", custom_domain = true }
-vars = { ENVIRONMENT = "dev", BASE_URL="https://dev.tracker.vlad.gg" }
+vars = { ENVIRONMENT = "dev", BASE_URL="https://dev.track.vlad.gg" }
 
 [env.staging]
 route = { pattern = "staging.tracker.vlad.gg", custom_domain = true }
-vars = { ENVIRONMENT = "staging", BASE_URL="https://staging.tracker.vlad.gg" }
+vars = { ENVIRONMENT = "staging", BASE_URL="https://staging.track.vlad.gg" }
 
 [env.live]
 route = { pattern = "tracker.vlad.gg", custom_domain = true }
-vars = { ENVIRONMENT = "live", BASE_URL="https://tracker.vlad.gg" }
+vars = { ENVIRONMENT = "live", BASE_URL="https://track.vlad.gg" }

@@ -46,6 +46,12 @@ app.get(
 	})
 )
 app.get(
+	'/trip/:trip/map',
+	serveStatic({
+		path: './app/index.html',
+	})
+)
+app.get(
 	'/*',
 	serveStatic({
 		root: './app',

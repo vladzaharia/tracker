@@ -21,13 +21,13 @@ export const TripMap = () => {
 	const mapStyle = trip.type === 'tracker' ? 'clki08zbf003q01r24v4l5vuq' : "clkhyotqc003m01pm7lz5d6c9"
 
 	return <div className="trip-map">
-		<Map
+		{tripJSON && <Map
 			mapboxAccessToken="pk.eyJ1IjoidmxhZHphaGFyaWEiLCJhIjoiY2xraHpnNDMyMGRkcjNxcDQ1bXVyZHVrbiJ9.JTKDWIqIwMjJs9K4D0Qjdw"
       initialViewState={{
         longitude: lastLocation?.geometry?.coordinates[0],
         latitude: lastLocation?.geometry?.coordinates[1],
         zoom: 8,
-				pitch: trip.type === 'tracker' ? 60 : undefined,
+				pitch: 60,
 				bearing: trip.type === 'tracker' ? parseFloat(lastBearing) : undefined
       }}
 
@@ -35,8 +35,8 @@ export const TripMap = () => {
 			style={{ borderTopRightRadius: "1rem", borderBottomRightRadius: "1rem" }}
       mapStyle={`mapbox://styles/vladzaharia/${mapStyle}`}>
       <Source id="my-data" type="geojson" data={tripJSON}>
-        <Layer type="line" />
+        <Layer type="line" paint={{ "line-width": 5, "line-color": "#fff" }} layout={{ "line-cap": "round", "line-join": 'round' }} />
       </Source>
-    </Map>
+    </Map>}
 	</div>
 }

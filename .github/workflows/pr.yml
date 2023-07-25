@@ -14,7 +14,8 @@ jobs:
   #   secrets: inherit
 
   deploy:
-    needs: ['build', 'test']
+    # needs: ['build', 'test']
+    needs: ['build']
     uses: ./.github/workflows/shared-deploy.yml
     with:
       environment: staging

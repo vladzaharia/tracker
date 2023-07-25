@@ -33,9 +33,11 @@ const router = createBrowserRouter([
 		),
 		id: 'root',
 		errorElement: (
-			<ContentBox>
-				<RouterErrorBoundary />
-			</ContentBox>
+			<App>
+				<ContentBox>
+					<RouterErrorBoundary />
+				</ContentBox>
+			</App>
 		),
 		loader: ListTripLoader,
 		children: [
