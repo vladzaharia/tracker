@@ -12,6 +12,17 @@ import { Trip } from './pages/trip/trip'
 import GetTripGeoJSONLoader from './loaders/geojson'
 import { TripDetails } from './pages/trip/details/details'
 import { TripMap } from './pages/trip/map/map'
+import { AuthProvider, AuthProviderProps } from 'react-oidc-context'
+
+const oidcConfig: AuthProviderProps = {
+	authority: 'https://auth.zhr.one/application/o/trip-tracker/',
+	client_id: '9FbtspzZkyBQfCUCCtZbj38eKrMRFn26cwpu2D3C',
+	redirect_uri: `${window.location.protocol}//${window.location.host}${window.location.pathname}`,
+	scope: 'openid profile',
+	onSigninCallback: () => {
+		window.history.replaceState({}, document.title, window.location.pathname)
+	},
+}
 
 const router = createBrowserRouter([
 	{
@@ -64,6 +75,8 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
 	<StrictMode>
-		<RouterProvider router={router} />
+		<AuthProvider {...oidcConfig}>
+			<RouterProvider router={router} />
+		</AuthProvider>
 	</StrictMode>
 )

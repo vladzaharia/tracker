@@ -1,11 +1,11 @@
 body {
-	background-image: url('/background/primary.svg');
+	background-image: url('/background/admin.svg');
 	background-repeat: no-repeat;
 	background-position: center center;
 }
 
 body:not(:has(.app.dark)) {
-	background-image: url('/background/primary.svg');
+	background-image: url('/background/admin-light.svg');
 }
 
 body:has(.app.blue) {
