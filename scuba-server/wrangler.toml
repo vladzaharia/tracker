@@ -5,31 +5,14 @@ usage_model = "bundled"
 site = { bucket = "./dist" }
 triggers = { crons = [] }
 
-kv_namespaces = [
-]
-d1_databases = [
-]
-
 [env.dev]
 route = { pattern = "dev.scuba.vlad.gg", custom_domain = true }
 vars = { ENVIRONMENT = "dev", BASE_URL="https://dev.scuba.vlad.gg" }
-kv_namespaces = [
-]
-d1_databases = [
-]
 
 [env.staging]
 route = { pattern = "staging.scuba.vlad.gg", custom_domain = true }
 vars = { ENVIRONMENT = "staging", BASE_URL="https://staging.scuba.vlad.gg" }
-kv_namespaces = [
-]
-d1_databases = [
-]
 
 [env.live]
 route = { pattern = "scuba.vlad.gg", custom_domain = true }
 vars = { ENVIRONMENT = "live", BASE_URL="https://scuba.vlad.gg" }
-kv_namespaces = [
-]
-d1_databases = [
-]
