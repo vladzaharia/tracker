@@ -8,7 +8,10 @@ import { RouterErrorBoundary } from './pages/error/error'
 import ListTripLoader from './loaders/list'
 import GetTripLoader from './loaders/get'
 import { ListTrips } from './pages/list/list'
-import { GetTrip } from './pages/get/get'
+import { Trip } from './pages/trip/trip'
+import GetTripGeoJSONLoader from './loaders/geojson'
+import { TripDetails } from './pages/trip/details/details'
+import { TripMap } from './pages/trip/map/map'
 
 const router = createBrowserRouter([
 	{
@@ -38,8 +41,21 @@ const router = createBrowserRouter([
 			{
 				path: 'trip/:trip',
 				id: 'trip',
+				element: <Trip />,
 				loader: GetTripLoader,
-				element: <GetTrip />,
+				children: [
+					{
+						path: '',
+						id: 'trip-details',
+						element: <TripDetails />,
+					},
+					{
+						path: 'map',
+						id: 'trip-map',
+						loader: GetTripGeoJSONLoader,
+						element: <TripMap />,
+					},
+				]
 			},
 		],
 	},

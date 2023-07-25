@@ -7,6 +7,6 @@ export interface Trip {
 	end_date: Date
 }
 
-export type TripType = 'scuba' | 'other'
+export type TripType = 'scuba' | 'road'
 
 export type AllTrips = 'mexico' | 'bahamas-2022' | 'road-trip' | 'philippines'

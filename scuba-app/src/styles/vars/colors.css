@@ -1,9 +1,15 @@
 .app {
-	--primary: #8a2131;
+	/* --primary: #8a2131;
 	--primary-trans: #f2667235;
 	--primary-trans-50: #8a213145;
 	--primary-light: #f3ced5;
-	--primary-dark: #631823;
+	--primary-dark: #631823; */
+
+	--primary: #17acdd;
+	--primary-trans: #17acdd35;
+	--primary-trans-50: #17acdd50;
+	--primary-light: #b5e7f8;
+	--primary-dark: #107b9f;
 
 	--grey-light: #ede9e9;
 	--grey-dark: #5a4949;
@@ -60,10 +66,15 @@
 
 @media (prefers-color-scheme: dark) {
 	.app.dark {
-		--primary: #ff8597;
+		/* --primary: #ff8597;
 		--primary-trans: #8a213135;
 		--primary-trans-50: #8a213150;
-		--primary-dark: #ff4763;
+		--primary-dark: #ff4763; */
+
+		--primary: #68d0f3;
+		--primary-trans: #17acdd25;
+		--primary-trans-50: #2fbeee40;
+		--primary-dark: #2fbeee;
 
 		--grey-light: #dad2d2;
 		--grey-dark: #5a4949;

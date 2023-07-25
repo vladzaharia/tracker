@@ -15,6 +15,10 @@
 	border-bottom: 0.0625rem solid var(--border);
 }
 
+.header.single-button {
+	justify-content: flex-start;
+}
+
 .header.corner-left,
 .header-wrapper.corner-left {
 	border-top-left-radius: 1rem;

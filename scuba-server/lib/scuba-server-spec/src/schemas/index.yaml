@@ -153,9 +153,15 @@ components:
           $ref: '#/components/schemas/TripName'
         id:
           $ref: '#/components/schemas/TripId'
+        type:
+          description: Type of trip.
+          enum:
+            - scuba
+            - road
       required:
         - name
         - id
+        - type
     TripName:
       description: Name of a trip.
       type: string
