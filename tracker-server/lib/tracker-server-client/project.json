@@ -1,0 +1,22 @@
+{
+	"name": "tracker-server-client",
+	"$schema": "../../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "tracker-server/lib/tracker-server-client/dist",
+	"implicitDependencies": ["tracker-server-spec"],
+	"projectType": "library",
+	"targets": {
+		"build": {
+			"executor": "@trumbitta/nx-plugin-openapi:generate-api-lib-sources",
+			"options": {
+				"useDockerBuild": true,
+				"generator": "typescript-axios",
+				"sourceSpecPathOrUrl": "/local/tracker-server/lib/tracker-server-spec/src/schemas/index.yaml",
+				"additionalProperties": "",
+				"globalProperties": ""
+			},
+			"inputs": ["{workspaceRoot}/tracker-server/lib/tracker-server-spec/src/schemas/index.yaml"],
+			"outputs": ["{projectRoot}/dist/**/*"]
+		}
+	},
+	"tags": []
+}

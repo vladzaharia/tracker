@@ -43,10 +43,10 @@ jobs:
       uses: actions/download-artifact@v3
       with:
         name: dist
-        path: scuba-server/dist
+        path: tracker-server/dist
     - name: Deploy to Cloudflare Workers (${{ inputs.environment }})
       uses: cloudflare/wrangler-action@2.0.0
       with:
         apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-        workingDirectory: scuba-server
+        workingDirectory: tracker-server
         command: deploy --env ${{ inputs.environment }}

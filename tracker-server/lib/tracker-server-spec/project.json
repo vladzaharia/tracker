@@ -1,0 +1,18 @@
+{
+	"name": "tracker-server-spec",
+	"$schema": "../../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "tracker-server/lib/tracker-server-spec/src",
+	"projectType": "library",
+	"targets": {
+		"prepare-deploy": {
+			"executor": "nx:run-commands",
+			"options": {
+				"cwd": "tracker-server",
+				"command": "mkdir -p dist/openapi && cp -v lib/tracker-server-spec/src/schemas/index.yaml dist/openapi/openapi.swagger"
+			},
+			"inputs": ["{projectRoot}/src/schemas/index.yaml"],
+			"outputs": ["{workspaceRoot}/tracker-server/dist/openapi/openapi.swagger"]
+		}
+	},
+	"tags": []
+}

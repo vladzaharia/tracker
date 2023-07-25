@@ -1,0 +1,18 @@
+name = "tracker"
+main = "src/index.ts"
+compatibility_date = "2023-07-05"
+usage_model = "bundled"
+site = { bucket = "./dist" }
+triggers = { crons = [] }
+
+[env.dev]
+route = { pattern = "dev.tracker.vlad.gg", custom_domain = true }
+vars = { ENVIRONMENT = "dev", BASE_URL="https://dev.tracker.vlad.gg" }
+
+[env.staging]
+route = { pattern = "staging.tracker.vlad.gg", custom_domain = true }
+vars = { ENVIRONMENT = "staging", BASE_URL="https://staging.tracker.vlad.gg" }
+
+[env.live]
+route = { pattern = "tracker.vlad.gg", custom_domain = true }
+vars = { ENVIRONMENT = "live", BASE_URL="https://tracker.vlad.gg" }

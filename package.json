@@ -10,9 +10,9 @@
 		"lint": "nx run-many -t lint",
 		"format": "nx run-many -t format",
 		"serve": "nx run-many -t serve",
-		"serve-remote": "nx run scuba-server:serve-remote",
-		"deploy": "nx run scuba-server:deploy:dev --skip-nx-cache",
-		"tail": "nx run scuba-server:tail"
+		"serve-remote": "nx run tracker-server:serve-remote",
+		"deploy": "nx run tracker-server:deploy:dev --skip-nx-cache",
+		"tail": "nx run tracker-server:tail"
 	},
 	"private": true,
 	"devDependencies": {
@@ -47,8 +47,9 @@
 		"vitest": "^0.31.0"
 	},
 	"workspaces": [
-		"scuba-app",
-		"scuba-server"
+		"tracker-app",
+		"tracker-server",
+		"tracker-server/lib/**"
 	],
 	"volta": {
 		"node": "18.16.1"

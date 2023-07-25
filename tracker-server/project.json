@@ -1,0 +1,105 @@
+{
+	"name": "tracker-server",
+	"$schema": "../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "./tracker-server/src",
+	"projectType": "application",
+	"implicitDependencies": ["tracker-app", "tracker-server-spec"],
+	"targets": {
+		"build": {
+			"executor": "nx:run-commands",
+			"options": {
+				"cwd": "tracker-server",
+				"command": "tsc -p ./tsconfig.json"
+			},
+			"inputs": ["{projectRoot}/src/**/*", "{projectRoot}/tsconfig.json", "{workspaceRoot}/tsconfig.base.json"]
+		},
+		"build-ci": {
+			"executor": "nx:run-commands",
+			"dependsOn": ["^prepare-deploy", "build"],
+			"options": {
+				"cwd": "tracker-server",
+				"command": "echo Complete!"
+			},
+			"inputs": ["{projectRoot}/dist/**/*", "{projectRoot}/src/**/*.ts", "{projectRoot}/wrangler.toml"]
+		},
+		"test": {
+			"dependsOn": ["build"],
+			"executor": "@nx/vite:test",
+			"outputs": ["{workspaceRoot}/coverage/tracker-server"],
+			"options": {
+				"reportsDirectory": "../coverage/tracker-server",
+				"coverage": true
+			}
+		},
+		"test:ui": {
+			"executor": "nx:run-commands",
+			"options": {
+				"cwd": "tracker-server",
+				"command": "vitest --coverage --ui"
+			}
+		},
+		"lint": {
+			"executor": "@nx/linter:eslint",
+			"outputs": ["{options.outputFile}"],
+			"options": {
+				"lintFilePatterns": ["./tracker-server/**/*.{ts,tsx,js,jsx}"],
+				"maxWarnings": 0,
+				"fix": true
+			}
+		},
+		"format": {
+			"executor": "nx:run-commands",
+			"options": {
+				"cwd": "tracker-server",
+				"command": "prettier --write ."
+			},
+			"inputs": ["{projectRoot}/**/*", "!{projectRoot}/dist/**/*"],
+			"outputs": ["{projectRoot}/**/*", "!{projectRoot}/dist/**/*"]
+		},
+		"serve": {
+			"executor": "nx:run-commands",
+			"dependsOn": ["^prepare-deploy", "build"],
+			"options": {
+				"cwd": "tracker-server",
+				"command": "NO_D1_WARNING=true wrangler dev"
+			}
+		},
+		"serve-remote": {
+			"executor": "nx:run-commands",
+			"dependsOn": ["^prepare-deploy", "build"],
+			"options": {
+				"cwd": "tracker-server",
+				"command": "NO_D1_WARNING=true wrangler dev --remote"
+			}
+		},
+		"deploy": {
+			"executor": "nx:run-commands",
+			"dependsOn": ["^prepare-deploy", "build"],
+			"options": {
+				"cwd": "tracker-server",
+				"command": "NO_D1_WARNING=true wrangler deploy --env {args.env}",
+				"args": "--env local"
+			},
+			"configurations": {
+				"dev": {
+					"args": "--env dev"
+				},
+				"staging": {
+					"args": "--env staging"
+				},
+				"live": {
+					"args": "--env live"
+				}
+			},
+			"inputs": ["{projectRoot}/dist/**/*", "{projectRoot}/src/**/*.ts", "{projectRoot}/wrangler.toml"]
+		},
+		"tail": {
+			"executor": "nx:run-commands",
+			"options": {
+				"cwd": "tracker-server",
+				"command": "wrangler tail"
+			}
+		}
+	},
+	"tags": []
+}

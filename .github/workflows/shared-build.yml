@@ -26,12 +26,12 @@ jobs:
     - name: Install NPM packages
       run: npm ci --ignore-scripts
     - name: 'Build and prepare artifacts'
-      run: npx nx run scuba-server:build-ci
+      run: npx nx run tracker-server:build-ci
       env:
         NX_BRANCH: "${{ github.ref_name }}"
     - name: 'Upload server dist artifacts'
       uses: actions/upload-artifact@v3
       with:
         name: dist
-        path: scuba-server/dist/
+        path: tracker-server/dist/
         retention-days: 7

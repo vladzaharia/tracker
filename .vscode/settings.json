@@ -6,14 +6,14 @@
 			"host": "http://localhost:8787/api",
 		},
 		"prod": {
-			"host": "https://scuba.vlad.gg/api",
+			"host": "https://tracker.vlad.gg/api",
 		}
 	},
 	"yaml.schemas": {
 		"https://json.schemastore.org/github-workflow.json": [
-			"file:///Users/vlad/Documents/Repos/scuba/.github/workflows/deploy.yml",
-			"file:///Users/vlad/Documents/Repos/scuba/.github/workflows/templates/deploy.yml",
-			"file:///Users/vlad/Documents/Repos/scuba/.github/workflows/shared/deploy.yml"
+			"file:///Users/vlad/Documents/Repos/tracker/.github/workflows/deploy.yml",
+			"file:///Users/vlad/Documents/Repos/tracker/.github/workflows/templates/deploy.yml",
+			"file:///Users/vlad/Documents/Repos/tracker/.github/workflows/shared/deploy.yml"
 		]
 	}
 }

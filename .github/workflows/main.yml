@@ -18,5 +18,5 @@ jobs:
     uses: ./.github/workflows/shared-deploy.yml
     with:
       environment: live
-      baseUrl: https://scuba.vlad.gg
+      baseUrl: https://tracker.vlad.gg
     secrets: inherit

@@ -18,5 +18,5 @@ jobs:
     uses: ./.github/workflows/shared-deploy.yml
     with:
       environment: staging
-      baseUrl: https://staging.scuba.vlad.gg
+      baseUrl: https://staging.tracker.vlad.gg
     secrets: inherit

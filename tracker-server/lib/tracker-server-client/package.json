@@ -1,0 +1,14 @@
+{
+	"name": "tracker-server-client",
+	"version": "0.0.0",
+	"private": true,
+	"main": "dist/index.ts",
+	"scripts": {},
+	"devDependencies": {},
+	"dependencies": {
+		"axios": "^1.4.0"
+	},
+	"peerDependencies": {
+		"axios": "1.x"
+	}
+}

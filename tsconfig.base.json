@@ -15,8 +15,8 @@
 		"skipDefaultLibCheck": true,
 		"baseUrl": ".",
 		"paths": {
-			"scuba-server-client": [
-				"scuba-server/lib/scuba-server-client/dist/index.ts"
+			"tracker-server-client": [
+				"tracker-server/lib/tracker-server-client/dist/index.ts"
 			]
 		}
 	},
