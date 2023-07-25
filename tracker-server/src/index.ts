@@ -4,10 +4,12 @@ import { cors } from 'hono/cors'
 import { Info } from './routes/info'
 import { GetTrip } from './routes/trip/get'
 import { ListTrips } from './routes/trip/list'
-import { GetTripGeoJSON } from './routes/trip/geojson'
+import { FetchGeoJSON } from './cron/fetch_geojson'
+import { Bindings } from './bindings'
+import { GetTripGeoJSONPoints } from './routes/trip/geojson/points'
+import { GetTripGeoJSONTrack } from './routes/trip/geojson/track'
 
-
-const app = new Hono()
+const app = new Hono<{ Bindings: Bindings }>()
 
 // #region Middlewares
 // Add CORS to all requests
@@ -30,7 +32,8 @@ app.get('/api/trip/', ListTrips)
 app.get('/api/trip/:trip', GetTrip)
 
 // Get trip geojson
-app.get('/api/trip/:trip/geojson', GetTripGeoJSON)
+app.get('/api/trip/:trip/geojson/points', GetTripGeoJSONPoints)
+app.get('/api/trip/:trip/geojson/track', GetTripGeoJSONTrack)
 
 // App
 app.get(
@@ -58,4 +61,9 @@ app.get(
 	})
 )
 
-export default app
+export default {
+	fetch: app.fetch,
+	async scheduled(event, env, ctx) {
+		ctx.waitUntil(FetchGeoJSON(env))
+	},
+} as ExportedHandler<Bindings>

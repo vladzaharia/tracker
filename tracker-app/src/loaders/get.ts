@@ -1,7 +1,7 @@
 import { Params } from 'react-router-dom'
-import { createScubaApi } from '../api'
+import { createTrackerApi } from '../api'
 
 export default async function GetTripLoader({ params }: { params: Params }) {
-	const trackerApi = createScubaApi()
+	const trackerApi = createTrackerApi()
 	return (await trackerApi.getTrip(params.trip || '')).data
 }

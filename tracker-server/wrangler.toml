@@ -3,16 +3,41 @@ main = "src/index.ts"
 compatibility_date = "2023-07-05"
 usage_model = "bundled"
 site = { bucket = "./dist" }
-triggers = { crons = [] }
+triggers = { crons = ["*/5 * * * *"] }
+
+kv_namespaces = [
+    { binding = "GEOJSON", id = "d088c955dc004bb4aff34533429e40d0", preview_id = "d088c955dc004bb4aff34533429e40d0" },
+]
+d1_databases = [
+    { binding = "D1DATABASE", database_name = "tracker-live", database_id = "16cdd8e2-9387-4c1c-a9fc-d8a258d5ed1d" },
+]
 
 [env.dev]
-route = { pattern = "dev.tracker.vlad.gg", custom_domain = true }
+route = { pattern = "dev.track.vlad.gg", custom_domain = true }
 vars = { ENVIRONMENT = "dev", BASE_URL="https://dev.track.vlad.gg" }
+kv_namespaces = [
+    { binding = "GEOJSON", id = "a8611f1b1ba44009a19142b198f49409", preview_id = "a8611f1b1ba44009a19142b198f49409" },
+]
+d1_databases = [
+    { binding = "D1DATABASE", database_name = "tracker-dev", database_id = "52efd644-e001-4556-a8a7-e64d0276a690" },
+]
 
 [env.staging]
-route = { pattern = "staging.tracker.vlad.gg", custom_domain = true }
+route = { pattern = "staging.track.vlad.gg", custom_domain = true }
 vars = { ENVIRONMENT = "staging", BASE_URL="https://staging.track.vlad.gg" }
+kv_namespaces = [
+    { binding = "GEOJSON", id = "ab3868993a4d46f498712bb7e9c939d8", preview_id = "ab3868993a4d46f498712bb7e9c939d8" },
+]
+d1_databases = [
+    { binding = "D1DATABASE", database_name = "tracker-staging", database_id = "385c260b-87aa-4714-b4b1-6d95e4769a56" },
+]
 
 [env.live]
-route = { pattern = "tracker.vlad.gg", custom_domain = true }
+route = { pattern = "track.vlad.gg", custom_domain = true }
 vars = { ENVIRONMENT = "live", BASE_URL="https://track.vlad.gg" }
+kv_namespaces = [
+    { binding = "GEOJSON", id = "d088c955dc004bb4aff34533429e40d0", preview_id = "d088c955dc004bb4aff34533429e40d0" },
+]
+d1_databases = [
+    { binding = "D1DATABASE", database_name = "tracker-live", database_id = "16cdd8e2-9387-4c1c-a9fc-d8a258d5ed1d" },
+]

@@ -1,7 +1,17 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Params } from 'react-router-dom'
-import { createScubaApi } from '../api'
+import { createTrackerApi } from '../api'
 
 export default async function GetTripGeoJSONLoader({ params }: { params: Params }) {
-	const trackerApi = createScubaApi()
-	return (await trackerApi.getTripJSON(params.trip || '')).data
+	const trackerApi = createTrackerApi()
+
+	return {
+		points: (await trackerApi.getTripJSONPoints(params.trip || '')).data,
+		track: (await trackerApi.getTripJSONTrack(params.trip || '')).data,
+	}
+}
+
+export interface TripGeoJSON {
+	points: any
+	track: any
 }

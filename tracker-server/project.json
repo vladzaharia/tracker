@@ -61,7 +61,7 @@
 			"dependsOn": ["^prepare-deploy", "build"],
 			"options": {
 				"cwd": "tracker-server",
-				"command": "NO_D1_WARNING=true wrangler dev"
+				"command": "NO_D1_WARNING=true wrangler dev --test-scheduled"
 			}
 		},
 		"serve-remote": {

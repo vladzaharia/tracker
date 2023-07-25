@@ -1,6 +1,6 @@
-import { createScubaApi } from '../api'
+import { createTrackerApi } from '../api'
 
 export default async function ListTripLoader() {
-	const trackerApi = createScubaApi()
+	const trackerApi = createTrackerApi()
 	return (await trackerApi.listTrips()).data
 }

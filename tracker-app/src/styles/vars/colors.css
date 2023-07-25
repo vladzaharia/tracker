@@ -1,15 +1,9 @@
 .app {
-	--primary: #2996F5;
-	--primary-trans: #2996F535;
-	--primary-trans-50: #2996F545;
-	--primary-light: #C5E2FC;
-	--primary-dark: #0A6CC2;
-
-	/* --primary: #17acdd;
-	--primary-trans: #17acdd35;
-	--primary-trans-50: #17acdd50;
-	--primary-light: #b5e7f8;
-	--primary-dark: #107b9f; */
+	--primary: #2996f5;
+	--primary-trans: #2996f535;
+	--primary-trans-50: #2996f545;
+	--primary-light: #c5e2fc;
+	--primary-dark: #0a6cc2;
 
 	--grey-light: #ede9e9;
 	--grey-dark: #5a4949;
@@ -66,15 +60,10 @@
 
 @media (prefers-color-scheme: dark) {
 	.app.dark {
-		--primary: #77BCF8;
-		--primary-trans: #77BCF835;
-		--primary-trans-50: #77BCF850;
-		--primary-dark: #51A9F6;
-
-		/* --primary: #68d0f3;
-		--primary-trans: #17acdd25;
-		--primary-trans-50: #2fbeee40;
-		--primary-dark: #2fbeee; */
+		--primary: #77bcf8;
+		--primary-trans: #77bcf835;
+		--primary-trans-50: #77bcf850;
+		--primary-dark: #51a9f6;
 
 		--grey-light: #dad2d2;
 		--grey-dark: #5a4949;

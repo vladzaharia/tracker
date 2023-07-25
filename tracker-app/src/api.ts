@@ -1,8 +1,4 @@
-import {
-	Configuration,
-	ConfigurationParameters,
-	ScubaApi
-} from 'tracker-server-client'
+import { Configuration, ConfigurationParameters, TrackerApi } from 'tracker-server-client'
 
 export const getApiConfig = (parameters: Omit<ConfigurationParameters, 'basePath'> = {}) => {
 	return new Configuration({
@@ -11,6 +7,6 @@ export const getApiConfig = (parameters: Omit<ConfigurationParameters, 'basePath
 	})
 }
 
-export const createScubaApi = () => {
-	return new ScubaApi(getApiConfig())
+export const createTrackerApi = () => {
+	return new TrackerApi(getApiConfig())
 }

@@ -68,7 +68,7 @@ const router = createBrowserRouter([
 						loader: GetTripGeoJSONLoader,
 						element: <TripMap />,
 					},
-				]
+				],
 			},
 		],
 	},

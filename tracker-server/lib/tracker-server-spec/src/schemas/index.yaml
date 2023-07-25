@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  title: Scuba Tracker API
+  title: Tracker Tracker API
   description: API for tracking Vlad while tracker diving, on https://tracker.vlad.gg
   version: 1.0.0
 
@@ -17,7 +17,7 @@ paths:
       description: Provide server information to client
       operationId: serverInfo
       tags:
-        - Scuba
+        - Tracker
       responses:
         200:
           $ref: '#/components/responses/Success'
@@ -28,7 +28,7 @@ paths:
       description: List all available trips.
       operationId: listTrips
       tags:
-        - Scuba
+        - Tracker
       responses:
         200:
           description: List of trips available.
@@ -51,7 +51,7 @@ paths:
       description: Get information about a trip.
       operationId: getTrip
       tags:
-        - Scuba
+        - Tracker
       parameters:
         - $ref: '#/components/parameters/TripName'
       responses:
@@ -65,13 +65,29 @@ paths:
           $ref: '#/components/responses/TripNotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
-  /trip/{trip}/geojson:
+  /trip/{trip}/geojson/points:
     get:
-      summary: Get trip GeoJSON
-      description: Get coordinates and tracks for a trip as GeoJSON.
-      operationId: getTripJSON
+      summary: Get points GeoJSON
+      description: Get coordinates for a trip as GeoJSON.
+      operationId: getTripJSONPoints
       tags:
-        - Scuba
+        - Tracker
+      parameters:
+        - $ref: '#/components/parameters/TripName'
+      responses:
+        200:
+          description: Trip information
+        404:
+          $ref: '#/components/responses/TripNotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /trip/{trip}/geojson/track:
+    get:
+      summary: Get track GeoJSON
+      description: Get track for a trip as GeoJSON.
+      operationId: getTripJSONTrack
+      tags:
+        - Tracker
       parameters:
         - $ref: '#/components/parameters/TripName'
       responses:
@@ -156,7 +172,7 @@ components:
         type:
           description: Type of trip.
           enum:
-            - tracker
+            - scuba
             - road
       required:
         - name
