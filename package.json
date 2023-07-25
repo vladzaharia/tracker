@@ -1,0 +1,59 @@
+{
+	"name": "workspace",
+	"version": "0.0.0",
+	"license": "MIT",
+	"scripts": {
+		"build": "nx run-many -t build",
+		"test": "nx run-many -t test",
+		"test:ui": "nx run-many -t test:ui",
+		"fix": "nx run-many -t lint && nx run-many -t format",
+		"lint": "nx run-many -t lint",
+		"format": "nx run-many -t format",
+		"serve": "nx run-many -t serve",
+		"serve-remote": "nx run scuba-server:serve-remote",
+		"deploy": "nx run scuba-server:deploy:dev --skip-nx-cache",
+		"tail": "nx run scuba-server:tail"
+	},
+	"private": true,
+	"devDependencies": {
+		"@nx/cypress": "16.3.2",
+		"@nx/eslint-plugin": "16.3.2",
+		"@nx/jest": "^16.5.3",
+		"@nx/js": "16.5.3",
+		"@nx/linter": "16.3.2",
+		"@nx/react": "^16.3.2",
+		"@openapitools/openapi-generator-cli": "2.3.7",
+		"@trumbitta/nx-plugin-openapi": "^1.12.1",
+		"@types/jest": "^29.4.0",
+		"@types/node": "18.7.1",
+		"@vitest/ui": "^0.33.0",
+		"eslint": "~8.15.0",
+		"eslint-config-prettier": "8.1.0",
+		"eslint-plugin-import": "2.27.5",
+		"eslint-plugin-jsx-a11y": "6.7.1",
+		"eslint-plugin-react": "7.32.2",
+		"eslint-plugin-react-hooks": "4.6.0",
+		"jest": "^29.6.1",
+		"jest-environment-jsdom": "^29.4.1",
+		"nx": "16.3.2",
+		"nx-cloud": "^16.0.5",
+		"prettier": "^2.6.2",
+		"ts-jest": "^29.1.0",
+		"ts-node": "10.9.1",
+		"typescript": "~5.0.2",
+		"vite": "^4.3.4",
+		"vite-plugin-eslint": "^1.8.1",
+		"vite-tsconfig-paths": "^4.0.2",
+		"vitest": "^0.31.0"
+	},
+	"workspaces": [
+		"scuba-app",
+		"scuba-server"
+	],
+	"volta": {
+		"node": "18.16.1"
+	},
+	"dependencies": {
+		"tslib": "^2.3.0"
+	}
+}

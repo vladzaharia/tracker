@@ -1,0 +1,29 @@
+name: PR Build and Deploy
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    uses: ./.github/workflows/shared-build.yml
+    secrets: inherit
+
+  test:
+    uses: ./.github/workflows/shared-test.yml
+    secrets: inherit
+
+  deploy:
+    needs: ['build', 'test']
+    uses: ./.github/workflows/shared-deploy.yml
+    with:
+      environment: staging
+      baseUrl: https://staging.scuba.vlad.gg
+    secrets: inherit
+
+  push-kv:
+    needs: ['deploy']
+    uses: ./.github/workflows/shared-kv.yml
+    with:
+      environment: staging
+    secrets: inherit

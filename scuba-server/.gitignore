@@ -1,0 +1,8 @@
+node_modules
+.DS_Store
+.wranger
+**/db.sqlite
+dist/
+*.js
+.dev.vars
+junit.xml

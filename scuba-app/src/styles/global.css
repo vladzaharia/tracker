@@ -1,0 +1,22 @@
+* {
+	transition: all 0.3s ease;
+}
+
+.no-animate {
+	transition: none !important;
+}
+
+html,
+.root {
+	height: 100%;
+}
+
+.clickable {
+	cursor: pointer;
+}
+
+@media (prefers-color-scheme: dark) {
+	* {
+		transition: all 0.2s ease;
+	}
+}

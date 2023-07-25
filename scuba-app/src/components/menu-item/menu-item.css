@@ -1,0 +1,108 @@
+.menu-item {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	border-bottom: 0.0625rem solid var(--border);
+	padding: 1rem;
+	padding-right: 0.75rem;
+	gap: 1rem;
+}
+
+.menu-item:hover button {
+	background-color: var(--background);
+}
+
+.menu-item.primary {
+	background-color: var(--primary-trans);
+	color: var(--primary);
+	border-bottom: none;
+}
+
+.menu-item.primary:hover .menu-item.primary.active {
+	background-color: var(--primary-trans-50);
+}
+
+.menu-item.primary:hover button,
+.menu-item.primary.active button {
+	color: var(--primary-dark);
+}
+
+.menu-item.blue {
+	background-color: var(--blue-trans);
+	color: var(--blue);
+	border-bottom: none;
+}
+
+.menu-item.blue:hover,
+.menu-item.blue.active {
+	background-color: var(--blue-trans-50);
+}
+
+.menu-item.blue:hover button,
+.menu-item.blue.active button {
+	color: var(--blue-dark);
+}
+
+.menu-item.green {
+	background-color: var(--green-trans);
+	color: var(--green);
+	border-bottom: none;
+}
+
+.menu-item.green:hover,
+.menu-item.green.active {
+	background-color: var(--green-trans-50);
+}
+
+.menu-item.green:hover button,
+.menu-item.green.active button {
+	color: var(--green-dark);
+}
+
+.menu-item.purple {
+	background-color: var(--purple-trans);
+	color: var(--purple);
+	border-bottom: none;
+}
+
+.menu-item.purple:hover,
+.menu-item.purple.active {
+	background-color: var(--purple-trans-50);
+}
+
+.menu-item.purple:hover button,
+.menu-item.purple.active button {
+	color: var(--purple-dark);
+}
+
+.menu-item.orange {
+	background-color: var(--orange-trans);
+	color: var(--orange);
+	border-bottom: none;
+}
+
+.menu-item.orange:hover,
+.menu-item.orange.active {
+	background-color: var(--orange-trans-50);
+}
+
+.menu-item.orange:hover button,
+.menu-item.orange.active button {
+	color: var(--orange-dark);
+}
+
+.menu-item .button {
+	height: 2rem;
+	width: 2rem;
+	text-align: center;
+}
+
+.menu-item .button svg {
+	margin-right: 0;
+}
+
+@media only screen and (max-width: 50rem) {
+	.menu-item {
+		padding-right: 1.3rem;
+	}
+}

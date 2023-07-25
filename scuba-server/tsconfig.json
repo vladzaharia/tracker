@@ -1,0 +1,26 @@
+{
+	"compilerOptions": {
+		"target": "ESNext",
+		"module": "ESNext",
+		"moduleResolution": "node",
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"strict": true,
+		"lib": ["esnext"],
+		"types": ["@cloudflare/workers-types", "node"],
+		"jsx": "react-jsx",
+		"jsxImportSource": "hono/jsx",
+		"noEmit": true
+	},
+	"exclude": [
+		"lib/**",
+		"src/**/*.spec.ts",
+		"src/**/*.test.ts",
+		"src/**/*.spec.tsx",
+		"src/**/*.test.tsx",
+		"src/**/*.spec.js",
+		"src/**/*.test.js",
+		"src/**/*.spec.jsx",
+		"src/**/*.test.jsx"
+	]
+}

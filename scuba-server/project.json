@@ -1,0 +1,128 @@
+{
+	"name": "scuba-server",
+	"$schema": "../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "./scuba-server/src",
+	"projectType": "application",
+	"implicitDependencies": ["scuba-app", "scuba-server-spec"],
+	"targets": {
+		"build": {
+			"executor": "nx:run-commands",
+			"options": {
+				"cwd": "scuba-server",
+				"command": "tsc -p ./tsconfig.json"
+			},
+			"inputs": ["{projectRoot}/src/**/*", "{projectRoot}/tsconfig.json", "{workspaceRoot}/tsconfig.base.json"]
+		},
+		"build-ci": {
+			"executor": "nx:run-commands",
+			"dependsOn": ["^prepare-deploy", "build"],
+			"options": {
+				"cwd": "scuba-server",
+				"command": "echo Complete!"
+			},
+			"inputs": ["{projectRoot}/dist/**/*", "{projectRoot}/src/**/*.ts", "{projectRoot}/wrangler.toml"]
+		},
+		"test": {
+			"dependsOn": ["build"],
+			"executor": "@nx/vite:test",
+			"outputs": ["{workspaceRoot}/coverage/scuba-server"],
+			"options": {
+				"reportsDirectory": "../coverage/scuba-server",
+				"coverage": true
+			}
+		},
+		"test:ui": {
+			"executor": "nx:run-commands",
+			"options": {
+				"cwd": "scuba-server",
+				"command": "vitest --coverage --ui"
+			}
+		},
+		"lint": {
+			"executor": "@nx/linter:eslint",
+			"outputs": ["{options.outputFile}"],
+			"options": {
+				"lintFilePatterns": ["./scuba-server/**/*.{ts,tsx,js,jsx}"],
+				"maxWarnings": 0,
+				"fix": true
+			}
+		},
+		"format": {
+			"executor": "nx:run-commands",
+			"options": {
+				"cwd": "scuba-server",
+				"command": "prettier --write ."
+			},
+			"inputs": ["{projectRoot}/**/*", "!{projectRoot}/dist/**/*"],
+			"outputs": ["{projectRoot}/**/*", "!{projectRoot}/dist/**/*"]
+		},
+		"serve": {
+			"executor": "nx:run-commands",
+			"dependsOn": ["^prepare-deploy", "build"],
+			"options": {
+				"cwd": "scuba-server",
+				"command": "NO_D1_WARNING=true wrangler dev"
+			}
+		},
+		"serve-remote": {
+			"executor": "nx:run-commands",
+			"dependsOn": ["^prepare-deploy", "build"],
+			"options": {
+				"cwd": "scuba-server",
+				"command": "NO_D1_WARNING=true wrangler dev --remote"
+			}
+		},
+		"push-kv": {
+			"executor": "nx:run-commands",
+			"dependsOn": ["^prepare-deploy", "build"],
+			"options": {
+				"cwd": "scuba-server",
+				"commands": [
+					"NO_D1_WARNING=true wrangler kv:key put --env {args.env} --binding CONFIG --preview false deployment \"{ \\\"version\\\": { \\\"app\\\": \\\"$(node -e \"process.stdout.write(require('../scuba-server/package').version)\")\\\", \\\"server\\\": \\\"$(node -e \"process.stdout.write(require('./package').version)\")\\\" }, \\\"time\\\": $(date +%s), \\\"git\\\": { \\\"source\\\": \\\"local\\\", \\\"ref\\\": \\\"refs/heads/$(git rev-parse --abbrev-ref HEAD)\\\", \\\"sha\\\": \\\"$(git rev-parse HEAD)\\\" } }\""
+				],
+				"args": "--env local"
+			},
+			"configurations": {
+				"dev": {
+					"args": "--env dev"
+				},
+				"staging": {
+					"args": "--env staging"
+				},
+				"live": {
+					"args": "--env live"
+				}
+			},
+			"inputs": ["{projectRoot}/dist/**/*", "{projectRoot}/src/**/*.ts", "{projectRoot}/wrangler.toml"]
+		},
+		"deploy": {
+			"executor": "nx:run-commands",
+			"dependsOn": ["push-kv", "^prepare-deploy", "build"],
+			"options": {
+				"cwd": "scuba-server",
+				"command": "NO_D1_WARNING=true wrangler deploy --env {args.env}",
+				"args": "--env local"
+			},
+			"configurations": {
+				"dev": {
+					"args": "--env dev"
+				},
+				"staging": {
+					"args": "--env staging"
+				},
+				"live": {
+					"args": "--env live"
+				}
+			},
+			"inputs": ["{projectRoot}/dist/**/*", "{projectRoot}/src/**/*.ts", "{projectRoot}/wrangler.toml"]
+		},
+		"tail": {
+			"executor": "nx:run-commands",
+			"options": {
+				"cwd": "scuba-server",
+				"command": "wrangler tail"
+			}
+		}
+	},
+	"tags": []
+}

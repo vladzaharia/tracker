@@ -1,0 +1,126 @@
+.header-wrapper {
+	width: 100%;
+	background-color: var(--background);
+	position: sticky;
+	top: 0;
+	z-index: 100;
+}
+
+.header {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-end;
+	border-bottom: 0.0625rem solid var(--border);
+}
+
+.header.corner-left,
+.header-wrapper.corner-left {
+	border-top-left-radius: 1rem;
+}
+
+.header.corner-right,
+.header-wrapper.corner-right {
+	border-top-right-radius: 1rem;
+}
+
+.header.corner-left-05,
+.header-wrapper.corner-left-05 {
+	border-top-left-radius: 0.5rem;
+}
+
+.header.corner-right-05,
+.header-wrapper.corner-right-05 {
+	border-top-right-radius: 0.5rem;
+}
+
+.header.primary {
+	background-color: var(--primary-trans);
+	color: var(--primary-dark);
+	border-bottom-color: var(--primary-trans-50);
+}
+
+.header.blue {
+	background-color: var(--blue-trans);
+	color: var(--blue-dark);
+	border-bottom-color: var(--blue-trans-50);
+}
+
+.header.green {
+	background-color: var(--green-trans);
+	color: var(--green-dark);
+	border-bottom-color: var(--green-trans-50);
+}
+
+.header.purple {
+	background-color: var(--purple-trans);
+	color: var(--purple-dark);
+	border-bottom-color: var(--purple-trans-50);
+}
+
+.header.orange {
+	background-color: var(--orange-trans);
+	color: var(--orange-dark);
+	border-bottom-color: var(--orange-trans-50);
+}
+
+.header > * {
+	margin: 1rem;
+}
+
+.header.no-border {
+	border: 0;
+}
+
+.header .left-actions,
+.header .right-actions {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	gap: 0.25rem;
+}
+
+.header h3:not(:first-child) {
+	margin-left: 0;
+}
+
+.header h3 {
+	flex: 1 1 auto;
+}
+
+.header.center h3 {
+	text-align: center;
+}
+
+.header .button {
+	height: 2rem;
+	width: 2rem;
+	text-align: center;
+}
+
+.header .button svg {
+	margin-right: 0;
+}
+
+@media only screen and (max-width: 50rem) {
+	.header > * {
+		margin: 1rem;
+	}
+
+	.header .left-actions,
+	.header .right-actions {
+		margin: 1rem;
+	}
+
+	.header.corner-left,
+	.header-wrapper.corner-left {
+		border-top-left-radius: 0;
+	}
+
+	.header.corner-right,
+	.header-wrapper.corner-right {
+		border-top-right-radius: 0;
+	}
+}

@@ -1,0 +1,70 @@
+.section-title {
+	padding: 1rem;
+	margin: 0;
+	border-bottom: 0.0625rem solid var(--border);
+}
+
+.section-title.primary {
+	background-color: var(--primary-trans-50);
+	color: var(--primary-dark);
+	border-bottom-color: var(--primary-trans);
+}
+
+.section-title.blue {
+	background-color: var(--blue-trans-50);
+	color: var(--blue-dark);
+	border-bottom-color: var(--blue-trans);
+}
+
+.section-title.green {
+	background-color: var(--green-trans-50);
+	color: var(--green-dark);
+	border-bottom-color: var(--green-trans);
+}
+
+.section-title.purple {
+	background-color: var(--purple-trans-50);
+	color: var(--purple-dark);
+	border-bottom-color: var(--purple-trans);
+}
+
+.section-title.orange {
+	background-color: var(--orange-trans-50);
+	color: var(--orange-dark);
+	border-bottom-color: var(--orange-trans);
+}
+
+.section-title:has(.section-title-with-action) {
+	padding-top: 0.5625rem;
+	padding-bottom: 0.5625rem;
+}
+
+.section-title-with-action {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.section-title-with-action span {
+	flex: 1 1 auto;
+}
+
+.section-title-with-action .button {
+	width: 2rem;
+	height: 2rem;
+}
+
+@media only screen and (max-width: 50rem) {
+	.section-title {
+		padding: 1.5rem;
+	}
+
+	.section-title:nth-child(2) {
+		margin-top: 0;
+	}
+
+	.section-title:has(.section-title-with-action) {
+		padding-top: 1.0625rem;
+		padding-bottom: 1.0625rem;
+	}
+}

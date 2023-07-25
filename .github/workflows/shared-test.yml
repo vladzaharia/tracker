@@ -1,0 +1,46 @@
+name: Test
+
+on:
+  workflow_call:
+    secrets:
+      FONTAWESOME_TOKEN:
+        required: true
+
+jobs:
+  test:
+    name: Test with Vitest
+    runs-on: ubuntu-latest
+    permissions: write-all
+
+    steps:
+    - name: Checkout files
+      uses: actions/checkout@v3
+    - name: Use Node.js v18.x
+      uses: actions/setup-node@v3
+      with:
+        node-version: v18.x
+        cache: 'npm'
+    - name: Set FontAwesome CI token
+      run: |
+        npm config set '@fortawesome:registry' https://npm.fontawesome.com/
+        npm config set '//npm.fontawesome.com/:_authToken' "${{ secrets.FONTAWESOME_TOKEN }}"
+    - name: Install NPM packages
+      run: npm ci --ignore-scripts
+    - name: Run Jest/Vitest tests
+      run: npx nx run-many -t test --configuration ci --skip-nx-cache
+      env:
+        NX_BRANCH: "${{ github.ref_name }}"
+    - name: Upload test artifacts
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: test
+        path: coverage/
+        retention-days: 7
+    - name: Report test results
+      uses: dorny/test-reporter@v1
+      if: always()
+      with:
+        name: Test results
+        path: "coverage/scuba-app/junit.xml,coverage/scuba-server/junit.xml"
+        reporter: jest-junit

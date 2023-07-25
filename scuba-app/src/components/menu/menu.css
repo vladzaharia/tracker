@@ -1,0 +1,33 @@
+.menu {
+	height: 100%;
+	width: 25vw;
+	max-width: 17.5rem;
+	display: flex;
+	flex-direction: column;
+	flex: 0 0 auto;
+}
+
+.menu > .header {
+	margin: 0;
+}
+
+@media only screen and (max-width: 87.5rem) {
+	.menu {
+		width: 35vw;
+	}
+}
+
+@media only screen and (max-width: 62.5rem) {
+	.menu {
+		width: 60vw;
+	}
+}
+
+@media only screen and (max-width: 50rem) {
+	.menu {
+		height: initial;
+		width: 100%;
+		max-width: 100%;
+		max-height: 45vh;
+	}
+}

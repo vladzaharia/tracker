@@ -1,0 +1,108 @@
+.action {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	border-bottom: 0.0625rem solid var(--border);
+	padding: 1rem;
+	gap: 2rem;
+}
+
+.action.primary {
+	border-color: var(--primary-trans);
+}
+
+.action.blue {
+	border-color: var(--blue-trans);
+}
+
+.action.green {
+	border-color: var(--green-trans);
+}
+
+.action.purple {
+	border-color: var(--purple-trans);
+}
+
+.action.orange {
+	border-color: var(--orange-trans);
+}
+
+.action:last-child {
+	border-bottom: none;
+}
+
+.action.column {
+	flex-direction: column;
+	align-items: stretch;
+	gap: 1rem;
+}
+
+.action.column .input-wrapper {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+
+.action input {
+	flex: 0.5 1 auto;
+}
+
+.action.column .input-wrapper input {
+	width: 75%;
+}
+
+.action .text {
+	display: flex;
+	flex-direction: column;
+	justify-content: stretch;
+	flex: 1 1 auto;
+}
+
+.action.column .text {
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.action .title {
+	flex: 1 1 auto;
+}
+
+.action .description {
+	font-size: 0.9rem;
+}
+
+.action .button {
+	min-height: 2rem;
+	min-width: 2rem;
+	text-align: center;
+}
+
+.action .button:not(:has(> span)) {
+	width: 2rem;
+	height: 2rem;
+}
+
+.toggle.primary.checked .MuiSwitch-thumb {
+	background-color: var(--primary);
+}
+
+.toggle.primary.checked .MuiSwitch-track {
+	background-color: var(--primary-dark);
+}
+
+.toggle.primary.disabled .MuiSwitch-thumb {
+	background-color: var(--disabled);
+}
+
+.toggle.primary.disabled .MuiSwitch-track {
+	background-color: var(--disabled);
+}
+
+@media only screen and (max-width: 50rem) {
+	.action {
+		padding-right: 1.3rem;
+	}
+}

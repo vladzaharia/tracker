@@ -1,0 +1,110 @@
+{
+	"name": "scuba-app",
+	"$schema": "../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "./app/src",
+	"projectType": "application",
+	"implicitDependencies": ["scuba-server-client"],
+	"targets": {
+		"build": {
+			"executor": "@nx/vite:build",
+			"dependsOn": ["^build"],
+			"outputs": ["{options.outputPath}"],
+			"defaultConfiguration": "production",
+			"options": {
+				"outputPath": "dist/scuba-app"
+			},
+			"configurations": {
+				"development": {
+					"mode": "development"
+				},
+				"production": {
+					"mode": "production"
+				}
+			}
+		},
+		"test": {
+			"dependsOn": ["scuba-app:build"],
+			"executor": "@nx/vite:test",
+			"outputs": ["{workspaceRoot}/coverage/scuba-app"],
+			"options": {
+				"reportsDirectory": "../coverage/scuba-app",
+				"coverage": true
+			}
+		},
+		"test:ui": {
+			"executor": "nx:run-commands",
+			"options": {
+				"cwd": "scuba-app",
+				"command": "vitest --coverage --ui"
+			}
+		},
+		"lint": {
+			"executor": "@nx/linter:eslint",
+			"outputs": ["{options.outputFile}"],
+			"options": {
+				"lintFilePatterns": ["./scuba-app/**/*.{ts,tsx,js,jsx}"],
+				"maxWarnings": 0,
+				"fix": true
+			}
+		},
+		"format": {
+			"executor": "nx:run-commands",
+			"options": {
+				"cwd": "scuba-app",
+				"command": "prettier --write ."
+			},
+			"inputs": ["{projectRoot}/**/*"],
+			"outputs": ["{projectRoot}/**/*"]
+		},
+		"serve": {
+			"executor": "@nx/vite:dev-server",
+			"dependsOn": ["scuba-app:build"],
+			"defaultConfiguration": "development",
+			"options": {
+				"buildTarget": "scuba-app:build"
+			},
+			"configurations": {
+				"development": {
+					"buildTarget": "scuba-app:build:development",
+					"hmr": true
+				},
+				"production": {
+					"buildTarget": "scuba-app:build:production",
+					"hmr": false
+				}
+			}
+		},
+		"preview": {
+			"executor": "@nx/vite:preview-server",
+			"defaultConfiguration": "development",
+			"options": {
+				"buildTarget": "scuba-app:build"
+			},
+			"configurations": {
+				"development": {
+					"buildTarget": "scuba-app:build:development"
+				},
+				"production": {
+					"buildTarget": "scuba-app:build:production"
+				}
+			}
+		},
+		"serve-static": {
+			"executor": "@nx/web:file-server",
+			"options": {
+				"buildTarget": "scuba-app:build"
+			}
+		},
+		"prepare-deploy": {
+			"executor": "nx:run-commands",
+			"dependsOn": ["scuba-app:build"],
+			"options": {
+				"cwd": "scuba-server",
+				"command": "mkdir -p dist/app && cp -vR ../dist/scuba-app/* dist/app"
+			},
+			"inputs": ["{workspaceRoot}/dist/scuba-app/**/*"],
+			"outputs": ["{workspaceRoot}/scuba-server/dist/app/**/*"]
+		}
+	},
+	"tags": []
+}

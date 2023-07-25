@@ -1,0 +1,25 @@
+.app {
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	color: var(--foreground);
+}
+
+@media only screen and (max-width: 50rem) {
+	html,
+	body,
+	.root,
+	.app {
+		overflow-y: hidden;
+	}
+
+	.app {
+		justify-content: unset;
+	}
+
+	.app > h1 {
+		display: none;
+	}
+}

@@ -1,0 +1,40 @@
+.status-marker {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 0.0625rem solid var(--background);
+	background-color: var(--background);
+	color: var(--grey-dark);
+	height: 2rem;
+	width: 2rem;
+	border-radius: 0.5rem;
+}
+
+.status-marker svg {
+	margin: 0;
+}
+
+.status-marker.primary {
+	border-color: var(--primary);
+	color: var(--primary);
+}
+
+.status-marker.orange {
+	border-color: var(--orange);
+	color: var(--orange);
+}
+
+.status-marker.blue {
+	border-color: var(--blue);
+	color: var(--blue);
+}
+
+.status-marker.green {
+	border-color: var(--green);
+	color: var(--green);
+}
+
+.status-marker.purple {
+	border-color: var(--purple);
+	color: var(--purple);
+}

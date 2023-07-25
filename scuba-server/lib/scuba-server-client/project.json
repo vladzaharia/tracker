@@ -1,0 +1,22 @@
+{
+	"name": "scuba-server-client",
+	"$schema": "../../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "scuba-server/lib/scuba-server-client/dist",
+	"implicitDependencies": ["scuba-server-spec"],
+	"projectType": "library",
+	"targets": {
+		"build": {
+			"executor": "@trumbitta/nx-plugin-openapi:generate-api-lib-sources",
+			"options": {
+				"useDockerBuild": true,
+				"generator": "typescript-axios",
+				"sourceSpecPathOrUrl": "/local/scuba-server/lib/scuba-server-spec/src/schemas/index.yaml",
+				"additionalProperties": "",
+				"globalProperties": ""
+			},
+			"inputs": ["{workspaceRoot}/scuba-server/lib/scuba-server-spec/src/schemas/index.yaml"],
+			"outputs": ["{projectRoot}/dist/**/*"]
+		}
+	},
+	"tags": []
+}
