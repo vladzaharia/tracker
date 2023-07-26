@@ -10,4 +10,4 @@ export interface Trip {
 
 export type TripType = 'scuba' | 'road'
 
-export type AllTrips = 'mexico' | 'bahamas-2022' | 'road-trip' | 'philippines'
+export type AllTrips = 'mexico' | 'bahamas-2022' | 'bahamas-2024' | 'road-trip' | 'philippines'

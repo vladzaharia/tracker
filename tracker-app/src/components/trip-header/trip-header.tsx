@@ -7,23 +7,23 @@ import { useLoaderData } from 'react-router-dom'
 import './trip-header.css'
 
 export const DateDuration = ({
-	outdated,
+	otherYear,
 	className,
 	startDate,
 	endDate,
 }: {
-	outdated: boolean
+	otherYear: boolean
 	className?: string
 	startDate: Moment
 	endDate: Moment
 }) => {
 	return (
 		<div className={`date-duration ${className || ''}`}>
-			<span className="date">{outdated ? startDate.format('MMM D, YYYY') : startDate.format('MMM D')}</span>
+			<span className="date">{otherYear ? startDate.format('MMM D, YYYY') : startDate.format('MMM D')}</span>
 			<span className="icon">
 				<FontAwesomeIcon icon={faRight} />
 			</span>
-			<span className="date">{outdated ? endDate.format('MMM D, YYYY') : endDate.format('MMM D')}</span>
+			<span className="date">{otherYear ? endDate.format('MMM D, YYYY') : endDate.format('MMM D')}</span>
 		</div>
 	)
 }
@@ -34,14 +34,15 @@ export const TripHeader = ({ className, trip: tripProp, onClick }: { className?:
 
 	const startDate = moment(trip.start_date)
 	const endDate = moment(trip.end_date)
-	const outdated = endDate.year() !== moment().year()
+	const otherYear = endDate.year() !== moment().year()
+	const upcoming = startDate > moment()
 
 	return (
-		<div className={`trip-header ${onClick ? 'clickable' : ''} ${outdated ? 'past' : 'upcoming'}`} onClick={onClick}>
+		<div className={`trip-header ${onClick ? 'clickable' : ''} ${upcoming ? 'upcoming' : 'past'}`} onClick={onClick}>
 			<h1>
-				<span className="mr-05">{trip.emoji}</span> {trip.name}
+				<span className="mr-1">{trip.emoji}</span> {trip.name}
 			</h1>
-			<DateDuration outdated={outdated} className={className} startDate={startDate} endDate={endDate} />
+			<DateDuration otherYear={otherYear} className={className} startDate={startDate} endDate={endDate} />
 		</div>
 	)
 }

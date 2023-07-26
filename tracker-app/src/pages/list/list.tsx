@@ -41,7 +41,7 @@ const CurrentTrip = ({ trip }: { trip: Trip }) => {
 				) : undefined}
 			</div>
 			<div className="right">
-				<DateDuration outdated={false} className={'current'} startDate={moment(trip.start_date)} endDate={moment(trip.end_date)} />
+				<DateDuration otherYear={false} className={'current'} startDate={moment(trip.start_date)} endDate={moment(trip.end_date)} />
 				{trip.status ? (
 					<div className="map">
 						<Map

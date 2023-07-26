@@ -10,8 +10,12 @@ export const ListTrips = async (c: Context<{ Bindings: Bindings }>) => {
 	const currentDate = moment()
 	const currentBasicTrip = trips.filter((t) => moment(t.start_date) < currentDate && moment(t.end_date) > currentDate)[0]
 
-	const upcomingTrips = trips.filter((t) => moment(t.end_date) > currentDate)
-	const pastTrips = trips.filter((t) => moment(t.end_date) < currentDate)
+	const upcomingTrips = trips
+		.filter((t) => moment(t.start_date) > currentDate)
+		.sort((t1, t2) => (moment(t1.start_date) > moment(t2.start_date) ? 1 : -1))
+	const pastTrips = trips
+		.filter((t) => moment(t.end_date) < currentDate)
+		.sort((t1, t2) => (moment(t1.start_date) > moment(t2.start_date) ? -1 : 1))
 
 	return c.json(
 		{
