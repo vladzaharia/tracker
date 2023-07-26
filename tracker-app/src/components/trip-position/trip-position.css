@@ -1,0 +1,21 @@
+.trip-position-wrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	align-items: stretch;
+	margin: 1rem 0;
+	flex: 1 1 auto;
+}
+
+.trip-position {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	align-items: stretch;
+	margin: 1rem 0;
+}
+
+.trip-position .action {
+	border-bottom: none;
+	padding: 0.5rem 1.5rem;
+}

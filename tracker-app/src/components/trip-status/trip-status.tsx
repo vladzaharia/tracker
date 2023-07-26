@@ -22,8 +22,9 @@ import moment from 'moment-timezone'
 
 import './trip-status.css'
 
-export const TripStatus = () => {
-	const trip = useLoaderData() as Trip
+export const TripStatus = ({ trip: tripProp }: { trip?: Trip }) => {
+	const tripLoader = useLoaderData() as Trip
+	const trip = tripProp || tripLoader
 
 	const getIcon = () => {
 		switch (trip.status.activity) {

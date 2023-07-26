@@ -28,8 +28,17 @@ export const GetTrip = async (c: Context<{ Bindings: Bindings }>) => {
 		return c.json({ message: 'Trip not found!' }, 404)
 	}
 
+	return c.json(
+		{
+			...tripDetails,
+			...(await GetTripStatus(c, tripDetails)),
+		} as GetTripResponse,
+		200
+	)
+}
+
+export const GetTripStatus = async (c: Context<{ Bindings: Bindings }>, tripDetails: Trip) => {
 	const jsonString = await c.env.GEOJSON.get(`${tripDetails.id}-points`)
-	let status: GetTripStatus | undefined
 
 	if (jsonString) {
 		const points = JSON.parse(jsonString).features
@@ -37,7 +46,7 @@ export const GetTrip = async (c: Context<{ Bindings: Bindings }>) => {
 		const velocityMatch = lastPoint?.properties?.Velocity?.match(VelocityRegex)
 		const courseMatch = lastPoint?.properties?.Course?.match(/(\d{1,3}\.\d{2}) ° True/)
 
-		status = {
+		return {
 			status: {
 				activity: GetActivity(lastPoint, tripDetails),
 				position: {
@@ -50,12 +59,4 @@ export const GetTrip = async (c: Context<{ Bindings: Bindings }>) => {
 			},
 		}
 	}
-
-	return c.json(
-		{
-			...tripDetails,
-			...status,
-		} as GetTripResponse,
-		200
-	)
 }

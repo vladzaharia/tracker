@@ -37,12 +37,19 @@ paths:
               schema:
                 type: object
                 properties:
-                  trips:
+                  upcoming:
                     type: array
                     items:
                       $ref: '#/components/schemas/BasicTrip'
+                  past:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/BasicTrip'
+                  current:
+                    $ref: '#/components/schemas/Trip'
                 required:
-                  - trips
+                  - upcoming
+                  - past
         500:
           $ref: '#/components/responses/InternalServerError'
   /trip/{trip}:
@@ -158,9 +165,24 @@ components:
           $ref: '#/components/schemas/TripName'
         id:
           $ref: '#/components/schemas/TripId'
+        emoji:
+          $ref: '#/components/schemas/TripEmoji'
+        type:
+          $ref: '#/components/schemas/TripType'
+        start_date:
+          $ref: '#/components/schemas/TripStartDate'
+        end_date:
+          $ref: '#/components/schemas/TripEndDate'
+        time_zone:
+          $ref: '#/components/schemas/TripTimeZone'
       required:
         - name
         - id
+        - emoji
+        - type
+        - start_date
+        - end_date
+        - time_zone
     Trip:
       description: Trip information
       type: object
@@ -170,29 +192,15 @@ components:
         id:
           $ref: '#/components/schemas/TripId'
         emoji:
-          type: string
-          description: Emoji to describe this trip.
-          example: 🛣️
+          $ref: '#/components/schemas/TripEmoji'
         type:
-          type: string
-          description: Type of trip.
-          enum:
-            - scuba
-            - road
+          $ref: '#/components/schemas/TripType'
         start_date:
-          type: string
-          description: Start date of this trip.
-          format: date-time
-          example: 2021-10-04T07:00:00.000Z
+          $ref: '#/components/schemas/TripStartDate'
         end_date:
-          type: string
-          description: End date of this trip.
-          format: date-time
-          example: 2021-10-16T06:59:59.000Z
+          $ref: '#/components/schemas/TripEndDate'
         time_zone:
-          type: string
-          description: IANA time zone for this trip.
-          example: America/Los_Angeles
+          $ref: '#/components/schemas/TripTimeZone'
         status:
           type: object
           description: Current status based on last known position information.
@@ -259,3 +267,27 @@ components:
       description: ID of a trip.
       type: string
       example: mexico
+    TripEmoji:
+      type: string
+      description: Emoji to describe this trip.
+      example: 🛣️
+    TripType:
+      type: string
+      description: Type of trip.
+      enum:
+        - scuba
+        - road
+    TripStartDate:
+      type: string
+      description: Start date of this trip.
+      format: date-time
+      example: 2021-10-04T07:00:00.000Z
+    TripEndDate:
+      type: string
+      description: End date of this trip.
+      format: date-time
+      example: 2021-10-16T06:59:59.000Z
+    TripTimeZone:
+      type: string
+      description: IANA time zone for this trip.
+      example: America/Los_Angeles

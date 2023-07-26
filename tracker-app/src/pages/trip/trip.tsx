@@ -1,15 +1,14 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { Outlet, useLoaderData, useLocation } from 'react-router-dom'
 import { Trip as TripResponse } from 'tracker-server-client'
-import moment from 'moment-timezone'
-import { faGauge, faHourglass, faLocationArrow, faLocationDot } from '@fortawesome/pro-solid-svg-icons'
+import { faHourglass, faLocationDot } from '@fortawesome/pro-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import SectionTitle from '../../components/section-title/section-title'
-import Action from '../../components/action/action'
 import { TripStatus } from '../../components/trip-status/trip-status'
 import Menu from '../../components/menu/menu'
 import useReload from '../../hooks/reload'
 import { TripHeader } from '../../components/trip-header/trip-header'
+import { TripPosition } from '../../components/trip-position/trip-position'
 
 import './trip.css'
 
@@ -28,36 +27,7 @@ export const Trip = () => {
 							<SectionTitle>
 								<FontAwesomeIcon className="mr-05" icon={faLocationDot} /> Last Position
 							</SectionTitle>
-							<div className="last-position">
-								<Action text="Latitude">{trip.status.position.latitude}</Action>
-								<Action text="Longitude">{trip.status.position.longitude}</Action>
-
-								<Action
-									text={
-										<>
-											<FontAwesomeIcon className="mr-05" icon={faGauge} /> Speed
-										</>
-									}
-								>
-									<span>
-										<span className="fw-500">{trip.status.position.velocity}</span> km/h
-									</span>
-								</Action>
-								<Action
-									text={
-										<>
-											<FontAwesomeIcon className="mr-05" icon={faLocationArrow} /> Course
-										</>
-									}
-								>
-									<span>
-										<span className="fw-500">{trip.status.position.course}</span> °
-									</span>
-								</Action>
-							</div>
-							<span className="timestamp">
-								<span className="mr-025">Updated</span> <span className="fw-500">{moment(trip.status.position.timestamp).fromNow()}</span>
-							</span>
+							<TripPosition />
 							<TripStatus />
 						</Menu>
 

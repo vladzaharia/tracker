@@ -43,6 +43,7 @@ const router = createBrowserRouter([
 			{
 				path: '/',
 				id: 'trips',
+				loader: ListTripLoader,
 				element: <ListTrips />,
 			},
 			{

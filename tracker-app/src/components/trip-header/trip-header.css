@@ -2,14 +2,52 @@
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
-	align-items: center;
+	align-items: stretch;
 	flex-wrap: wrap;
 	border-bottom: 0.0625rem solid var(--border);
+	padding: 1.5rem;
 }
 
-.trip-header > * {
-	padding: 1rem 1.5rem;
+.trip-header h1 {
+	display: flex;
+	align-items: center;
 	margin: 0;
+}
+
+.trip-header.clickable {
+	cursor: pointer;
+	background-color: var(--primary-trans);
+	color: var(--primary);
+}
+
+.trip-header.clickable:hover {
+	cursor: pointer;
+	background-color: var(--primary-trans-50);
+	color: var(--primary-dark);
+}
+
+.trip-header.clickable.past {
+	cursor: pointer;
+	background-color: var(--orange-trans);
+	color: var(--orange);
+}
+
+.trip-header.clickable.past:hover {
+	cursor: pointer;
+	background-color: var(--orange-trans-50);
+	color: var(--orange-dark);
+}
+
+.trip-header.clickable.current {
+	cursor: pointer;
+	background-color: var(--green-trans);
+	color: var(--green);
+}
+
+.trip-header.clickable.current:hover {
+	cursor: pointer;
+	background-color: var(--green-trans-50);
+	color: var(--green-dark);
 }
 
 .date-duration {
@@ -38,18 +76,36 @@
 	justify-content: center;
 }
 
+.trip-header.past.clickable .date {
+	background-color: var(--orange-trans-50);
+	color: var(--orange);
+}
+
+.trip-header.past .date {
+	font-size: large;
+}
+
+.trip-header.upcoming .date,
+.trip-header.current .date {
+	font-size: larger;
+	font-weight: 600;
+}
+
+.trip-header.current.clickable .date {
+	background-color: var(--green-trans-50);
+	color: var(--green);
+}
+
 .date-duration .icon {
 	font-size: x-large;
 }
 
-.date-duration .large {
-	font-size: large;
-	font-weight: 600;
+.trip-header.past.clickable .icon {
+	color: var(--orange);
 }
 
-.date-duration .larger {
-	font-size: larger;
-	font-weight: 600;
+.trip-header.current.clickable .icon {
+	color: var(--green);
 }
 
 @media only screen and (max-width: 50rem) {
@@ -57,14 +113,10 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-	}
-
-	.trip-header > * {
-		padding: 1rem;
+		gap: 1rem;
 	}
 
 	.trip-header > *:last-child {
 		padding: 0;
-		padding-bottom: 1rem;
 	}
 }
