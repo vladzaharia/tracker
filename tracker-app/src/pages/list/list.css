@@ -1,7 +1,7 @@
 .trip-list-title-wrapper {
 	position: stricky;
 	width: 100%;
-	color: var(--primary);
+	color: var(--primary-dark);
 	font-size: x-large;
 	padding: 2rem 0;
 	display: flex;
