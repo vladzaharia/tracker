@@ -9,6 +9,10 @@
 	justify-content: center;
 }
 
+.trip-list-title-wrapper svg {
+	color: var(--green)
+}
+
 .trip-list-wrapper {
 	display: flex;
 	flex-direction: column;
