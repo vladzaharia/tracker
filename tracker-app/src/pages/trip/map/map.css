@@ -7,3 +7,28 @@
 	justify-content: center;
 	gap: 0.5rem;
 }
+
+.trip-map a {
+	padding: 0;
+}
+
+.trip-map a:hover {
+	color: var(--foreground-alt);
+}
+
+.mapboxgl-popup-content {
+	background-color: var(--background);
+	color: var(--foreground);
+	font-family: 'Barlow', Roboto, Arial, Helvetica, sans-serif;
+	border-radius: 0.5rem;
+	padding: 1.25rem;
+}
+
+.mapboxgl-popup-anchor-top .mapboxgl-popup-tip {
+	border-bottom-color: var(--background);
+}
+
+.mapboxgl-popup-close-button {
+	color: var(--foreground);
+	font-size: 1rem;
+}

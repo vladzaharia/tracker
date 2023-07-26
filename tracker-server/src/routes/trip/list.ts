@@ -1,5 +1,5 @@
 import { Context } from 'hono'
-import { getTrips } from '../../trips'
+import { getTrips } from '../../util/trip'
 import { Bindings } from '../../bindings'
 
 export const ListTrips = async (c: Context<{ Bindings: Bindings }>) => {

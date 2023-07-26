@@ -1,5 +1,5 @@
 import { IconDefinition } from '@fortawesome/pro-regular-svg-icons'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import Button, { ButtonProps } from '../button/button'
 import './menu-item.css'
 import { CommonColor } from '../../types'
@@ -12,17 +12,12 @@ interface MenuItemProps extends ButtonProps {
 
 export function MenuItem({ color, text, icon, className, destination, ...buttonProps }: MenuItemProps) {
 	const navigate = useNavigate()
-	const location = useLocation()
 
 	return (
 		<div
 			className={`menu-item clickable ${color} ${className || ''}`}
 			onClick={() => {
-				if (!location.pathname.includes(destination)) {
-					navigate(destination)
-				} else {
-					navigate('..', { relative: 'path' })
-				}
+				navigate(destination)
 			}}
 		>
 			<Button

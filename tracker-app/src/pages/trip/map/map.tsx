@@ -23,9 +23,9 @@ export const TripMap = () => {
 	const points = tripJSON?.points.features
 	const lastLocation = points[points.length - 1]
 
-	const regex = /(\d{1,3}\.\d{2}) ° True/
+	const courseRegex = /(\d{1,3}\.\d{2}) ° True/
 	const lastCourse = lastLocation?.properties?.Course as string
-	const courseMatch = lastCourse.match(regex)
+	const courseMatch = lastCourse.match(courseRegex)
 	const lastBearing = lastCourse && courseMatch ? courseMatch[1] : '0'
 
 	const mapStyle = trip.type === 'scuba' ? 'clki08zbf003q01r24v4l5vuq' : 'clkhyotqc003m01pm7lz5d6c9'
@@ -58,7 +58,7 @@ export const TripMap = () => {
 					initialViewState={{
 						longitude: lastLocation?.geometry?.coordinates[0],
 						latitude: lastLocation?.geometry?.coordinates[1],
-						zoom: 8,
+						zoom: trip.type === 'scuba' ? 12 : 8,
 						pitch: 60,
 						bearing: trip.type === 'scuba' ? parseFloat(lastBearing) : undefined,
 					}}
@@ -75,9 +75,10 @@ export const TripMap = () => {
 							type="circle"
 							minzoom={trip.type === 'scuba' ? 10 : 7}
 							paint={{
+								'circle-radius': 6,
 								'circle-color': trip.type === 'scuba' ? '#77bcf8' : '#fff',
 								'circle-stroke-color': trip.type === 'scuba' ? '#51a9f6' : '#5a4949',
-								'circle-stroke-width': 4,
+								'circle-stroke-width': 5,
 								'circle-opacity': 0.8,
 								'circle-stroke-opacity': 0.35,
 							}}
@@ -101,7 +102,7 @@ export const TripMap = () => {
 							closeOnMove={true}
 							offset={15}
 						>
-							<div>
+							<div className="map-popup-content">
 								{`${moment.utc(popupInfo.feature.properties?.timestamp).format('MMM Do YYYY, HH:mm')} UTC`}
 								{`${popupInfo.feature.properties?.Velocity}`}
 								{`${popupInfo.feature.properties?.Course}`}

@@ -1,5 +1,5 @@
 import { Context } from 'hono'
-import { getTrip } from '../../../trips'
+import { getTrip } from '../../../util/trip'
 import { AllTrips } from '../../../trips/types'
 import { Bindings } from '../../../bindings'
 

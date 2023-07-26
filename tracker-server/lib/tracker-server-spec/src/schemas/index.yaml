@@ -169,15 +169,87 @@ components:
           $ref: '#/components/schemas/TripName'
         id:
           $ref: '#/components/schemas/TripId'
+        emoji:
+          type: string
+          description: Emoji to describe this trip.
+          example: 🛣️
         type:
+          type: string
           description: Type of trip.
           enum:
             - scuba
             - road
+        start_date:
+          type: string
+          description: Start date of this trip.
+          format: date-time
+          example: 2021-10-04T07:00:00.000Z
+        end_date:
+          type: string
+          description: End date of this trip.
+          format: date-time
+          example: 2021-10-16T06:59:59.000Z
+        time_zone:
+          type: string
+          description: IANA time zone for this trip.
+          example: America/Los_Angeles
+        status:
+          type: object
+          description: Current status based on last known position information.
+          properties:
+            activity:
+              type: string
+              description: Best guessed activity based on time, position, and speed.
+              enum:
+                - diving
+                - moving
+                - stopped
+                - sleeping
+                - outdated
+                - unknown
+            position:
+              type: object
+              description: Last known position
+              properties:
+                latitude:
+                  type: number
+                  description: Latitude of last known position.
+                  example: 31.10399
+                longitude:
+                  type: number
+                  description: Longitude of last known position.
+                  example: -113.563743
+                timestamp:
+                  type: string
+                  format: date-time
+                  description: Timestamp of last known position, in UTC.
+                  example: "2021-10-16T06:29:00Z"
+                velocity:
+                  type: number
+                  description: Velocity from last known position, in km/h.
+                  example: 12.9
+                course:
+                  type: number
+                  description: Bearing/course from last known position, in degrees.
+                  example: 0
+              required:
+                - latitude
+                - longitude
+                - timestamp
+                - velocity
+                - course
+          required:
+            - activity
+            - position
       required:
         - name
         - id
+        - emoji
         - type
+        - start_date
+        - end_date
+        - time_zone
+        - status
     TripName:
       description: Name of a trip.
       type: string

@@ -1,8 +1,8 @@
-import { TRIP_BAHAMAS_2022 } from './bahamas_2022'
-import { TRIP_MEXICO } from './mexico'
-import { TRIP_PHILIPPINES } from './philippines'
-import { TRIP_ROAD_TRIP } from './road_trip'
-import { AllTrips } from './types'
+import { TRIP_BAHAMAS_2022 } from '../trips/bahamas_2022'
+import { TRIP_MEXICO } from '../trips/mexico'
+import { TRIP_PHILIPPINES } from '../trips/philippines'
+import { TRIP_ROAD_TRIP } from '../trips/road_trip'
+import { AllTrips } from '../trips/types'
 
 export const getTrips = () => {
 	return [TRIP_MEXICO, TRIP_BAHAMAS_2022, TRIP_ROAD_TRIP, TRIP_PHILIPPINES]

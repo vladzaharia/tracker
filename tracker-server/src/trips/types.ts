@@ -5,6 +5,7 @@ export interface Trip {
 	type: TripType
 	start_date: Date
 	end_date: Date
+	time_zone: string
 }
 
 export type TripType = 'scuba' | 'road'

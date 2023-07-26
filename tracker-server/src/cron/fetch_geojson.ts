@@ -1,6 +1,6 @@
 import { kml } from '@tmcw/togeojson'
 import { getTripKML } from '../inreach'
-import { getTrips } from '../trips'
+import { getTrips } from '../util/trip'
 import { DOMParser } from 'xmldom'
 import { Bindings } from '../bindings'
 

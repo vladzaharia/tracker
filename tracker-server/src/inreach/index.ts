@@ -1,4 +1,4 @@
-import { getTrip } from '../trips'
+import { getTrip } from '../util/trip'
 import { AllTrips } from '../trips/types'
 
 const KML_URL = 'https://share.garmin.com/Feed/Share/mynameisvlad' // ?d1=2021-09-01T00:00:00&d2=2023-07-24T00:00:00
