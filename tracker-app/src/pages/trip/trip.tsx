@@ -1,9 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { Outlet, useLoaderData, useLocation } from 'react-router-dom'
 import { Trip as TripResponse } from 'tracker-server-client'
-
-import './trip.css'
-import { DateDuration } from '../../components/date-duration/date-duration'
 import moment from 'moment-timezone'
 import { faGauge, faHourglass, faLocationArrow, faLocationDot } from '@fortawesome/pro-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -11,19 +8,19 @@ import SectionTitle from '../../components/section-title/section-title'
 import Action from '../../components/action/action'
 import { TripStatus } from '../../components/trip-status/trip-status'
 import Menu from '../../components/menu/menu'
+import useReload from '../../hooks/reload'
+import { TripHeader } from '../../components/trip-header/trip-header'
+
+import './trip.css'
 
 export const Trip = () => {
 	const trip = useLoaderData() as TripResponse
 	const location = useLocation()
+	useReload(trip, 5 * 60)
 
 	return (
 		<>
-			<div className="trip-header">
-				<h1>
-					<span className="mr-05">{trip.emoji}</span> {trip.name}
-				</h1>
-				<DateDuration startDate={moment(trip.start_date)} endDate={moment(trip.end_date)} />
-			</div>
+			<TripHeader />
 			<div className="trip-wrapper">
 				{trip.status ? (
 					<>
@@ -57,10 +54,10 @@ export const Trip = () => {
 										<span className="fw-500">{trip.status.position.course}</span> °
 									</span>
 								</Action>
-								<span>
-									Updated <span className="fw-500">{moment(trip.status.position.timestamp).fromNow()}</span>
-								</span>
 							</div>
+							<span className="timestamp">
+								<span className="mr-025">Updated</span> <span className="fw-500">{moment(trip.status.position.timestamp).fromNow()}</span>
+							</span>
 							<TripStatus />
 						</Menu>
 

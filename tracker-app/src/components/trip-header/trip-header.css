@@ -1,3 +1,17 @@
+.trip-header {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap;
+	border-bottom: 0.0625rem solid var(--border);
+}
+
+.trip-header > * {
+	padding: 1rem 1.5rem;
+	margin: 0;
+}
+
 .date-duration {
 	align-self: center;
 	display: flex;
@@ -36,4 +50,21 @@
 .date-duration .larger {
 	font-size: larger;
 	font-weight: 600;
+}
+
+@media only screen and (max-width: 50rem) {
+	.trip-header {
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.trip-header > * {
+		padding: 1rem;
+	}
+
+	.trip-header > *:last-child {
+		padding: 0;
+		padding-bottom: 1rem;
+	}
 }

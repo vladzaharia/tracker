@@ -8,6 +8,7 @@ import moment from 'moment'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import './map.css'
 import { useCallback, useState } from 'react'
+import useReload from '../../../hooks/reload'
 
 interface PopupInfo {
 	latitude: number
@@ -18,6 +19,7 @@ interface PopupInfo {
 export const TripMap = () => {
 	const trip = useRouteLoaderData('trip') as TripResponse
 	const tripJSON = useLoaderData() as TripGeoJSON
+	useReload(tripJSON, 5 * 60)
 	const [popupInfo, setPopupInfo] = useState<PopupInfo>()
 
 	const points = tripJSON?.points?.features

@@ -56,7 +56,7 @@ export const TripStatus = () => {
 			case 'sleeping':
 				return 'purple'
 			case 'outdated':
-				return 'grey'
+				return 'orange'
 			case 'ended':
 				return 'primary'
 			case 'unknown':
@@ -82,9 +82,10 @@ export const TripStatus = () => {
 			case 'ended':
 				return 'Trip has ended!'
 			case 'outdated':
+				return 'No update'
 			case 'unknown':
 			default:
-				return 'No clue'
+				return 'Unknown'
 		}
 	}
 
@@ -95,7 +96,8 @@ export const TripStatus = () => {
 			case 'moving':
 				return (
 					<>
-						Heading <span className="fw-500">{trip.status.position.course}</span> ° ${getDirection(trip.status.position.course)}
+						<span className="mr-025">Heading</span> <span className="fw-500">{trip.status.position.course}</span> °{' '}
+						{getDirection(trip.status.position.course)}
 					</>
 				)
 			case 'stopped':
@@ -103,7 +105,11 @@ export const TripStatus = () => {
 					? 'The boat has stopped, check back later to see its progress!'
 					: "I've stopped, check back later to see my progress!"
 			case 'sleeping':
-				return `It's currently ${moment().tz(trip.time_zone).format('hh:mm A')} here.`
+				return (
+					<>
+						<span>It's currently</span> <span className="fw-500">{moment().tz(trip.time_zone).format('hh:mm A')}</span> here.
+					</>
+				)
 			case 'ended':
 				return 'Check back next year for another adventure!'
 			case 'outdated':
@@ -128,7 +134,8 @@ export const TripStatus = () => {
 }
 
 const getArrowIcon = (course: number) => {
-	if (course < 22.5 && course >= 337.5) {
+	console.log(course)
+	if (course < 22.5 || course >= 337.5) {
 		return faUp
 	} else if (course < 67.5 && course >= 22.5) {
 		return faUpRight

@@ -24,7 +24,7 @@
 
 .activity-description {
 	font-size: 0.9rem;
-	padding: 0 0.5rem;
+	padding: 0 1rem;
 }
 
 .trip-status.primary {
@@ -52,14 +52,14 @@
 	color: var(--orange);
 }
 
-.trip-status.green {
+.trip-status.purple {
 	background-color: var(--purple-trans);
 	color: var(--purple);
 }
 
-.trip-status.outdated {
-	background-color: var(--purple-trans);
-	color: var(--purple);
+.trip-status.grey {
+	background-color: var(--grey-trans);
+	color: var(--grey);
 }
 
 @media only screen and (max-width: 50rem) {
