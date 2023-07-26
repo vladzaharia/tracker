@@ -30,6 +30,22 @@
 	background-color: var(--disabled);
 }
 
+.toggle.red.checked .MuiSwitch-thumb {
+	background-color: var(--red);
+}
+
+.toggle.red.checked .MuiSwitch-track {
+	background-color: var(--red-dark);
+}
+
+.toggle.red.disabled .MuiSwitch-thumb {
+	background-color: var(--disabled);
+}
+
+.toggle.red.disabled .MuiSwitch-track {
+	background-color: var(--disabled);
+}
+
 .toggle.green.checked .MuiSwitch-thumb {
 	background-color: var(--green);
 }

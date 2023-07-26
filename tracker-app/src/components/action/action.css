@@ -16,6 +16,10 @@
 	border-color: var(--blue-trans);
 }
 
+.action.red {
+	border-color: var(--red-trans);
+}
+
 .action.green {
 	border-color: var(--green-trans);
 }

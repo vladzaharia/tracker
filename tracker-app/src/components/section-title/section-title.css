@@ -16,6 +16,12 @@
 	border-bottom-color: var(--blue-trans);
 }
 
+.section-title.red {
+	background-color: var(--red-trans-50);
+	color: var(--red-dark);
+	border-bottom-color: var(--red-trans);
+}
+
 .section-title.green {
 	background-color: var(--green-trans-50);
 	color: var(--green-dark);

@@ -29,6 +29,11 @@
 	color: var(--blue);
 }
 
+.status-marker.red {
+	border-color: var(--red);
+	color: var(--red);
+}
+
 .status-marker.green {
 	border-color: var(--green);
 	color: var(--green);

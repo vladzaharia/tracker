@@ -29,6 +29,11 @@
 	color: var(--foreground-alt);
 }
 
+.popover h3.red {
+	background-color: var(--red);
+	color: var(--foreground-alt);
+}
+
 .popover h3.green {
 	background-color: var(--green);
 	color: var(--foreground-alt);

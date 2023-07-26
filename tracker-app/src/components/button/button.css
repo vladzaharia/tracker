@@ -47,6 +47,18 @@
 	border-color: var(--blue-dark);
 }
 
+.button.red,
+.button.red-dark:hover {
+	background-color: var(--red);
+	border-color: var(--red);
+}
+
+.button.red-dark,
+.button.red:hover {
+	background-color: var(--red-dark);
+	border-color: var(--red-dark);
+}
+
 .button.green,
 .button.green-dark:hover {
 	background-color: var(--green);

@@ -37,6 +37,12 @@ textarea.blue:focus {
 	outline-color: var(--blue);
 }
 
+input[type='text'].red:focus,
+input[type='number'].red:focus,
+textarea.red:focus {
+	outline-color: var(--red);
+}
+
 input[type='text'].green:focus,
 input[type='number'].green:focus,
 textarea.green:focus {

@@ -43,6 +43,22 @@
 	color: var(--blue-dark);
 }
 
+.menu-item.red {
+	background-color: var(--red-trans);
+	color: var(--red);
+	border-bottom: none;
+}
+
+.menu-item.red:hover,
+.menu-item.red.active {
+	background-color: var(--red-trans-50);
+}
+
+.menu-item.red:hover button,
+.menu-item.red.active button {
+	color: var(--red-dark);
+}
+
 .menu-item.green {
 	background-color: var(--green-trans);
 	color: var(--green);

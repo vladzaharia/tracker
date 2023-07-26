@@ -1,3 +1,42 @@
+.trip-header {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap;
+	border-bottom: 0.0625rem solid var(--border);
+}
+
+.trip-header > * {
+	padding: 1rem 1.5rem;
+	margin: 0;
+}
+
+.trip-wrapper {
+	flex: 1 1 auto;
+	display: flex;
+	flex-direction: row;
+}
+
+.trip-details .last-position {
+	flex: 1 1 auto;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	align-items: stretch;
+	margin: 1rem 0;
+}
+
+.last-position .action {
+	border-bottom: none;
+	padding: 0.5rem 1.5rem;
+}
+
+.last-position > span {
+	font-size: 0.875rem;
+	text-align: center;
+}
+
 .trip-content {
 	height: 100%;
 	border-left: 0.0625rem solid var(--border);
@@ -10,7 +49,49 @@
 	overflow-y: overlay;
 }
 
+.trip-no-data-wrapper {
+	flex: 1 1 auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.trip-no-data {
+	padding: 3rem;
+	background-color: var(--orange-trans);
+	color: var(--orange);
+	border-radius: 1rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.5rem;
+}
+
 @media only screen and (max-width: 50rem) {
+	.trip-header {
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.trip-header > * {
+		padding: 1rem;
+	}
+
+	.trip-header > *:last-child {
+		padding: 0;
+		padding-bottom: 1rem;
+	}
+
+	.trip-wrapper {
+		flex-direction: column;
+	}
+
+	.menu.trip-details {
+		max-height: 15rem;
+		overflow-y: overlay;
+	}
+
 	.trip-content {
 		border-left: none;
 		border-top: 0.0625rem solid var(--border);

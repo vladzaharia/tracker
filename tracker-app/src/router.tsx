@@ -10,7 +10,6 @@ import GetTripLoader from './loaders/get'
 import { ListTrips } from './pages/list/list'
 import { Trip } from './pages/trip/trip'
 import GetTripGeoJSONLoader from './loaders/geojson'
-import { TripDetails } from './pages/trip/details/details'
 import { TripMap } from './pages/trip/map/map'
 import { AuthProvider, AuthProviderProps } from 'react-oidc-context'
 
@@ -47,23 +46,13 @@ const router = createBrowserRouter([
 				element: <ListTrips />,
 			},
 			{
-				path: 'trip/',
-				id: 'trips-alt',
-				element: <ListTrips />,
-			},
-			{
-				path: 'trip/:trip',
+				path: ':trip',
 				id: 'trip',
 				element: <Trip />,
 				loader: GetTripLoader,
 				children: [
 					{
 						path: '',
-						id: 'trip-details',
-						element: <TripDetails />,
-					},
-					{
-						path: 'map',
 						id: 'trip-map',
 						loader: GetTripGeoJSONLoader,
 						element: <TripMap />,

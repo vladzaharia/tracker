@@ -7,7 +7,6 @@ import { NameContext } from '../../hooks/name'
 import useLocalStorage from 'use-local-storage'
 import { ThemeContext } from '../../hooks/theme'
 import { useLocation } from 'react-router-dom'
-import GlobalNav from '../global-nav/global-nav'
 
 export interface AppProps {
 	children?: ReactNode
@@ -30,7 +29,7 @@ export default function App({ children }: AppProps) {
 			<ContainerContext.Provider value={appRef}>
 				<ThemeContext.Provider value={{ theme, setTheme }}>
 					<div className={`app ${theme}`} ref={appRef}>
-						<GlobalNav />
+						{/* <GlobalNav /> */}
 						{children}
 					</div>
 				</ThemeContext.Provider>

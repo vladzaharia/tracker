@@ -3,11 +3,11 @@ import './action.css'
 import { CommonColor } from '../../types'
 
 interface ActionProps {
-	text?: string
+	text?: string | JSX.Element
 	description?: string | JSX.Element
 	className?: string
 	color?: CommonColor
-	children: ReactNode
+	children?: ReactNode
 }
 
 export default function Action({ text, description, className, color, children }: ActionProps) {

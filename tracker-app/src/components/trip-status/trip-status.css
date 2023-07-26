@@ -1,0 +1,71 @@
+.trip-status {
+	height: 12.5rem;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	justify-content: center;
+	align-items: stretch;
+	text-align: center;
+	border-bottom-left-radius: 1rem;
+}
+
+.activity-text-wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 0.25rem;
+}
+
+.activity-title {
+	font-size: x-large;
+	font-weight: 600;
+}
+
+.activity-description {
+	font-size: 0.9rem;
+	padding: 0 0.5rem;
+}
+
+.trip-status.primary {
+	background-color: var(--primary-trans);
+	color: var(--primary);
+}
+
+.trip-status.blue {
+	background-color: var(--blue-trans);
+	color: var(--blue);
+}
+
+.trip-status.green {
+	background-color: var(--green-trans);
+	color: var(--green);
+}
+
+.trip-status.red {
+	background-color: var(--red-trans);
+	color: var(--red);
+}
+
+.trip-status.orange {
+	background-color: var(--orange-trans);
+	color: var(--orange);
+}
+
+.trip-status.green {
+	background-color: var(--purple-trans);
+	color: var(--purple);
+}
+
+.trip-status.outdated {
+	background-color: var(--purple-trans);
+	color: var(--purple);
+}
+
+@media only screen and (max-width: 50rem) {
+	.trip-status {
+		flex-direction: row;
+		padding: 1rem;
+		gap: 2rem;
+	}
+}

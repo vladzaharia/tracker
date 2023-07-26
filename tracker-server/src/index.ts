@@ -37,19 +37,7 @@ app.get('/api/trip/:trip/geojson/track', GetTripGeoJSONTrack)
 
 // App
 app.get(
-	'/trip/',
-	serveStatic({
-		path: './app/index.html',
-	})
-)
-app.get(
-	'/trip/:trip',
-	serveStatic({
-		path: './app/index.html',
-	})
-)
-app.get(
-	'/trip/:trip/map',
+	'/:tripId',
 	serveStatic({
 		path: './app/index.html',
 	})

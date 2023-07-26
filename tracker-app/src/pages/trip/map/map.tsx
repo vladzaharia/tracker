@@ -20,12 +20,12 @@ export const TripMap = () => {
 	const tripJSON = useLoaderData() as TripGeoJSON
 	const [popupInfo, setPopupInfo] = useState<PopupInfo>()
 
-	const points = tripJSON?.points.features
-	const lastLocation = points[points.length - 1]
+	const points = tripJSON?.points?.features
+	const lastLocation = points && points[points.length - 1]
 
 	const courseRegex = /(\d{1,3}\.\d{2}) ° True/
 	const lastCourse = lastLocation?.properties?.Course as string
-	const courseMatch = lastCourse.match(courseRegex)
+	const courseMatch = lastCourse?.match(courseRegex)
 	const lastBearing = lastCourse && courseMatch ? courseMatch[1] : '0'
 
 	const mapStyle = trip.type === 'scuba' ? 'clki08zbf003q01r24v4l5vuq' : 'clkhyotqc003m01pm7lz5d6c9'
@@ -62,8 +62,7 @@ export const TripMap = () => {
 						pitch: 60,
 						bearing: trip.type === 'scuba' ? parseFloat(lastBearing) : undefined,
 					}}
-					// style={{width: 750, height: 450}}
-					style={{ borderTopRightRadius: '1rem', borderBottomRightRadius: '1rem' }}
+					style={{ borderBottomRightRadius: '1rem' }}
 					mapStyle={`mapbox://styles/vladzaharia/${mapStyle}`}
 					interactiveLayerIds={[`${trip.id}-points`]}
 					onClick={onClick}

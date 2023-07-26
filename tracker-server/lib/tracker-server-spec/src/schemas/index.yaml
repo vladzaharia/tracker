@@ -206,6 +206,7 @@ components:
                 - stopped
                 - sleeping
                 - outdated
+                - ended
                 - unknown
             position:
               type: object
@@ -223,7 +224,7 @@ components:
                   type: string
                   format: date-time
                   description: Timestamp of last known position, in UTC.
-                  example: "2021-10-16T06:29:00Z"
+                  example: '2021-10-16T06:29:00Z'
                 velocity:
                   type: number
                   description: Velocity from last known position, in km/h.

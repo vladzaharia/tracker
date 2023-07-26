@@ -1,4 +1,4 @@
-export type CommonColor = 'primary' | 'blue' | 'green' | 'orange' | 'purple' | 'yellow' | 'grey-dark'
+export type CommonColor = 'primary' | 'blue' | 'green' | 'red' | 'orange' | 'purple' | 'yellow' | 'grey-dark'
 
 export type ApiType = 'gm' | 'admin'
 

@@ -51,6 +51,12 @@
 	border-bottom-color: var(--blue-trans-50);
 }
 
+.header.red {
+	background-color: var(--red-trans);
+	color: var(--red-dark);
+	border-bottom-color: var(--red-trans-50);
+}
+
 .header.green {
 	background-color: var(--green-trans);
 	color: var(--green-dark);

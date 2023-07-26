@@ -18,6 +18,10 @@
 	border-color: var(--blue-trans);
 }
 
+.table.red {
+	border-color: var(--red-trans);
+}
+
 .table.green {
 	border-color: var(--green-trans);
 }
@@ -55,6 +59,12 @@
 	background-color: var(--blue-trans-50);
 	color: var(--blue-dark);
 	border-color: var(--blue-trans);
+}
+
+.table.red .table-header {
+	background-color: var(--red-trans-50);
+	color: var(--red-dark);
+	border-color: var(--red-trans);
 }
 
 .table.green .table-header {
@@ -102,6 +112,11 @@
 	color: var(--blue);
 }
 
+.table.red:not(.no-hover) .table-row:not(.table-header):hover .table-cell {
+	background-color: var(--red-trans);
+	color: var(--red);
+}
+
 .table.green:not(.no-hover) .table-row:not(.table-header):hover .table-cell {
 	background-color: var(--green-trans);
 	color: var(--green);
@@ -134,6 +149,11 @@
 .table .table-row.blue .table-cell {
 	background-color: var(--blue-trans);
 	color: var(--blue);
+}
+
+.table .table-row.red .table-cell {
+	background-color: var(--red-trans);
+	color: var(--red);
 }
 
 .table .table-row.green .table-cell {
