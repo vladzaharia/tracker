@@ -10,7 +10,7 @@
 }
 
 .trip-list-title-wrapper svg {
-	color: var(--green)
+	color: var(--green);
 }
 
 .trip-list-wrapper {
@@ -35,59 +35,30 @@
 	font-weight: 600;
 }
 
-.trip-header .left {
-	flex: 1 1 auto;
-}
-
-.trip-header .left,
-.trip-header .right {
-	display: flex;
+.trip-header.current {
 	flex-direction: column;
-	gap: 1rem;
-	justify-content: center;
+	gap: 2.5rem;
 }
 
-.trip-header .details {
-	flex: 1 1 auto;
+.trip-header.current .trip {
 	display: flex;
 	flex-direction: row;
-	gap: 2rem;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
 }
 
-.trip-position-details {
+.trip-header.current .position {
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-around;
 }
 
-.trip-position-details h2 {
-	margin-bottom: 0;
-}
-
-.left .trip-position,
-.left .timestamp {
-	min-width: 25rem;
-	max-width: 25rem;
-}
-
-.right .map {
-	height: 90%;
-	width: 20.25rem;
-}
-
-.trip-header .details h2 {
-	text-align: center;
-}
-
-.trip-header .details .trip-status-wrapper {
-	flex: 1 1 auto;
-	background-color: var(--background);
-	display: flex;
-	flex-direction: column;
-}
-
-.trip-header .details .trip-status {
-	flex: 1 1 auto;
-	border-bottom-left-radius: 0;
+.trip-header.current .position .action {
+	border-bottom: none;
+	padding: 0;
 }
 
 @media only screen and (max-width: 50rem) {
