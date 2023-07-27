@@ -42,6 +42,11 @@ export const GetTripStatus = async (c: Context<{ Bindings: Bindings }>, tripDeta
 
 	if (jsonString) {
 		const points = JSON.parse(jsonString).features
+
+		if (points.length === 0) {
+			return {}
+		}
+
 		const lastPoint = points && points[points.length - 1]
 		const velocityMatch = lastPoint?.properties?.Velocity?.match(VelocityRegex)
 		const courseMatch = lastPoint?.properties?.Course?.match(/(\d{1,3}\.\d{2}) ° True/)
