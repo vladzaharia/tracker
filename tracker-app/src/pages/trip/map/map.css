@@ -21,7 +21,7 @@
 	color: var(--foreground);
 	font-family: 'Barlow', Roboto, Arial, Helvetica, sans-serif;
 	border-radius: 0.5rem;
-	padding: 1.25rem;
+	min-width: 15rem;
 }
 
 .mapboxgl-popup-anchor-top .mapboxgl-popup-tip {
@@ -31,4 +31,21 @@
 .mapboxgl-popup-close-button {
 	color: var(--foreground);
 	font-size: 1rem;
+}
+
+.mapboxgl-popup-content .trip-position-wrapper {
+	margin: 0;
+	margin-top: 1rem;
+}
+
+.mapboxgl-popup-content .trip-position {
+	margin: 0rem;
+}
+
+.mapboxgl-popup-content .action {
+	padding: 0 1rem;
+}
+
+.mapboxgl-popup-content .timestamp {
+	padding-bottom: 0;
 }

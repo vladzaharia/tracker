@@ -7,13 +7,22 @@ import { useLoaderData } from 'react-router-dom'
 import './trip-position.css'
 import Action from '../action/action'
 
-export const TripPosition = ({ trip: tripProp }: { className?: string; trip?: Trip; onClick?: () => void }) => {
+export const TripPosition = ({ trip: tripProp, className, fullTimestamp }: { className?: string; trip?: Trip, fullTimestamp?: boolean }) => {
 	const tripLoader = useLoaderData() as Trip
 	const trip = tripProp || tripLoader
 
 	return (
 		<div className="trip-position-wrapper">
-			<div className="trip-position">
+			<div className={`trip-position ${className || ''}`}>
+			{fullTimestamp ? <Action
+					text="Timestamp"
+				>
+					<span>
+						{moment(trip.status.position.timestamp).format("MMM D, YYYY h:mm A")}
+					</span>
+				</Action> : undefined}
+
+
 				<Action text="Latitude">{trip.status.position.latitude}</Action>
 				<Action text="Longitude">{trip.status.position.longitude}</Action>
 
@@ -41,7 +50,7 @@ export const TripPosition = ({ trip: tripProp }: { className?: string; trip?: Tr
 				</Action>
 			</div>
 			<span className="timestamp">
-				<span className="mr-025">Updated</span> <span className="fw-500">{moment(trip.status.position.timestamp).fromNow()}</span>
+				{!fullTimestamp ? <><span className="mr-025">Updated</span> <span className="fw-500">{moment(trip.status.position.timestamp).fromNow()}</span></> : undefined}
 			</span>
 		</div>
 	)

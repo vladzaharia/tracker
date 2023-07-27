@@ -3,17 +3,18 @@ import { useLoaderData, useRouteLoaderData } from 'react-router-dom'
 import { Layer, Map, NavigationControl, Source, Popup, MapLayerMouseEvent, MapGeoJSONFeature } from 'react-map-gl'
 import { Trip as TripResponse } from 'tracker-server-client'
 import { TripGeoJSON } from '../../../loaders/geojson'
-import moment from 'moment'
+import useReload from '../../../hooks/reload'
+import { TripPosition } from '../../../components/trip-position/trip-position'
 
 import 'mapbox-gl/dist/mapbox-gl.css'
 import './map.css'
 import { useCallback, useState } from 'react'
-import useReload from '../../../hooks/reload'
 
 interface PopupInfo {
 	latitude: number
 	longitude: number
 	feature: MapGeoJSONFeature
+	trip: TripResponse
 }
 
 export const TripMap = () => {
@@ -42,10 +43,30 @@ export const TripMap = () => {
 				const point = points[0]
 
 				if (point && point.properties) {
+					const courseMatch = point.properties.Course.match(courseRegex)
+
+					const velocityRegex = /(\d{1,3}\.\d{1}) km\/h/
+					const velocityMatch = point.properties.Velocity.match(velocityRegex)
+
+					const pseudoTrip: TripResponse = {
+						... trip,
+						status: {
+							activity: trip.status.activity,
+							position: {
+								latitude: Number(point.properties.Latitude),
+								longitude: Number(point.properties.Longitude),
+								course: courseMatch && courseMatch[1],
+								velocity: velocityMatch && velocityMatch[1],
+								timestamp: point.properties.timestamp
+							}
+						}
+					}
+
 					setPopupInfo({
 						latitude: Number(point.properties.Latitude),
 						longitude: Number(point.properties.Longitude),
 						feature: point,
+						trip: pseudoTrip
 					})
 				}
 			}
@@ -104,13 +125,7 @@ export const TripMap = () => {
 							offset={15}
 						>
 							<div className="map-popup-content">
-								{`${moment.utc(popupInfo.feature.properties?.timestamp).format('MMM Do YYYY, HH:mm')} UTC`}
-								{`${popupInfo.feature.properties?.Velocity}`}
-								{`${popupInfo.feature.properties?.Course}`}
-								{`${popupInfo.feature.properties?.Elevation}`}
-								{`${popupInfo.feature.properties?.Latitude}`}
-								{`${popupInfo.feature.properties?.Longitude}`}
-								{`${popupInfo.feature.properties?.Text}`}
+								<TripPosition trip={popupInfo.trip} fullTimestamp />
 							</div>
 						</Popup>
 					)}

@@ -52,6 +52,7 @@ export const GetTripStatus = async (c: Context<{ Bindings: Bindings }>, tripDeta
 		const courseMatch = lastPoint?.properties?.Course?.match(/(\d{1,3}\.\d{2}) ° True/)
 
 		return {
+			lastPoint,
 			status: {
 				activity: GetActivity(lastPoint, tripDetails),
 				position: {
