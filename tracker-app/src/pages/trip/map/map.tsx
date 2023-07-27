@@ -49,7 +49,7 @@ export const TripMap = () => {
 					const velocityMatch = point.properties.Velocity.match(velocityRegex)
 
 					const pseudoTrip: TripResponse = {
-						... trip,
+						...trip,
 						status: {
 							activity: trip.status.activity,
 							position: {
@@ -57,16 +57,16 @@ export const TripMap = () => {
 								longitude: Number(point.properties.Longitude),
 								course: courseMatch && courseMatch[1],
 								velocity: velocityMatch && velocityMatch[1],
-								timestamp: point.properties.timestamp
-							}
-						}
+								timestamp: point.properties.timestamp,
+							},
+						},
 					}
 
 					setPopupInfo({
 						latitude: Number(point.properties.Latitude),
 						longitude: Number(point.properties.Longitude),
 						feature: point,
-						trip: pseudoTrip
+						trip: pseudoTrip,
 					})
 				}
 			}
