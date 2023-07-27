@@ -18,5 +18,11 @@ export const GetTripGeoJSONTrack = async (c: Context<{ Bindings: Bindings }>) =>
 		return c.json({ message: 'Trip GeoJSON not found!' }, 404)
 	}
 
-	return c.json(JSON.parse(jsonString), 200)
+	const parsedJson = JSON.parse(jsonString)
+
+	if (parsedJson.features.length === 0) {
+		return c.json({ message: 'Trip GeoJSON empty!' }, 404)
+	}
+
+	return c.json(parsedJson, 200)
 }
