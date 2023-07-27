@@ -9,6 +9,7 @@ import Menu from '../../components/menu/menu'
 import useReload from '../../hooks/reload'
 import { TripHeader } from '../../components/trip-header/trip-header'
 import { TripPosition } from '../../components/trip-position/trip-position'
+import moment from 'moment'
 
 import './trip.css'
 
@@ -46,9 +47,9 @@ export const Trip = () => {
 					</>
 				) : (
 					<div className="trip-no-data-wrapper">
-						<div className="trip-no-data">
+						<div className={`trip-no-data ${moment(trip.start_date) > moment() ? 'green' : 'orange'}`}>
 							<FontAwesomeIcon icon={faHourglass} size="4x" />
-							<span className="fs-xlarge">This trip doesn't have any data!</span>
+							<span className="fs-xlarge mt-1">This trip doesn't have any data!</span>
 							<span>Check back later to see my progress.</span>
 						</div>
 					</div>

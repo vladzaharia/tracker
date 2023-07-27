@@ -34,13 +34,21 @@
 
 .trip-no-data {
 	padding: 3rem;
-	background-color: var(--orange-trans);
-	color: var(--orange);
 	border-radius: 1rem;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	gap: 0.5rem;
+}
+
+.trip-no-data.green {
+	background-color: var(--green-trans);
+	color: var(--green);
+}
+
+.trip-no-data.orange {
+	background-color: var(--orange-trans);
+	color: var(--orange);
 }
 
 @media only screen and (max-width: 50rem) {
