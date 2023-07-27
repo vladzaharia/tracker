@@ -3,7 +3,7 @@ main = "src/index.ts"
 compatibility_date = "2023-07-05"
 usage_model = "bundled"
 site = { bucket = "./dist" }
-triggers = { crons = ["*/10 * * * *"] }
+triggers = { crons = ["*/5 * * * *"] }
 
 kv_namespaces = [
     { binding = "GEOJSON", id = "d088c955dc004bb4aff34533429e40d0", preview_id = "d088c955dc004bb4aff34533429e40d0" },

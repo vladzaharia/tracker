@@ -67,4 +67,10 @@
 		margin-left: 0;
 		width: 100%;
 	}
+
+	.trip-no-data {
+		padding: 2rem;
+		width: 70vw;
+		text-align: center;
+	}
 }
