@@ -67,5 +67,7 @@
 		flex-direction: row;
 		padding: 1rem;
 		gap: 2rem;
+		border-bottom-left-radius: 0;
+		order: -1;
 	}
 }

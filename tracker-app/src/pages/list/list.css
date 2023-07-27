@@ -62,13 +62,15 @@
 }
 
 @media only screen and (max-width: 50rem) {
+	.trip-list-title-wrapper {
+		padding: 1rem 0;
+	}
+
 	.trip-list-wrapper {
 		border-bottom-left-radius: 0;
 		border-bottom-right-radius: 0;
 	}
 
-	.trip-header .left,
-	.trip-header .right,
 	.trip-header .trip-position-details {
 		width: 100%;
 	}
@@ -81,5 +83,15 @@
 
 	.trip-header .trip-position-details {
 		align-items: center;
+	}
+
+	.trip-list .date-duration {
+		display: flex;
+	}
+
+	.trip-list .trip-header.past .date,
+	.trip-list .trip-header.upcoming .date,
+	.trip-list .trip-header.current .date {
+		font-size: 0.95rem;
 	}
 }

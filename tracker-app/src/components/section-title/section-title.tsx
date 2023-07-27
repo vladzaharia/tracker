@@ -7,7 +7,7 @@ export interface SectionTitleProps extends React.DetailedHTMLProps<React.HTMLAtt
 
 export default function SectionTitle({ color, className, children, ...h3Props }: SectionTitleProps) {
 	return (
-		<h3 className={`section-title ${color} ${className || ''}`} {...h3Props}>
+		<h3 className={`section-title ${color || ''} ${className || ''}`} {...h3Props}>
 			{children}
 		</h3>
 	)

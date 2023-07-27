@@ -52,13 +52,30 @@
 }
 
 @media only screen and (max-width: 50rem) {
+	.date-duration {
+		display: none;
+	}
+
 	.trip-wrapper {
 		flex-direction: column;
 	}
 
 	.menu.trip-details {
-		max-height: 15rem;
+		max-height: 20rem;
 		overflow-y: overlay;
+	}
+
+	.trip-details .section-title {
+		display: none;
+	}
+
+	.trip-position-wrapper {
+		margin: 0;
+	}
+
+	.trip-position {
+		margin: 0;
+		margin-top: 0.5rem;
 	}
 
 	.trip-content {
