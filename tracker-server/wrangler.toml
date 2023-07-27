@@ -3,7 +3,7 @@ main = "src/index.ts"
 compatibility_date = "2023-07-05"
 usage_model = "bundled"
 site = { bucket = "./dist" }
-triggers = { crons = ["*/5 * * * *"] }
+triggers = { crons = ["*/10 * * * *"] }
 
 kv_namespaces = [
     { binding = "GEOJSON", id = "d088c955dc004bb4aff34533429e40d0", preview_id = "d088c955dc004bb4aff34533429e40d0" },
@@ -15,6 +15,7 @@ d1_databases = [
 [env.dev]
 route = { pattern = "dev.track.vlad.gg", custom_domain = true }
 vars = { ENVIRONMENT = "dev", BASE_URL="https://dev.track.vlad.gg" }
+triggers = { crons = ["0 0 * * *"] }
 kv_namespaces = [
     { binding = "GEOJSON", id = "a8611f1b1ba44009a19142b198f49409", preview_id = "a8611f1b1ba44009a19142b198f49409" },
 ]
@@ -25,6 +26,7 @@ d1_databases = [
 [env.staging]
 route = { pattern = "staging.track.vlad.gg", custom_domain = true }
 vars = { ENVIRONMENT = "staging", BASE_URL="https://staging.track.vlad.gg" }
+triggers = { crons = ["0 0 * * *"] }
 kv_namespaces = [
     { binding = "GEOJSON", id = "ab3868993a4d46f498712bb7e9c939d8", preview_id = "ab3868993a4d46f498712bb7e9c939d8" },
 ]
