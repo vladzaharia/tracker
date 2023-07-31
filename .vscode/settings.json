@@ -6,7 +6,7 @@
 			"host": "http://localhost:8787/api",
 		},
 		"prod": {
-			"host": "https://tracker.vlad.gg/api",
+			"host": "https://track.vlad.gg/api",
 		}
 	},
 	"yaml.schemas": {

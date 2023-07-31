@@ -1,0 +1,17 @@
+###
+# Get trip information
+# @prompt trip Name of trip
+
+GET {{host}}/trip/{{trip}}
+
+###
+# Get trip points geojson
+# @prompt trip Name of trip
+
+GET {{host}}/trip/{{trip}}/geojson/points
+
+###
+# Get trip track geojson
+# @prompt trip Name of trip
+
+GET {{host}}/trip/{{trip}}/geojson/track

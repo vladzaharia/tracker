@@ -1,0 +1,4 @@
+###
+# List trips
+
+GET {{host}}/trip
