@@ -11,7 +11,7 @@ export const GetActivity = (point: any, trip: Trip) => {
 	const pointDate = moment(point?.properties?.timestamp).tz(trip.time_zone)
 
 	// Check if trip has ended
-	if (moment(trip.end_date) < moment().add(1, 'week')) {
+	if (moment(trip.end_date) < moment()) {
 		return 'ended'
 	}
 
@@ -25,7 +25,7 @@ export const GetActivity = (point: any, trip: Trip) => {
 
 		if (pointDate && (pointDate.hour() < 8 || pointDate.hour() > 22)) {
 			return 'sleeping'
-		} else if (trip.type === 'scuba' && velocity < 5) {
+		} else if (trip.type === 'scuba' && velocity < 4) {
 			return 'diving'
 		} else if (velocity === 0) {
 			return 'stopped'
