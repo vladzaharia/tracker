@@ -37,7 +37,7 @@ export function ConfirmModal({ className, icon, text, title, onConfirm, ...props
 					}
 					rightActions={
 						<div className="modal-header-buttons">
-							<Button color="primary" iconProps={{ icon: faXmark }} onClick={() => props.onClose && props.onClose({}, 'escapeKeyDown')} />
+							<Button color="red" iconProps={{ icon: faXmark }} onClick={() => props.onClose && props.onClose({}, 'escapeKeyDown')} />
 						</div>
 					}
 				/>
@@ -45,7 +45,7 @@ export function ConfirmModal({ className, icon, text, title, onConfirm, ...props
 					<span className="modal-message">{text}</span>
 					<div className="modal-buttons">
 						<Button
-							color="primary"
+							color="red"
 							iconProps={{ icon: faXmark }}
 							text="No"
 							onClick={() => props.onClose && props.onClose({}, 'escapeKeyDown')}
@@ -99,7 +99,7 @@ export function CreateModal({
 					}
 					rightActions={
 						<div className="modal-header-buttons">
-							<Button color="primary" iconProps={{ icon: faXmark }} onClick={onClose} />
+							<Button color="red" iconProps={{ icon: faXmark }} onClick={onClose} />
 						</div>
 					}
 				/>

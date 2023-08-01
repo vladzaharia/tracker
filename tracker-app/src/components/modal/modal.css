@@ -74,5 +74,6 @@
 	.modal.MuiModal-root {
 		min-width: 90vw;
 		max-height: 75vh;
+		top: 20%;
 	}
 }

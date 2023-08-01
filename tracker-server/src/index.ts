@@ -8,6 +8,7 @@ import { FetchGeoJSON } from './cron/fetch_geojson'
 import { Bindings } from './bindings'
 import { GetTripGeoJSONPoints } from './routes/trip/geojson/points'
 import { GetTripGeoJSONTrack } from './routes/trip/geojson/track'
+import { SendMessage } from './routes/action/message'
 
 const app = new Hono<{ Bindings: Bindings }>()
 
@@ -34,6 +35,9 @@ app.get('/api/trip/:trip', GetTrip)
 // Get trip geojson
 app.get('/api/trip/:trip/geojson/points', GetTripGeoJSONPoints)
 app.get('/api/trip/:trip/geojson/track', GetTripGeoJSONTrack)
+
+// Actions
+app.put('/api/action/message', SendMessage)
 
 // App
 app.get(

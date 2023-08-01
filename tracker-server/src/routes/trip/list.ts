@@ -5,7 +5,7 @@ import moment from 'moment'
 import { GetTripStatus } from './get'
 
 export const ListTrips = async (c: Context<{ Bindings: Bindings }>) => {
-	const trips = getTrips()
+	const trips = getTrips(c.env.ENVIRONMENT)
 
 	const currentDate = moment()
 	const currentBasicTrip = trips.filter((t) => moment(t.start_date) < currentDate && moment(t.end_date) > currentDate)[0]

@@ -29,6 +29,7 @@ paths:
       operationId: listTrips
       tags:
         - Tracker
+        - Trip
       responses:
         200:
           description: List of trips available.
@@ -59,6 +60,7 @@ paths:
       operationId: getTrip
       tags:
         - Tracker
+        - Trip
       parameters:
         - $ref: '#/components/parameters/TripName'
       responses:
@@ -79,11 +81,12 @@ paths:
       operationId: getTripJSONPoints
       tags:
         - Tracker
+        - Trip
       parameters:
         - $ref: '#/components/parameters/TripName'
       responses:
         200:
-          description: Trip information
+          description: Trip points, as GeoJSON
         404:
           $ref: '#/components/responses/TripNotFound'
         500:
@@ -95,13 +98,71 @@ paths:
       operationId: getTripJSONTrack
       tags:
         - Tracker
+        - Trip
       parameters:
         - $ref: '#/components/parameters/TripName'
       responses:
         200:
-          description: Trip information
+          description: Trip track, as GeoJSON
         404:
           $ref: '#/components/responses/TripNotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+
+  /action/message:
+    put:
+      summary: Send message
+      description: Send message to InReach device.
+      operationId: sendMessage
+      tags:
+        - Tracker
+        - Action
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                phoneNumber:
+                  type: string
+                  description: Phone number of the sender.
+                  example: +12065551234
+                message:
+                  type: string
+                  description: Message to send to device, max 160 characters.
+                  example: This is a test message via the API.
+              required:
+                - phoneNumber
+                - message
+      responses:
+        200:
+          description: Messgae successfully sent!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Success message
+                    example: Successfully sent message!
+                required:
+                  - message
+        400:
+          description: Missing an input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Description of what is missing
+                    example: You must provide a phone number!
+                required:
+                  - message
+        404:
+          $ref: '#/components/responses/NoCurrentTrip'
         500:
           $ref: '#/components/responses/InternalServerError'
 
@@ -154,6 +215,19 @@ components:
                 type: string
                 description: Message for this error.
                 example: Trip not found!
+            required:
+              - message
+    NoCurrentTrip:
+      description: No trip in progress.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Message for this error.
+                example: You can only do this during a current trip!
             required:
               - message
 

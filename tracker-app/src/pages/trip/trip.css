@@ -51,6 +51,36 @@
 	color: var(--orange);
 }
 
+.floating-buttons {
+	position: absolute;
+	bottom: 1rem;
+	right: 1rem;
+	display: flex;
+	flex-direction: row;
+	gap: 0.5rem;
+}
+
+.floating-buttons .button {
+	height: 3rem;
+	width: 3rem;
+	font-size: 1.5rem;
+}
+
+.send-message-modal textarea {
+	height: 5rem;
+}
+
+.send-message-modal .warning-text {
+	background-color: var(--orange-trans);
+	color: var(--orange);
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	height: 2.5rem;
+	font-size: 0.95rem;
+}
+
 @media only screen and (max-width: 50rem) {
 	.date-duration {
 		display: none;
