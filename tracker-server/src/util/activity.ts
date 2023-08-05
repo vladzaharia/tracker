@@ -25,10 +25,10 @@ export const GetActivity = (point: any, trip: Trip) => {
 
 		if (pointDate && (pointDate.hour() < 8 || pointDate.hour() > 22)) {
 			return 'sleeping'
-		} else if (trip.type === 'scuba' && velocity < 4) {
-			return 'diving'
 		} else if (velocity === 0) {
 			return 'stopped'
+		} else if (trip.type === 'scuba' && velocity < 4) {
+			return 'diving'
 		} else if (velocity > 3) {
 			return 'moving'
 		}
