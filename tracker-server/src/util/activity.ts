@@ -23,7 +23,7 @@ export const GetActivity = (point: any, trip: Trip) => {
 	if (velocityMatch && velocityMatch.length > 1) {
 		const velocity = Number(velocityMatch[1])
 
-		if (pointDate && (pointDate.hour() < 8 || pointDate.hour() > 22)) {
+		if (pointDate && (pointDate.hour() < 6 || pointDate.hour() > 21)) {
 			return 'sleeping'
 		} else if (velocity === 0) {
 			return 'stopped'
