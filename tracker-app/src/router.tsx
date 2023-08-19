@@ -16,6 +16,7 @@ import Admin from './pages/admin/admin'
 import AdminDatabase from './pages/admin/database/database'
 import AdminHome from './pages/admin/home/home'
 import DatabaseLoader from './loaders/database'
+import TripListAdmin from './pages/admin/trip-list/trip-list'
 
 const oidcConfig: AuthProviderProps = {
 	authority: 'https://auth.zhr.one/application/o/trip-tracker/',
@@ -76,8 +77,8 @@ const router = createBrowserRouter([
 					{
 						path: 'trip',
 						id: 'admin-trip-list',
-						// loader: RoomsLoader,
-						// element: <RoomsAdmin />,
+						loader: ListTripLoader,
+						element: <TripListAdmin />,
 					},
 					{
 						path: 'trip/:id',
