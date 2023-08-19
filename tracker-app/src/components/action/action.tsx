@@ -11,6 +11,7 @@ interface ActionProps {
 }
 
 export default function Action({ text, description, className, color, children }: ActionProps) {
+	console.log(className)
 	return (
 		<div className={`action ${className || ''} ${color || ''}`}>
 			<div className="text">
