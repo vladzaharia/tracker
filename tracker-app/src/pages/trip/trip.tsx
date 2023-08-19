@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { Outlet, useLoaderData, useLocation } from 'react-router-dom'
 import { Trip as TripResponse } from 'tracker-server-client'
-import { faHourglass, faLocationDot, faMessageLines, faPaperPlaneTop, faXmark } from '@fortawesome/pro-solid-svg-icons'
+import { faCrystalBall, faHourglass, faLocationDot, faMessageLines, faPaperPlaneTop, faXmark } from '@fortawesome/pro-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import SectionTitle from '../../components/section-title/section-title'
 import { TripStatus } from '../../components/trip-status/trip-status'
@@ -77,9 +77,17 @@ export const Trip = () => {
 							</motion.div>
 						</AnimatePresence>
 					</>
-				) : (
+				) : moment(trip.start_date) > moment() ? (
 					<div className="trip-no-data-wrapper">
-						<div className={`trip-no-data ${moment(trip.start_date) > moment() ? 'green' : 'orange'}`}>
+						<div className={`trip-no-data blue`}>
+							<FontAwesomeIcon icon={faCrystalBall} size="4x" />
+							<span className="fs-xlarge mt-1">This trip is in the future!</span>
+							<span>I don't have a crystal ball, you'll have to wait until it starts.</span>
+						</div>
+					</div>
+				): (
+					<div className="trip-no-data-wrapper">
+						<div className={`trip-no-data orange`}>
 							<FontAwesomeIcon icon={faHourglass} size="4x" />
 							<span className="fs-xlarge mt-1">This trip doesn't have any data!</span>
 							<span>Check back later to see my progress.</span>

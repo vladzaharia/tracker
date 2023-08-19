@@ -41,6 +41,11 @@
 	gap: 0.5rem;
 }
 
+.trip-no-data.blue {
+	background-color: var(--blue-trans);
+	color: var(--blue);
+}
+
 .trip-no-data.green {
 	background-color: var(--green-trans);
 	color: var(--green);

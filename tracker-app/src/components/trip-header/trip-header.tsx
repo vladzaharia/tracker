@@ -35,10 +35,19 @@ export const TripHeader = ({ className, trip: tripProp, onClick }: { className?:
 	const startDate = moment(trip.start_date)
 	const endDate = moment(trip.end_date)
 	const otherYear = endDate.year() !== moment().year()
-	const upcoming = startDate > moment()
+
+	const getColor = () => {
+		if (startDate > moment()) {
+			return 'upcoming'
+		} else if (startDate < moment() && endDate > moment()) {
+			return 'current'
+		} else {
+			return 'past'
+		}
+	}
 
 	return (
-		<div className={`trip-header ${onClick ? 'clickable' : ''} ${upcoming ? 'upcoming' : 'past'}`} onClick={onClick}>
+		<div className={`trip-header ${onClick ? 'clickable' : ''} ${getColor()}`} onClick={onClick}>
 			<h1>
 				<span className="mr-1">{trip.emoji}</span> {trip.name}
 			</h1>
