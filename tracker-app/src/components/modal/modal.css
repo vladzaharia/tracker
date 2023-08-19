@@ -23,7 +23,8 @@
 }
 
 .modal.create-modal {
-	width: 40vw;
+	width: 45vw;
+	max-height: 85svh;
 }
 
 .modal.confirm-modal {

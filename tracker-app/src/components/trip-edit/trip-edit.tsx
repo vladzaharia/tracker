@@ -123,7 +123,8 @@ export const TripEdit = ({ inModal, onModalClose }: { inModal?: boolean; onModal
 						<Select
 							className="timezone-select"
 							id="timezone"
-							value={timeZone}
+							value={!inModal ? timeZone : undefined}
+							defaultValue={inModal ? 'America/Los_Angeles' : undefined}
 							// label="Time zone"
 							onChange={(e) => setTimeZone(e.target.value)}
 						>
