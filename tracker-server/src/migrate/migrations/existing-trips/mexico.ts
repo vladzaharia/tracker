@@ -1,4 +1,4 @@
-import { Trip } from './types'
+import { Trip } from '../../../types'
 
 export const TRIP_MEXICO: Trip = {
 	name: 'Rocio del Mar',

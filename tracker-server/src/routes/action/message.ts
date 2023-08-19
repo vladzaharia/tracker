@@ -1,6 +1,6 @@
 import { Context } from 'hono'
 import { Bindings } from '../../bindings'
-import { getCurrentTrip } from '../../util/trip'
+import { getCurrentTrip } from '../../migrate/migrations/existing-trips/trip'
 import { sendMessage } from '../../inreach/message'
 
 interface SendMessageBody {

@@ -1,5 +1,6 @@
 import { Kysely } from 'kysely'
 import { D1Dialect } from 'kysely-d1'
+import { TripType } from '../types'
 
 export interface Database {
 	trip: TripTable
@@ -15,8 +16,6 @@ export interface TripTable {
 	end_date: number
 	time_zone: string
 }
-
-export type TripType = 'scuba' | 'road'
 
 export interface MigrationTable {
 	version: number

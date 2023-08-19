@@ -1,6 +1,6 @@
 import { Context } from 'hono'
-import { getTrip } from '../../../util/trip'
-import { AllTrips } from '../../../trips/types'
+import { getTrip } from '../../../migrate/migrations/existing-trips/trip'
+import { AllTrips } from '../../../migrate/migrations/existing-trips/types'
 import { Bindings } from '../../../bindings'
 
 export const GetTripGeoJSONPoints = async (c: Context<{ Bindings: Bindings }>) => {

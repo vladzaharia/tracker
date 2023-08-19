@@ -1,5 +1,5 @@
 import moment from 'moment-timezone'
-import { Trip } from '../trips/types'
+import { Trip } from '../migrate/migrations/existing-trips/types'
 
 export type Activity = 'diving' | 'moving' | 'stopped' | 'sleeping' | 'outdated' | 'ended' | 'unknown'
 

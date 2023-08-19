@@ -1,30 +1,34 @@
 import { Context } from 'hono'
-import { getTrips } from '../../util/trip'
 import { Bindings } from '../../bindings'
 import moment from 'moment'
-import { GetTripStatus } from './get'
+import { findCurrentTrip, listPastTrips, listUpcomingTrips } from '../../tables/trip'
+import { TripTable } from '../../tables/db'
+import { Trip } from '../../types'
+import { ConvertTrip } from './util'
 
 export const ListTrips = async (c: Context<{ Bindings: Bindings }>) => {
-	const trips = getTrips(c.env.ENVIRONMENT)
+	const currentTrip = await findCurrentTrip(c.env.D1DATABASE)
+	const upcomingTrips = await listUpcomingTrips(c.env.D1DATABASE)
+	const pastTrips = await listPastTrips(c.env.D1DATABASE)
 
-	const currentDate = moment()
-	const currentBasicTrip = trips.filter((t) => moment(t.start_date) < currentDate && moment(t.end_date) > currentDate)[0]
+	const convertedUpcomingTrips: Trip[] = []
+	const convertedPastTrips: Trip[] = []
 
-	const upcomingTrips = trips
-		.filter((t) => moment(t.start_date) > currentDate)
-		.sort((t1, t2) => (moment(t1.start_date) > moment(t2.start_date) ? 1 : -1))
-	const pastTrips = trips
-		.filter((t) => moment(t.end_date) < currentDate)
-		.sort((t1, t2) => (moment(t1.start_date) > moment(t2.start_date) ? -1 : 1))
+	for (const trip of upcomingTrips) {
+		convertedUpcomingTrips.push(await ConvertTrip(c, trip))
+	}
+
+	for (const trip of pastTrips) {
+		convertedPastTrips.push(await ConvertTrip(c, trip))
+	}
 
 	return c.json(
 		{
-			current: currentBasicTrip && {
-				...currentBasicTrip,
-				...(await GetTripStatus(c, currentBasicTrip)),
+			current: currentTrip && {
+				...await ConvertTrip(c, currentTrip),
 			},
-			upcoming: upcomingTrips,
-			past: pastTrips,
+			upcoming: convertedUpcomingTrips,
+			past: convertedPastTrips,
 		},
 		200
 	)
