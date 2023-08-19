@@ -1,7 +1,7 @@
 import { faRight } from '@fortawesome/pro-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import moment, { Moment } from 'moment'
-import { BasicTrip, Trip as TripResponse } from 'tracker-server-client'
+import { BasicTrip, Trip } from 'tracker-server-client'
 import { useLoaderData } from 'react-router-dom'
 
 import './trip-header.css'
@@ -29,7 +29,7 @@ export const DateDuration = ({
 }
 
 export const TripHeader = ({ className, trip: tripProp, onClick }: { className?: string; trip?: BasicTrip; onClick?: () => void }) => {
-	const tripLoader = useLoaderData() as TripResponse
+	const tripLoader = useLoaderData() as Trip
 	const trip = tripProp || tripLoader
 
 	const startDate = moment(trip.start_date)

@@ -5,7 +5,7 @@ import { VelocityRegex, GetActivity } from '../../util/activity'
 import moment from 'moment'
 import { TripTable } from '../../tables/db'
 
-export const ConvertTrip = async (c: Context<{ Bindings: Bindings }>, trip: TripTable, addStatus = false) => {
+export const ConvertTrip = async (c: Context<{ Bindings: Bindings }>, trip: TripTable) => {
 	const convertedTrip: Trip = {
 		...trip,
 		start_date: moment(trip.start_date).toDate(),
@@ -14,7 +14,7 @@ export const ConvertTrip = async (c: Context<{ Bindings: Bindings }>, trip: Trip
 
 	return {
 		...convertedTrip,
-		...(addStatus ? await GetTripStatus(c, convertedTrip) : []),
+		...(await GetTripStatus(c, convertedTrip)),
 	}
 }
 
@@ -25,7 +25,9 @@ export const GetTripStatus = async (c: Context<{ Bindings: Bindings }>, tripDeta
 		const points = JSON.parse(jsonString).features
 
 		if (points.length === 0) {
-			return {}
+			return {
+				total_points: 0,
+			}
 		}
 
 		const lastPoint = points && points[points.length - 1]
@@ -33,7 +35,8 @@ export const GetTripStatus = async (c: Context<{ Bindings: Bindings }>, tripDeta
 		const courseMatch = lastPoint?.properties?.Course?.match(/(\d{1,3}\.\d{2}) ° True/)
 
 		return {
-			lastPoint,
+			last_point: lastPoint,
+			total_points: points.length,
 			status: {
 				activity: GetActivity(lastPoint, tripDetails),
 				position: {

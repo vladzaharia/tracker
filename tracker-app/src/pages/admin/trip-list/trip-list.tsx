@@ -11,7 +11,7 @@ import { useAuth } from 'react-oidc-context'
 import { useNotificationAwareRequest } from '../../../hooks/notification'
 import Modal, { ConfirmModal } from '../../../components/modal/modal'
 import useReload from '../../../hooks/reload'
-import { BasicTrip, ListTrips200Response, TripType } from 'tracker-server-client'
+import { ListTrips200Response, Trip, TripType } from 'tracker-server-client'
 import moment from 'moment'
 import { TripEdit } from '../../../components/trip-edit/trip-edit'
 
@@ -61,7 +61,11 @@ export default function TripListAdmin() {
 		}
 	}
 
-	let allTrips: BasicTrip[] = trips.current ? [trips.current] : []
+	const getTripStatus = (start_date: string, end_date: string) => {
+		return moment().isBetween(start_date, end_date) ? 'Current' : moment().isBefore(start_date) ? 'Upcoming' : 'Past'
+	}
+
+	let allTrips: Trip[] = trips.current ? [trips.current] : []
 	allTrips = [...trips.upcoming, ...allTrips, ...trips.past]
 
 	return (
@@ -77,9 +81,9 @@ export default function TripListAdmin() {
 				color="blue"
 				headers={[
 					{ element: 'Trip name' },
-					{ element: 'Type', className: 'show-mobile' },
-					{ element: 'Start date', className: 'no-mobile' },
-					{ element: 'End date', className: 'no-mobile' },
+					{ element: 'Type', className: 'no-mobile' },
+					{ element: 'Status', className: 'show-mobile' },
+					{ element: 'Points', className: 'no-mobile' },
 					{
 						element: (
 							<div className="buttons">
@@ -107,8 +111,8 @@ export default function TripListAdmin() {
 								),
 								className: 'show-mobile',
 							},
-							{ element: moment(trip.start_date).format('MMM D, YYYY') },
-							{ element: moment(trip.end_date).format('MMM D, YYYY') },
+							{ element: getTripStatus(trip.start_date, trip.end_date) },
+							{ element: trip.total_points.toString() },
 							{
 								element: (
 									<div className="buttons">

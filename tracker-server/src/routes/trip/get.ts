@@ -32,10 +32,9 @@ export const GetTrip = async (c: Context<{ Bindings: Bindings }>) => {
 	console.log(`startDate ${tripDetails.start_date}`)
 	console.log(`endDate ${tripDetails.end_date}`)
 
-
 	return c.json(
 		{
-			...(await ConvertTrip(c, tripDetails, true)),
+			...(await ConvertTrip(c, tripDetails)),
 		} as GetTripResponse,
 		200
 	)

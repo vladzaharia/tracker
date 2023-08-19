@@ -128,7 +128,11 @@ export const TripEdit = ({ inModal, onModalClose }: { inModal?: boolean; onModal
 							onChange={(e) => setTimeZone(e.target.value)}
 						>
 							{timezones.map((tz) => {
-								return <MenuItem key={tz.tzCode} value={tz.tzCode}>{tz.label}</MenuItem>
+								return (
+									<MenuItem key={tz.tzCode} value={tz.tzCode}>
+										{tz.label}
+									</MenuItem>
+								)
 							})}
 						</Select>
 					</div>

@@ -23,7 +23,7 @@ export const ListTrips = async (c: Context<{ Bindings: Bindings }>) => {
 	return c.json(
 		{
 			current: currentTrip && {
-				...(await ConvertTrip(c, currentTrip, true)),
+				...(await ConvertTrip(c, currentTrip)),
 			},
 			upcoming: convertedUpcomingTrips,
 			past: convertedPastTrips,
