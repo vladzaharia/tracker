@@ -1,7 +1,7 @@
 import { Trip } from './types'
 
 export const TRIP_BAHAMAS_2024: Trip = {
-	name: 'Bahamas',
+	name: 'Aqua Cat',
 	id: 'bahamas-2024',
 	emoji: '🇧🇸',
 	type: 'scuba',

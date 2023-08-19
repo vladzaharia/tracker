@@ -59,7 +59,7 @@ export const TripStatus = ({ trip: tripProp }: { trip?: Trip }) => {
 			case 'outdated':
 				return 'orange'
 			case 'ended':
-				return 'primary'
+				return 'orange'
 			case 'unknown':
 			default:
 				return 'grey'
