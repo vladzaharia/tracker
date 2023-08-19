@@ -2,7 +2,7 @@ import { useLoaderData, useNavigate } from 'react-router-dom'
 import './trip-list.css'
 import Header from '../../../components/header/header'
 import Button from '../../../components/button/button'
-import { faPlus, faTextSize, faTrash, faXmark, faGlobeAmericas } from '@fortawesome/pro-solid-svg-icons'
+import { faPlus, faTrash, faXmark, faGlobeAmericas } from '@fortawesome/pro-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Table from '../../../components/table/table'
 import { useState } from 'react'
@@ -13,6 +13,7 @@ import Modal, { ConfirmModal } from '../../../components/modal/modal'
 import useReload from '../../../hooks/reload'
 import { BasicTrip, ListTrips200Response } from 'tracker-server-client'
 import moment from 'moment'
+import { TripEdit } from '../../../components/trip-edit/trip-edit'
 
 export default function TripListAdmin() {
 	const trips = useLoaderData() as ListTrips200Response
@@ -48,13 +49,13 @@ export default function TripListAdmin() {
 				color="blue"
 				className="corner-right"
 				leftActions={<FontAwesomeIcon icon={faGlobeAmericas} size="lg" />}
-				rightActions={<Button color="green" onClick={() => navigate(`/admin`)} iconProps={{ icon: faXmark }} />}
+				rightActions={<Button color="blue" onClick={() => navigate(`/admin`)} iconProps={{ icon: faXmark }} />}
 			/>
 			<Table
 				color="blue"
 				headers={[
 					{ element: 'Trip name' },
-					{ element: 'Type' },
+					{ element: 'Type', className: 'show-mobile' },
 					{ element: 'Start date', className: 'no-mobile' },
 					{ element: 'End date', className: 'no-mobile' },
 					{
@@ -78,6 +79,7 @@ export default function TripListAdmin() {
 							},
 							{
 								element: trip.type,
+								className: 'show-mobile',
 							},
 							{ element: moment(trip.start_date).format('MMM D, YYYY') },
 							{ element: moment(trip.end_date).format('MMM D, YYYY') },
@@ -117,7 +119,7 @@ export default function TripListAdmin() {
 						className="corner-left-05 corner-right-05"
 						title={
 							<>
-								<FontAwesomeIcon className="mr-05" icon={faTextSize} /> Add trip
+								<FontAwesomeIcon className="mr-05" icon={faGlobeAmericas} /> Add trip
 							</>
 						}
 						rightActions={
@@ -126,7 +128,7 @@ export default function TripListAdmin() {
 							</div>
 						}
 					/>
-					<span></span>
+					<TripEdit inModal onModalClose={() => setShowCreateModal(false)} />
 				</>
 			</Modal>
 		</div>

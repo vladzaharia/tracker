@@ -35,7 +35,7 @@
 	font-weight: 600;
 }
 
-.trip-list .trip-header.current {
+.trip-list .trip-header.current.has-status {
 	flex-direction: column;
 	gap: 2.5rem;
 }

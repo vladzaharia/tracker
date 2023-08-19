@@ -45,7 +45,7 @@ const CurrentTrip = ({ trip }: { trip: Trip }) => {
 	}
 
 	return (
-		<div className="trip-header current clickable" onClick={() => navigate(`/${trip.id}`)}>
+		<div className={`trip-header current clickable ${trip.status ? 'has-status' : ''}`} onClick={() => navigate(`/${trip.id}`)}>
 			<div className="trip">
 				<h1>
 					<span className="mr-05">{trip.emoji}</span> {trip.name}

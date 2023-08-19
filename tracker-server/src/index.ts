@@ -13,6 +13,9 @@ import { DbInfo } from './routes/db/info'
 import { MigrateDb } from './routes/db/migrate'
 import { ResetDb } from './routes/db/reset'
 import { RollbackDb } from './routes/db/rollback'
+import { AddTrip } from './routes/trip/add'
+import { UpdateTrip } from './routes/trip/update'
+import { DeleteTrip } from './routes/trip/delete'
 
 const app = new Hono<{ Bindings: Bindings }>()
 
@@ -33,8 +36,11 @@ app.get('/api/', Info)
 app.get('/api/trip', ListTrips)
 app.get('/api/trip/', ListTrips)
 
-// Get trip
+// Trip routes
 app.get('/api/trip/:trip', GetTrip)
+app.post('/api/trip/:trip', AddTrip)
+app.patch('/api/trip/:trip', UpdateTrip)
+app.delete('/api/trip/:trip', DeleteTrip)
 
 // Get trip geojson
 app.get('/api/trip/:trip/geojson/points', GetTripGeoJSONPoints)
@@ -52,6 +58,30 @@ app.put('/api/db/reset', ResetDb)
 // App
 app.get(
 	'/:tripId',
+	serveStatic({
+		path: './app/index.html',
+	})
+)
+app.get(
+	'/admin',
+	serveStatic({
+		path: './app/index.html',
+	})
+)
+app.get(
+	'/admin/trip',
+	serveStatic({
+		path: './app/index.html',
+	})
+)
+app.get(
+	'/admin/trip/:tripIdAdmin',
+	serveStatic({
+		path: './app/index.html',
+	})
+)
+app.get(
+	'/admin/database',
 	serveStatic({
 		path: './app/index.html',
 	})

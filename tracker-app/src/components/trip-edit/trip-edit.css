@@ -11,18 +11,22 @@
 	border-radius: 0 0.3rem 0.3rem 0;
 }
 
-.create-date-picker input {
+.trip-edit-date-picker input {
 	padding: 0;
 }
 
-.create-date-picker .input-wrapper input {
-	width: 35vw;
-}
-
-.create-date-picker .MuiOutlinedInput-root {
+.trip-edit-date-picker .MuiOutlinedInput-root {
 	outline: 1px solid var(--border);
 }
 
-.create-date-picker .MuiIconButton-root {
+.trip-edit-date-picker .MuiIconButton-root {
 	color: var(--foreground);
+}
+
+.trip-edit .input-wrapper input {
+	width: 15.75rem;
+}
+
+.trip-edit :not(.action-button) .button {
+	padding: 1.25rem;
 }

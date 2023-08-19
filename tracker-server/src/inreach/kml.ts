@@ -10,7 +10,7 @@ export const getTripKML = async (env: Bindings, trip: string) => {
 		throw new Error('Trip not found!')
 	}
 
-	return getKML(new Date(tripDetails.start_date * 1000), new Date(tripDetails.end_date * 1000))
+	return getKML(new Date(tripDetails.start_date), new Date(tripDetails.end_date))
 }
 
 const getKML = async (startDate?: Date, endDate?: Date) => {
