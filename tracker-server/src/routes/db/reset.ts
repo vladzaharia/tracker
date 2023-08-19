@@ -2,6 +2,7 @@ import { Context } from 'hono'
 import { Bindings } from '../../bindings'
 import { dropMigrationTable } from '../../tables/migration'
 import { dropTripTable } from '../../tables/trip'
+import { dropWaypointTable } from '../../tables/waypoint'
 
 export const ResetDb = async (c: Context<{ Bindings: Bindings }>) => {
 	try {
@@ -9,6 +10,7 @@ export const ResetDb = async (c: Context<{ Bindings: Bindings }>) => {
 
 		// Drop all tables
 		await dropTripTable(db)
+		await dropWaypointTable(db)
 		await dropMigrationTable(db)
 
 		return c.json({
