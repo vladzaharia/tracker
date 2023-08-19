@@ -269,7 +269,6 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
 
-
 components:
   parameters:
     TripName:

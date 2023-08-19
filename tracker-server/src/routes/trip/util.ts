@@ -1,20 +1,20 @@
-import { Context } from "hono"
-import { Bindings } from "../../bindings"
-import { Trip } from "../../types"
-import { VelocityRegex, GetActivity } from "../../util/activity"
-import moment from "moment"
-import { TripTable } from "../../tables/db"
+import { Context } from 'hono'
+import { Bindings } from '../../bindings'
+import { Trip } from '../../types'
+import { VelocityRegex, GetActivity } from '../../util/activity'
+import moment from 'moment'
+import { TripTable } from '../../tables/db'
 
 export const ConvertTrip = async (c: Context<{ Bindings: Bindings }>, trip: TripTable) => {
 	const convertedTrip: Trip = {
 		...trip,
 		start_date: moment(trip.start_date).toDate(),
-		end_date: moment(trip.end_date).toDate()
+		end_date: moment(trip.end_date).toDate(),
 	}
 
 	return {
-		... convertedTrip,
-		...(await GetTripStatus(c, convertedTrip))
+		...convertedTrip,
+		...(await GetTripStatus(c, convertedTrip)),
 	}
 }
 

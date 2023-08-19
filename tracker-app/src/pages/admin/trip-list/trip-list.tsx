@@ -2,19 +2,13 @@ import { useLoaderData, useNavigate } from 'react-router-dom'
 import './trip-list.css'
 import Header from '../../../components/header/header'
 import Button from '../../../components/button/button'
-import {
-	faPlus,
-	faTextSize,
-	faTrash,
-	faXmark,
-	faGlobeAmericas,
-} from '@fortawesome/pro-solid-svg-icons'
+import { faPlus, faTextSize, faTrash, faXmark, faGlobeAmericas } from '@fortawesome/pro-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Table from '../../../components/table/table'
 import { useState } from 'react'
-import { createAdminApi } from '../../../api'
-import { useAuth } from 'react-oidc-context'
-import { useNotificationAwareRequest } from '../../../hooks/notification'
+// import { createAdminApi } from '../../../api'
+// import { useAuth } from 'react-oidc-context'
+// import { useNotificationAwareRequest } from '../../../hooks/notification'
 import Modal, { ConfirmModal } from '../../../components/modal/modal'
 import useReload from '../../../hooks/reload'
 import { BasicTrip, ListTrips200Response } from 'tracker-server-client'
@@ -24,12 +18,12 @@ export default function TripListAdmin() {
 	const trips = useLoaderData() as ListTrips200Response
 	useReload(trips)
 	const navigate = useNavigate()
-	const auth = useAuth()
-	const request = useNotificationAwareRequest()
+	// const auth = useAuth()
+	// const request = useNotificationAwareRequest()
 	const [deleteModalTripId, setDeleteModalTripId] = useState<string | undefined>()
 	const [showCreateModal, setShowCreateModal] = useState<boolean>(false)
 
-	const api = createAdminApi(auth.user?.access_token || '')
+	// const api = createAdminApi(auth.user?.access_token || '')
 	const deleteTrip = async (id: string) => {
 		// await request(
 		// 	async () => await api.deleteTrip(wordListName),
@@ -44,7 +38,7 @@ export default function TripListAdmin() {
 	}
 
 	let allTrips: BasicTrip[] = trips.current ? [trips.current] : []
-	allTrips = [... trips.upcoming, ... allTrips, ... trips.past]
+	allTrips = [...trips.upcoming, ...allTrips, ...trips.past]
 
 	return (
 		<div className="list admin-trip-list">
@@ -77,7 +71,7 @@ export default function TripListAdmin() {
 							{
 								element: (
 									<>
-										<span className='mr-05'>{trip.emoji}</span> {trip.name}
+										<span className="mr-05">{trip.emoji}</span> {trip.name}
 									</>
 								),
 							},

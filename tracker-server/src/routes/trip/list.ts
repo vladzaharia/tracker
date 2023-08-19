@@ -1,8 +1,6 @@
 import { Context } from 'hono'
 import { Bindings } from '../../bindings'
-import moment from 'moment'
 import { findCurrentTrip, listPastTrips, listUpcomingTrips } from '../../tables/trip'
-import { TripTable } from '../../tables/db'
 import { Trip } from '../../types'
 import { ConvertTrip } from './util'
 
@@ -25,7 +23,7 @@ export const ListTrips = async (c: Context<{ Bindings: Bindings }>) => {
 	return c.json(
 		{
 			current: currentTrip && {
-				...await ConvertTrip(c, currentTrip),
+				...(await ConvertTrip(c, currentTrip)),
 			},
 			upcoming: convertedUpcomingTrips,
 			past: convertedPastTrips,

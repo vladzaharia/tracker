@@ -11,15 +11,25 @@ export async function listTrips(db: D1Database) {
 }
 
 export async function listUpcomingTrips(db: D1Database) {
-	return await getKyselyDb(db).selectFrom('trip').where('end_date', '>', new Date().getTime()).selectAll().execute()
+	return await getKyselyDb(db)
+		.selectFrom('trip')
+		.where('end_date', '>', new Date().getTime())
+		.selectAll()
+		.orderBy('start_date', 'asc')
+		.execute()
 }
 
 export async function listPastTrips(db: D1Database) {
-	return await getKyselyDb(db).selectFrom('trip').where('end_date', '<', new Date().getTime()).selectAll().execute()
+	return await getKyselyDb(db)
+		.selectFrom('trip')
+		.where('end_date', '<', new Date().getTime())
+		.selectAll()
+		.orderBy('start_date', 'desc')
+		.execute()
 }
 
 export async function findCurrentTrip(db: D1Database) {
-	const currentDate =  new Date().getTime()
+	const currentDate = new Date().getTime()
 
 	return await getKyselyDb(db)
 		.selectFrom('trip')
@@ -29,31 +39,17 @@ export async function findCurrentTrip(db: D1Database) {
 }
 
 export async function findTrip(db: D1Database, id: string) {
-	return await getKyselyDb(db)
-		.selectFrom('trip')
-		.selectAll()
-		.where('id', '=', id)
-		.executeTakeFirst()
+	return await getKyselyDb(db).selectFrom('trip').selectAll().where('id', '=', id).executeTakeFirst()
 }
 
 export async function insertTrip(db: D1Database, trip: TripTable) {
-	return await getKyselyDb(db)
-		.insertInto('trip')
-		.values(trip)
-		.execute()
+	return await getKyselyDb(db).insertInto('trip').values(trip).execute()
 }
 
 export async function updateTrip(db: D1Database, id: string, trip: Partial<TripTable>) {
-	return await getKyselyDb(db)
-		.updateTable('trip')
-		.set(trip)
-		.where('id', '=', id)
-		.execute()
+	return await getKyselyDb(db).updateTable('trip').set(trip).where('id', '=', id).execute()
 }
 
 export async function deleteTrip(db: D1Database, id: string) {
-	return await getKyselyDb(db)
-		.deleteFrom('trip')
-		.where('id', '=', id)
-		.execute()
+	return await getKyselyDb(db).deleteFrom('trip').where('id', '=', id).execute()
 }

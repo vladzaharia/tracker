@@ -85,7 +85,7 @@ export const Trip = () => {
 							<span>I don't have a crystal ball, you'll have to wait until it starts.</span>
 						</div>
 					</div>
-				): (
+				) : (
 					<div className="trip-no-data-wrapper">
 						<div className={`trip-no-data orange`}>
 							<FontAwesomeIcon icon={faHourglass} size="4x" />
