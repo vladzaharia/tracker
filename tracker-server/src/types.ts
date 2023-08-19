@@ -1,4 +1,4 @@
-export type TripType = 'scuba' | 'road'
+export type TripType = 'scuba' | 'road' | 'other'
 
 export interface Trip {
 	name: string

@@ -2,7 +2,7 @@ import { useLoaderData, useNavigate } from 'react-router-dom'
 import './trip-list.css'
 import Header from '../../../components/header/header'
 import Button from '../../../components/button/button'
-import { faPlus, faTrash, faXmark, faGlobeAmericas } from '@fortawesome/pro-solid-svg-icons'
+import { faPlus, faTrash, faXmark, faGlobeAmericas, faMaskSnorkel, faVanShuttle, faSquareQuestion } from '@fortawesome/pro-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Table from '../../../components/table/table'
 import { useState } from 'react'
@@ -11,7 +11,7 @@ import { useAuth } from 'react-oidc-context'
 import { useNotificationAwareRequest } from '../../../hooks/notification'
 import Modal, { ConfirmModal } from '../../../components/modal/modal'
 import useReload from '../../../hooks/reload'
-import { BasicTrip, ListTrips200Response } from 'tracker-server-client'
+import { BasicTrip, ListTrips200Response, TripType } from 'tracker-server-client'
 import moment from 'moment'
 import { TripEdit } from '../../../components/trip-edit/trip-edit'
 
@@ -37,6 +37,28 @@ export default function TripListAdmin() {
 			() => setDeleteModalTripId(undefined),
 			() => setDeleteModalTripId(undefined)
 		)
+	}
+
+	const getTripTypeIcon = (type: TripType) => {
+		switch (type) {
+			case 'scuba':
+				return faMaskSnorkel
+			case 'road':
+				return faVanShuttle
+			case 'other':
+				return faSquareQuestion
+		}
+	}
+
+	const getTripTypeText = (type: TripType) => {
+		switch (type) {
+			case 'scuba':
+				return 'Scuba'
+			case 'road':
+				return 'Road'
+			case 'other':
+				return 'Other'
+		}
 	}
 
 	let allTrips: BasicTrip[] = trips.current ? [trips.current] : []
@@ -78,7 +100,11 @@ export default function TripListAdmin() {
 								),
 							},
 							{
-								element: trip.type,
+								element: (
+									<span>
+										<FontAwesomeIcon className="mr-05" icon={getTripTypeIcon(trip.type)} /> {getTripTypeText(trip.type)}
+									</span>
+								),
 								className: 'show-mobile',
 							},
 							{ element: moment(trip.start_date).format('MMM D, YYYY') },

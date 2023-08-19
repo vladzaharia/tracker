@@ -30,3 +30,16 @@
 .trip-edit :not(.action-button) .button {
 	padding: 1.25rem;
 }
+
+.trip-edit .timezone-select {
+	outline: 1px solid var(--border);
+	color: var(--foreground);
+}
+
+.trip-edit .timezone-select #timezone {
+	padding: 0.75rem;
+}
+
+.trip-edit .timezone-select svg {
+	color: var(--foreground);
+}

@@ -1,5 +1,5 @@
-import { faChevronLeft, faMaskSnorkel, faVanShuttle, faPlus, faCheck } from '@fortawesome/pro-solid-svg-icons'
-import { ButtonGroup } from '@mui/material'
+import { faChevronLeft, faMaskSnorkel, faVanShuttle, faPlus, faCheck, faSquareQuestion } from '@fortawesome/pro-solid-svg-icons'
+import { ButtonGroup, MenuItem, Select } from '@mui/material'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import moment from 'moment'
 import Action from '../action/action'
@@ -14,6 +14,7 @@ import { Trip } from 'tracker-server-client'
 import Button from '../button/button'
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
 import './trip-edit.css'
+import timezones from 'timezones-list'
 
 export const TripEdit = ({ inModal, onModalClose }: { inModal?: boolean; onModalClose?: () => void }) => {
 	const trip = useLoaderData() as Trip
@@ -98,6 +99,7 @@ export const TripEdit = ({ inModal, onModalClose }: { inModal?: boolean; onModal
 					<ButtonGroup className="button-group">
 						<Button color={type === 'scuba' ? 'green' : 'blue'} iconProps={{ icon: faMaskSnorkel }} onClick={() => setType('scuba')} />
 						<Button color={type === 'road' ? 'green' : 'blue'} iconProps={{ icon: faVanShuttle }} onClick={() => setType('road')} />
+						<Button color={type === 'other' ? 'green' : 'blue'} iconProps={{ icon: faSquareQuestion }} onClick={() => setType('other')} />
 					</ButtonGroup>
 				</Action>
 				<Action className="trip-edit-input" text="Start date" description="Date this trip starts on.">
@@ -118,7 +120,17 @@ export const TripEdit = ({ inModal, onModalClose }: { inModal?: boolean; onModal
 				</Action>
 				<Action className="trip-edit-input" text="Time zone" description="Time zone this trip runs on.">
 					<div className="input-wrapper">
-						<input type="text" value={timeZone} onChange={(e) => setTimeZone(e.currentTarget.value)} />
+						<Select
+							className="timezone-select"
+							id="timezone"
+							value={timeZone}
+							// label="Time zone"
+							onChange={(e) => setTimeZone(e.target.value)}
+						>
+							{timezones.map((tz) => {
+								return <MenuItem key={tz.tzCode} value={tz.tzCode}>{tz.label}</MenuItem>
+							})}
+						</Select>
 					</div>
 				</Action>
 				{inModal ? (

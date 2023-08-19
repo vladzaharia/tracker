@@ -634,6 +634,7 @@ components:
       enum:
         - scuba
         - road
+        - other
     TripStartDate:
       type: string
       description: Start date of this trip.

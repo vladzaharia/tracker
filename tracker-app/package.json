@@ -66,6 +66,7 @@
 		"react-oidc-context": "^2.2.2",
 		"react-map-gl": "^7.1.3",
 		"react-router-dom": "^6.14.0",
+		"timezones-list": "^3.0.2",
 		"use-local-storage": "^3.0.0",
 		"use-prefers-color-scheme": "^1.1.3",
 		"use-session-storage-state": "^18.2.0"
