@@ -12,12 +12,18 @@ import { Trip } from './pages/trip/trip'
 import GetTripGeoJSONLoader from './loaders/geojson'
 import { TripMap } from './pages/trip/map/map'
 import { AuthProvider, AuthProviderProps } from 'react-oidc-context'
+import Admin from './pages/admin/admin'
+import AdminDatabase from './pages/admin/database/database'
+import AdminHome from './pages/admin/home/home'
+import DatabaseLoader from './loaders/database'
+import TripListAdmin from './pages/admin/trip-list/trip-list'
+import TripAdmin from './pages/admin/trip/trip-admin'
 
 const oidcConfig: AuthProviderProps = {
 	authority: 'https://auth.zhr.one/application/o/trip-tracker/',
 	client_id: '9FbtspzZkyBQfCUCCtZbj38eKrMRFn26cwpu2D3C',
 	redirect_uri: `${window.location.protocol}//${window.location.host}${window.location.pathname}`,
-	scope: 'openid profile',
+	scope: 'openid profile tracker',
 	onSigninCallback: () => {
 		window.history.replaceState({}, document.title, window.location.pathname)
 	},
@@ -57,6 +63,35 @@ const router = createBrowserRouter([
 						id: 'trip-map',
 						loader: GetTripGeoJSONLoader,
 						element: <TripMap />,
+					},
+				],
+			},
+			{
+				path: 'admin',
+				element: <Admin />,
+				children: [
+					{
+						path: '',
+						id: 'admin-home',
+						element: <AdminHome />,
+					},
+					{
+						path: 'trip',
+						id: 'admin-trip-list',
+						loader: ListTripLoader,
+						element: <TripListAdmin />,
+					},
+					{
+						path: 'trip/:trip',
+						id: 'admin-trip',
+						loader: GetTripLoader,
+						element: <TripAdmin />,
+					},
+					{
+						path: 'database',
+						id: 'admin-database',
+						loader: DatabaseLoader,
+						element: <AdminDatabase />,
 					},
 				],
 			},

@@ -1,0 +1,46 @@
+.button-group .button {
+	border-radius: 0;
+	margin: 0;
+}
+
+.button-group .button:first-child {
+	border-radius: 0.3rem 0 0 0.3rem;
+}
+
+.button-group .button:last-child {
+	border-radius: 0 0.3rem 0.3rem 0;
+}
+
+.trip-edit-date-picker input {
+	padding: 0;
+}
+
+.trip-edit-date-picker .MuiOutlinedInput-root {
+	outline: 1px solid var(--border);
+}
+
+.trip-edit-date-picker .MuiIconButton-root {
+	color: var(--foreground);
+}
+
+.trip-edit .input-wrapper input {
+	width: 15.75rem;
+}
+
+.trip-edit :not(.action-button) .button {
+	padding: 1.25rem;
+}
+
+.trip-edit .timezone-select {
+	outline: 1px solid var(--border);
+	color: var(--foreground);
+}
+
+.trip-edit .timezone-select #timezone {
+	padding: 0.75rem;
+	padding-right: 2rem;
+}
+
+.trip-edit .timezone-select svg {
+	color: var(--foreground);
+}

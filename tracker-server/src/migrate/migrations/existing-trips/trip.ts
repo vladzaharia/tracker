@@ -1,10 +1,10 @@
 import moment from 'moment'
-import { TRIP_BAHAMAS_2022 } from '../trips/bahamas_2022'
-import { TRIP_BAHAMAS_2024 } from '../trips/bahamas_2024'
-import { TRIP_MEXICO } from '../trips/mexico'
-import { TRIP_PHILIPPINES } from '../trips/philippines'
-import { TRIP_ROAD_TRIP } from '../trips/road_trip'
-import { AllTrips, Trip } from '../trips/types'
+import { TRIP_BAHAMAS_2022 } from './bahamas_2022'
+import { TRIP_BAHAMAS_2024 } from './bahamas_2024'
+import { TRIP_MEXICO } from './mexico'
+import { TRIP_PHILIPPINES } from './philippines'
+import { TRIP_ROAD_TRIP } from './road_trip'
+import { Trip } from '../../../types'
 
 const testTrip: Trip = {
 	name: 'Test Trip',
@@ -16,7 +16,7 @@ const testTrip: Trip = {
 	type: 'road',
 }
 
-export const getTrips = (env?: string) => {
+export const getExistingTrips = (env?: string) => {
 	const baseTrips = [TRIP_MEXICO, TRIP_BAHAMAS_2022, TRIP_BAHAMAS_2024, TRIP_ROAD_TRIP, TRIP_PHILIPPINES]
 
 	if (env === 'local') {
@@ -27,7 +27,7 @@ export const getTrips = (env?: string) => {
 }
 
 export const getCurrentTrip = (env?: string) => {
-	const allTrips = getTrips(env)
+	const allTrips = getExistingTrips(env)
 
 	const currentDate = moment(new Date())
 	const currentTrip = allTrips.filter((t) => moment(t.start_date) < currentDate && currentDate < moment(t.end_date))
@@ -35,7 +35,7 @@ export const getCurrentTrip = (env?: string) => {
 	return currentTrip[0]
 }
 
-export const getTrip = (tripName: AllTrips) => {
+export const getTrip = (tripName: string) => {
 	switch (tripName) {
 		case 'mexico':
 			return TRIP_MEXICO

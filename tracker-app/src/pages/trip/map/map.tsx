@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useLoaderData, useRouteLoaderData } from 'react-router-dom'
 import { Layer, Map, NavigationControl, Source, Popup, MapLayerMouseEvent, MapGeoJSONFeature } from 'react-map-gl'
-import { Trip as TripResponse } from 'tracker-server-client'
+import { Trip } from 'tracker-server-client'
 import { TripGeoJSON } from '../../../loaders/geojson'
 import useReload from '../../../hooks/reload'
 import { TripPosition } from '../../../components/trip-position/trip-position'
@@ -14,11 +14,11 @@ interface PopupInfo {
 	latitude: number
 	longitude: number
 	feature: MapGeoJSONFeature
-	trip: TripResponse
+	trip: Trip
 }
 
 export const TripMap = () => {
-	const trip = useRouteLoaderData('trip') as TripResponse
+	const trip = useRouteLoaderData('trip') as Trip
 	const tripJSON = useLoaderData() as TripGeoJSON
 	useReload(tripJSON, 5 * 60)
 	const [popupInfo, setPopupInfo] = useState<PopupInfo>()
@@ -48,7 +48,7 @@ export const TripMap = () => {
 					const velocityRegex = /(\d{1,3}\.\d{1}) km\/h/
 					const velocityMatch = point.properties.Velocity.match(velocityRegex)
 
-					const pseudoTrip: TripResponse = {
+					const pseudoTrip: Trip = {
 						...trip,
 						status: {
 							activity: trip.status.activity,

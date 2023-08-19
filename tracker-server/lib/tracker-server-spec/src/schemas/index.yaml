@@ -41,11 +41,11 @@ paths:
                   upcoming:
                     type: array
                     items:
-                      $ref: '#/components/schemas/BasicTrip'
+                      $ref: '#/components/schemas/Trip'
                   past:
                     type: array
                     items:
-                      $ref: '#/components/schemas/BasicTrip'
+                      $ref: '#/components/schemas/Trip'
                   current:
                     $ref: '#/components/schemas/Trip'
                 required:
@@ -74,6 +74,85 @@ paths:
           $ref: '#/components/responses/TripNotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+    post:
+      summary: Add trip
+      description: Add a trip.
+      operationId: addTrip
+      tags:
+        - Tracker
+        - Trip
+        - Admin
+      security:
+        - JWTAuth: []
+      parameters:
+        - $ref: '#/components/parameters/TripName'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddTripBody'
+      responses:
+        200:
+          $ref: '#/components/responses/Success'
+        400:
+          $ref: '#/components/responses/TripExists'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+    patch:
+      summary: Update trip
+      description: Update a trip.
+      operationId: updateTrip
+      tags:
+        - Tracker
+        - Trip
+        - Admin
+      security:
+        - JWTAuth: []
+      parameters:
+        - $ref: '#/components/parameters/TripName'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTripBody'
+      responses:
+        200:
+          $ref: '#/components/responses/Success'
+        400:
+          description: Missing an input.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Message for this error.
+                    example: Must set at least one property!
+        404:
+          $ref: '#/components/responses/TripNotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+    delete:
+      summary: Delete trip
+      description: Delete a trip.
+      operationId: deleteTrip
+      tags:
+        - Tracker
+        - Trip
+        - Admin
+      security:
+        - JWTAuth: []
+      parameters:
+        - $ref: '#/components/parameters/TripName'
+      responses:
+        200:
+          $ref: '#/components/responses/Success'
+        404:
+          $ref: '#/components/responses/TripNotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+
   /trip/{trip}/geojson/points:
     get:
       summary: Get points GeoJSON
@@ -166,7 +245,116 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
 
+  /db:
+    get:
+      summary: Get database info
+      description: |
+        Get information about the database and available and applied migrations.
+      operationId: getDatabase
+      tags:
+        - Database
+        - Info
+      responses:
+        200:
+          description: Database information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  binding:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        description: Type of database used
+                        example: D1
+                      database:
+                        type: string
+                        description: Name of database used
+                        example: tracker-local
+                  migrations:
+                    type: object
+                    properties:
+                      current:
+                        $ref: '#/components/schemas/Migration'
+                      applied:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Migration'
+                      available:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/AvailableMigration'
+                    required:
+                      - current
+                      - applied
+                      - available
+        400:
+          $ref: '#/components/responses/NoMigrationsToApply'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+
+  /db/migrate:
+    put:
+      summary: Migrate database
+      description: |
+        Migrates database from current version to newest available one.
+      operationId: migrateDatabase
+      tags:
+        - Admin
+        - Database
+      security:
+        - JWTAuth: []
+      responses:
+        200:
+          $ref: '#/components/responses/MigrationResult'
+        400:
+          $ref: '#/components/responses/NoMigrationsToApply'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /db/rollback:
+    put:
+      summary: Rollback migration
+      description: |
+        Rolls back most recently applied migration.
+      operationId: rollbackDatabase
+      tags:
+        - Admin
+        - Database
+      security:
+        - JWTAuth: []
+      responses:
+        200:
+          $ref: '#/components/responses/MigrationResult'
+        400:
+          $ref: '#/components/responses/NoMigrationsToRollback'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /db/reset:
+    put:
+      summary: Reset database
+      description: |
+        Drops all tables in database
+      operationId: resetDatabase
+      tags:
+        - Admin
+        - Database
+      security:
+        - JWTAuth: []
+      responses:
+        200:
+          $ref: '#/components/responses/Success'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+
 components:
+  securitySchemes:
+    JWTAuth:
+      type: http
+      scheme: bearer
+      description: Authentication with JWT generated by zhr.one auth
+
   parameters:
     TripName:
       name: trip
@@ -205,7 +393,7 @@ components:
             required:
               - message
     TripNotFound:
-      description: Could not find room.
+      description: Could not find trip.
       content:
         application/json:
           schema:
@@ -215,6 +403,19 @@ components:
                 type: string
                 description: Message for this error.
                 example: Trip not found!
+            required:
+              - message
+    TripExists:
+      description: Trip already exists.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Message for this error.
+                example: Trip already exists!
             required:
               - message
     NoCurrentTrip:
@@ -230,6 +431,51 @@ components:
                 example: You can only do this during a current trip!
             required:
               - message
+    NoMigrationsToApply:
+      description: No migrations available to apply.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Message for this error.
+                example: No migrations to apply!
+            required:
+              - message
+    NoMigrationsToRollback:
+      description: No migrations available to roll back.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Message for this roll back.
+                example: No migrations to apply!
+            required:
+              - message
+    MigrationResult:
+      description: Migration(s) applied or rolled back successfully.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Message for this operation.
+                example: Migrations applied successfully!
+              oldVersion:
+                $ref: '#/components/schemas/MigrationVersion'
+              newVersion:
+                $ref: '#/components/schemas/MigrationVersion'
+            required:
+              - message
+              - oldVersion
+              - newVersion
 
   schemas:
     BasicTrip:
@@ -324,6 +570,10 @@ components:
           required:
             - activity
             - position
+        total_points:
+          type: number
+          description: Total number of points for this trip.
+          example: 1234
       required:
         - name
         - id
@@ -333,6 +583,44 @@ components:
         - end_date
         - time_zone
         - status
+        - total_points
+    AddTripBody:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/TripName'
+        emoji:
+          $ref: '#/components/schemas/TripEmoji'
+        type:
+          $ref: '#/components/schemas/TripType'
+        start_date:
+          $ref: '#/components/schemas/TripStartDateTimestamp'
+        end_date:
+          $ref: '#/components/schemas/TripEndDateTimestamp'
+        time_zone:
+          $ref: '#/components/schemas/TripTimeZone'
+      required:
+        - name
+        - emoji
+        - type
+        - start_date
+        - end_date
+        - time_zone
+    UpdateTripBody:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/TripName'
+        emoji:
+          $ref: '#/components/schemas/TripEmoji'
+        type:
+          $ref: '#/components/schemas/TripType'
+        start_date:
+          $ref: '#/components/schemas/TripStartDateTimestamp'
+        end_date:
+          $ref: '#/components/schemas/TripEndDateTimestamp'
+        time_zone:
+          $ref: '#/components/schemas/TripTimeZone'
     TripName:
       description: Name of a trip.
       type: string
@@ -351,6 +639,7 @@ components:
       enum:
         - scuba
         - road
+        - other
     TripStartDate:
       type: string
       description: Start date of this trip.
@@ -361,7 +650,54 @@ components:
       description: End date of this trip.
       format: date-time
       example: 2021-10-16T06:59:59.000Z
+    TripStartDateTimestamp:
+      type: number
+      description: Start date of this trip, as unix timestamp.
+      example: 1692422871
+    TripEndDateTimestamp:
+      type: number
+      description: End date of this trip, as unix timestamp.
+      example: 1692422871
     TripTimeZone:
       type: string
       description: IANA time zone for this trip.
       example: America/Los_Angeles
+    MigrationVersion:
+      type: number
+      description: Database schema version associated with a migration
+      example: 0
+    MigrationName:
+      type: string
+      description: Name of a migration
+      example: initial-migration
+    AvailableMigration:
+      type: object
+      description: An available database schema migration
+      properties:
+        version:
+          $ref: '#/components/schemas/MigrationVersion'
+        name:
+          $ref: '#/components/schemas/MigrationName'
+      required:
+        - version
+        - name
+    Migration:
+      type: object
+      description: A database schema migration
+      properties:
+        version:
+          $ref: '#/components/schemas/MigrationVersion'
+        name:
+          $ref: '#/components/schemas/MigrationName'
+        applied:
+          type: number
+          description: Timestamp when this migration was applied
+          example: 1689500974682
+        rolledBack:
+          type: number
+          description: Timestamp when this migration was rolled back
+          example: 1689500982905
+      required:
+        - version
+        - name
+        - applied

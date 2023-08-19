@@ -3,3 +3,8 @@ export type CommonColor = 'primary' | 'blue' | 'green' | 'red' | 'orange' | 'pur
 export type ApiType = 'gm' | 'admin'
 
 export type Theme = 'light' | 'dark' | undefined
+
+export interface OpenIDScopeProps {
+	user: boolean
+	admin: boolean
+}
