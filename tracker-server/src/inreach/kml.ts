@@ -1,12 +1,16 @@
-import { getTrip } from '../migrate/migrations/existing-trips/trip'
-import { AllTrips } from '../migrate/migrations/existing-trips/types'
+import { Bindings } from '../bindings'
+import { findTrip } from '../tables/trip'
 
 const KML_URL = 'https://share.garmin.com/Feed/Share/mynameisvlad' // ?d1=2021-09-01T00:00:00&d2=2023-07-24T00:00:00
 
-export const getTripKML = async (trip: AllTrips) => {
-	const tripDetails = getTrip(trip)
+export const getTripKML = async (env: Bindings, trip: string) => {
+	const tripDetails = await findTrip(env.D1DATABASE, trip)
 
-	return getKML(tripDetails.start_date, tripDetails.end_date)
+	if (!tripDetails) {
+		throw new Error('Trip not found!')
+	}
+
+	return getKML(new Date(tripDetails.start_date * 1000), new Date(tripDetails.end_date * 1000))
 }
 
 const getKML = async (startDate?: Date, endDate?: Date) => {

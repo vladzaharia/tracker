@@ -1,12 +1,11 @@
 import { Context } from 'hono'
-import { getTrip } from '../../../migrate/migrations/existing-trips/trip'
-import { AllTrips } from '../../../migrate/migrations/existing-trips/types'
 import { Bindings } from '../../../bindings'
+import { findTrip } from '../../../tables/trip'
 
 export const GetTripGeoJSONPoints = async (c: Context<{ Bindings: Bindings }>) => {
 	const { trip } = c.req.param()
 
-	const tripDetails = getTrip(trip as AllTrips)
+	const tripDetails = await findTrip(c.env.D1DATABASE, trip)
 
 	if (!tripDetails) {
 		return c.json({ message: 'Trip not found!' }, 404)

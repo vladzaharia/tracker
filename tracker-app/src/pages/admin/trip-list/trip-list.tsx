@@ -6,9 +6,9 @@ import { faPlus, faTextSize, faTrash, faXmark, faGlobeAmericas } from '@fortawes
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Table from '../../../components/table/table'
 import { useState } from 'react'
-// import { createAdminApi } from '../../../api'
-// import { useAuth } from 'react-oidc-context'
-// import { useNotificationAwareRequest } from '../../../hooks/notification'
+import { createAdminApi } from '../../../api'
+import { useAuth } from 'react-oidc-context'
+import { useNotificationAwareRequest } from '../../../hooks/notification'
 import Modal, { ConfirmModal } from '../../../components/modal/modal'
 import useReload from '../../../hooks/reload'
 import { BasicTrip, ListTrips200Response } from 'tracker-server-client'
@@ -18,23 +18,24 @@ export default function TripListAdmin() {
 	const trips = useLoaderData() as ListTrips200Response
 	useReload(trips)
 	const navigate = useNavigate()
-	// const auth = useAuth()
-	// const request = useNotificationAwareRequest()
+	const auth = useAuth()
+	const api = createAdminApi(auth.user?.access_token || '')
+	const request = useNotificationAwareRequest()
 	const [deleteModalTripId, setDeleteModalTripId] = useState<string | undefined>()
 	const [showCreateModal, setShowCreateModal] = useState<boolean>(false)
 
 	// const api = createAdminApi(auth.user?.access_token || '')
 	const deleteTrip = async (id: string) => {
-		// await request(
-		// 	async () => await api.deleteTrip(wordListName),
-		// 	{
-		// 		message: `${wordListName} deleted successfully!`,
-		// 		source: 'wordlist',
-		// 		icon: faTrash,
-		// 	},
-		// 	() => setDeleteModalTripId(undefined),
-		// 	() => setDeleteModalTripId(undefined)
-		// )
+		await request(
+			async () => await api.deleteTrip(id),
+			{
+				message: `Trip ${id} deleted successfully!`,
+				source: 'trip',
+				icon: faTrash,
+			},
+			() => setDeleteModalTripId(undefined),
+			() => setDeleteModalTripId(undefined)
+		)
 	}
 
 	let allTrips: BasicTrip[] = trips.current ? [trips.current] : []
@@ -109,13 +110,14 @@ export default function TripListAdmin() {
 				onConfirm={() => deleteTrip(deleteModalTripId!)}
 				onClose={() => setDeleteModalTripId(undefined)}
 			/>
+
 			<Modal className="create-modal" open={showCreateModal} onClose={() => setShowCreateModal(false)}>
 				<>
 					<Header
 						className="corner-left-05 corner-right-05"
 						title={
 							<>
-								<FontAwesomeIcon className="mr-05" icon={faTextSize} /> Add word list
+								<FontAwesomeIcon className="mr-05" icon={faTextSize} /> Add trip
 							</>
 						}
 						rightActions={

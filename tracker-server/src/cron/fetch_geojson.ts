@@ -11,7 +11,7 @@ export const FetchGeoJSON = async (env: Bindings) => {
 	for (const trip of allTrips) {
 		if (moment(trip.end_date).add(moment.duration(1, 'week')) > moment()) {
 			try {
-				const tripKML = await getTripKML(trip.id)
+				const tripKML = await getTripKML(env, trip.id)
 				const tripKMLString = await tripKML.text()
 				const geojson = kml(new DOMParser().parseFromString(tripKMLString))
 

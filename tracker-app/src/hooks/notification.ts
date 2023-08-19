@@ -4,19 +4,7 @@ import { isAxiosError } from 'axios'
 import { faCheck } from '@fortawesome/pro-solid-svg-icons'
 import { useRevalidator } from 'react-router-dom'
 
-export type NotificationSource =
-	| 'join'
-	| 'leave'
-	| 'gm-start'
-	| 'gm-reset'
-	| 'room'
-	| 'room-create'
-	| 'player'
-	| 'wordlist'
-	| 'eliminate'
-	| 'db-reset'
-	| 'db-migrate'
-	| 'db-rollback'
+export type NotificationSource = 'trip' | 'db-reset' | 'db-migrate' | 'db-rollback'
 export type NotificationType = 'success' | 'failed' | 'warning'
 
 export interface NotificationDetails {
