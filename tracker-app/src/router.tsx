@@ -44,7 +44,6 @@ const router = createBrowserRouter([
 				</ContentBox>
 			</App>
 		),
-		loader: ListTripLoader,
 		children: [
 			{
 				path: '/',
