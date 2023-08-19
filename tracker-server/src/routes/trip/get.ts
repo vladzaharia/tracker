@@ -31,7 +31,7 @@ export const GetTrip = async (c: Context<{ Bindings: Bindings }>) => {
 
 	return c.json(
 		{
-			...(await ConvertTrip(c, tripDetails)),
+			...(await ConvertTrip(c, tripDetails, true)),
 		} as GetTripResponse,
 		200
 	)

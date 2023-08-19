@@ -46,7 +46,7 @@ export async function insertTrip(db: D1Database, trip: TripTable) {
 	return await getKyselyDb(db).insertInto('trip').values(trip).execute()
 }
 
-export async function updateTrip(db: D1Database, id: string, trip: Partial<TripTable>) {
+export async function updateTrip(db: D1Database, id: string, trip: Partial<Omit<TripTable, 'id'>>) {
 	return await getKyselyDb(db).updateTable('trip').set(trip).where('id', '=', id).execute()
 }
 

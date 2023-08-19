@@ -5,7 +5,7 @@ import { VelocityRegex, GetActivity } from '../../util/activity'
 import moment from 'moment'
 import { TripTable } from '../../tables/db'
 
-export const ConvertTrip = async (c: Context<{ Bindings: Bindings }>, trip: TripTable) => {
+export const ConvertTrip = async (c: Context<{ Bindings: Bindings }>, trip: TripTable, addStatus = false) => {
 	const convertedTrip: Trip = {
 		...trip,
 		start_date: moment(trip.start_date).toDate(),
@@ -14,7 +14,7 @@ export const ConvertTrip = async (c: Context<{ Bindings: Bindings }>, trip: Trip
 
 	return {
 		...convertedTrip,
-		...(await GetTripStatus(c, convertedTrip)),
+		...(addStatus ? await GetTripStatus(c, convertedTrip) : []),
 	}
 }
 
