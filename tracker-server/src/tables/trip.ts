@@ -42,6 +42,14 @@ export async function findTrip(db: D1Database, id: string) {
 	return await getKyselyDb(db).selectFrom('trip').selectAll().where('id', '=', id).executeTakeFirst()
 }
 
+export async function listTripsForTimestamp(db: D1Database, timestamp: number) {
+	return await getKyselyDb(db)
+		.selectFrom('trip')
+		.selectAll()
+		.where(({ and, cmpr }) => and([cmpr('start_date', '<', timestamp), cmpr('end_date', '>', timestamp)]))
+		.execute()
+}
+
 export async function insertTrip(db: D1Database, trip: TripTable) {
 	return await getKyselyDb(db).insertInto('trip').values(trip).execute()
 }

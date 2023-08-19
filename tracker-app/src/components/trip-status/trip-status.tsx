@@ -135,7 +135,6 @@ export const TripStatus = ({ trip: tripProp }: { trip?: Trip }) => {
 }
 
 const getArrowIcon = (course: number) => {
-	console.log(course)
 	if (course < 22.5 || course >= 337.5) {
 		return faUp
 	} else if (course < 67.5 && course >= 22.5) {

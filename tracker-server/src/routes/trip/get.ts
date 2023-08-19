@@ -3,9 +3,10 @@ import { Bindings } from '../../bindings'
 import { Activity } from '../../util/activity'
 import { Trip } from '../../types'
 import { findTrip } from '../../tables/trip'
-import { ConvertTrip, GetTripStatus } from './util'
+import { ConvertTrip, GetTripStatus, GetTripWaypoints } from './util'
+import { WaypointTable } from '../../tables/db'
 
-interface GetTripResponse extends Trip, GetTripStatus {}
+interface GetTripResponse extends Trip, GetTripStatus, TripWaypoints {}
 
 interface GetTripStatus {
 	status: {
@@ -20,6 +21,10 @@ interface GetTripStatus {
 	}
 }
 
+interface TripWaypoints {
+	waypoints?: WaypointTable[]
+}
+
 export const GetTrip = async (c: Context<{ Bindings: Bindings }>) => {
 	const { trip } = c.req.param()
 
@@ -29,11 +34,9 @@ export const GetTrip = async (c: Context<{ Bindings: Bindings }>) => {
 		return c.json({ message: 'Trip not found!' }, 404)
 	}
 
-	console.log(`startDate ${tripDetails.start_date}`)
-	console.log(`endDate ${tripDetails.end_date}`)
-
 	return c.json(
 		{
+			...(await GetTripWaypoints(c, tripDetails)),
 			...(await ConvertTrip(c, tripDetails)),
 		} as GetTripResponse,
 		200

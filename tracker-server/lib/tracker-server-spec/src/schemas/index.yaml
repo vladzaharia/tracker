@@ -574,6 +574,10 @@ components:
           type: number
           description: Total number of points for this trip.
           example: 1234
+        total_waypoints:
+          type: number
+          description: Total number of waypoints for this trip.
+          example: 1234
       required:
         - name
         - id
@@ -584,6 +588,7 @@ components:
         - time_zone
         - status
         - total_points
+        - total_waypoints
     AddTripBody:
       type: object
       properties:

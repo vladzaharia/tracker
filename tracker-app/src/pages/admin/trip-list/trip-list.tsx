@@ -12,7 +12,6 @@ import { useNotificationAwareRequest } from '../../../hooks/notification'
 import Modal, { ConfirmModal } from '../../../components/modal/modal'
 import useReload from '../../../hooks/reload'
 import { ListTrips200Response, Trip, TripType } from 'tracker-server-client'
-import moment from 'moment'
 import { TripEdit } from '../../../components/trip-edit/trip-edit'
 
 export default function TripListAdmin() {
@@ -61,10 +60,6 @@ export default function TripListAdmin() {
 		}
 	}
 
-	const getTripStatus = (start_date: string, end_date: string) => {
-		return moment().isBetween(start_date, end_date) ? 'Current' : moment().isBefore(start_date) ? 'Upcoming' : 'Past'
-	}
-
 	let allTrips: Trip[] = trips.current ? [trips.current] : []
 	allTrips = [...trips.upcoming, ...allTrips, ...trips.past]
 
@@ -82,8 +77,8 @@ export default function TripListAdmin() {
 				headers={[
 					{ element: 'Trip name' },
 					{ element: 'Type', className: 'no-mobile' },
-					{ element: 'Status', className: 'show-mobile' },
-					{ element: 'Points', className: 'no-mobile' },
+					{ element: 'Tracking Points', className: 'no-mobile' },
+					{ element: 'Waypoints', className: 'no-mobile' },
 					{
 						element: (
 							<div className="buttons">
@@ -111,8 +106,8 @@ export default function TripListAdmin() {
 								),
 								className: 'show-mobile',
 							},
-							{ element: getTripStatus(trip.start_date, trip.end_date) },
 							{ element: trip.total_points.toString() },
+							{ element: trip.total_waypoints.toString() },
 							{
 								element: (
 									<div className="buttons">
