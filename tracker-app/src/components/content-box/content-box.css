@@ -17,6 +17,13 @@
 	-webkit-backdrop-filter: blur(0);
 }
 
+.content-box:has(.admin-content) {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+
 @media only screen and (max-width: 50rem) {
 	.content-box {
 		width: 100%;

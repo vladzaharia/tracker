@@ -1,0 +1,9 @@
+.database-binding {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.migration-icon {
+	width: 1rem;
+}

@@ -18,7 +18,7 @@ export const DbInfo = async (c: Context<{ Bindings: Bindings }>) => {
 		return c.json({
 			binding: {
 				type: 'Cloudflare D1',
-				database: env === 'live' ? 'assassin' : `assassin-${env}`,
+				database: env === 'live' ? 'tracker' : `tracker-${env}`,
 			},
 			migrations: {
 				current: migration,

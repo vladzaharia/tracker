@@ -166,6 +166,110 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
 
+  /db:
+    get:
+      summary: Get database info
+      description: |
+        Get information about the database and available and applied migrations.
+      operationId: getDatabase
+      tags:
+        - Database
+        - Info
+      responses:
+        200:
+          description: Database information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  binding:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        description: Type of database used
+                        example: D1
+                      database:
+                        type: string
+                        description: Name of database used
+                        example: tracker-local
+                  migrations:
+                    type: object
+                    properties:
+                      current:
+                        $ref: '#/components/schemas/Migration'
+                      applied:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Migration'
+                      available:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/AvailableMigration'
+                    required:
+                      - current
+                      - applied
+                      - available
+        400:
+          $ref: '#/components/responses/NoMigrationsToApply'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+
+  /db/migrate:
+    put:
+      summary: Migrate database
+      description: |
+        Migrates database from current version to newest available one.
+      operationId: migrateDatabase
+      tags:
+        - Admin
+        - Database
+      security:
+        - JWTAuth: []
+      responses:
+        200:
+          $ref: '#/components/responses/MigrationResult'
+        400:
+          $ref: '#/components/responses/NoMigrationsToApply'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /db/rollback:
+    put:
+      summary: Rollback migration
+      description: |
+        Rolls back most recently applied migration.
+      operationId: rollbackDatabase
+      tags:
+        - Admin
+        - Database
+      security:
+        - JWTAuth: []
+      responses:
+        200:
+          $ref: '#/components/responses/MigrationResult'
+        400:
+          $ref: '#/components/responses/NoMigrationsToRollback'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /db/reset:
+    put:
+      summary: Reset database
+      description: |
+        Drops all tables in database
+      operationId: resetDatabase
+      tags:
+        - Admin
+        - Database
+      security:
+        - JWTAuth: []
+      responses:
+        200:
+          $ref: '#/components/responses/Success'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+
+
 components:
   parameters:
     TripName:
@@ -230,6 +334,51 @@ components:
                 example: You can only do this during a current trip!
             required:
               - message
+    NoMigrationsToApply:
+      description: No migrations available to apply.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Message for this error.
+                example: No migrations to apply!
+            required:
+              - message
+    NoMigrationsToRollback:
+      description: No migrations available to roll back.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Message for this roll back.
+                example: No migrations to apply!
+            required:
+              - message
+    MigrationResult:
+      description: Migration(s) applied or rolled back successfully.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Message for this operation.
+                example: Migrations applied successfully!
+              oldVersion:
+                $ref: '#/components/schemas/MigrationVersion'
+              newVersion:
+                $ref: '#/components/schemas/MigrationVersion'
+            required:
+              - message
+              - oldVersion
+              - newVersion
 
   schemas:
     BasicTrip:
@@ -365,3 +514,42 @@ components:
       type: string
       description: IANA time zone for this trip.
       example: America/Los_Angeles
+    MigrationVersion:
+      type: number
+      description: Database schema version associated with a migration
+      example: 0
+    MigrationName:
+      type: string
+      description: Name of a migration
+      example: initial-migration
+    AvailableMigration:
+      type: object
+      description: An available database schema migration
+      properties:
+        version:
+          $ref: '#/components/schemas/MigrationVersion'
+        name:
+          $ref: '#/components/schemas/MigrationName'
+      required:
+        - version
+        - name
+    Migration:
+      type: object
+      description: A database schema migration
+      properties:
+        version:
+          $ref: '#/components/schemas/MigrationVersion'
+        name:
+          $ref: '#/components/schemas/MigrationName'
+        applied:
+          type: number
+          description: Timestamp when this migration was applied
+          example: 1689500974682
+        rolledBack:
+          type: number
+          description: Timestamp when this migration was rolled back
+          example: 1689500982905
+      required:
+        - version
+        - name
+        - applied

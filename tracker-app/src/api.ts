@@ -1,4 +1,4 @@
-import { ActionApi, Configuration, ConfigurationParameters, TrackerApi } from 'tracker-server-client'
+import { ActionApi, Configuration, ConfigurationParameters, DatabaseApi, InfoApi, TrackerApi } from 'tracker-server-client'
 
 export const getApiConfig = (parameters: Omit<ConfigurationParameters, 'basePath'> = {}) => {
 	return new Configuration({
@@ -13,4 +13,12 @@ export const createTrackerApi = () => {
 
 export const createActionApi = () => {
 	return new ActionApi(getApiConfig())
+}
+
+export const createInfoApi = () => {
+	return new InfoApi(getApiConfig())
+}
+
+export const createDatabaseApi = (accessToken: string) => {
+	return new DatabaseApi(getApiConfig({ accessToken }))
 }

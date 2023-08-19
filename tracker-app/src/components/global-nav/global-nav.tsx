@@ -40,7 +40,7 @@ export default function GlobalNav() {
 							: undefined
 					}
 				/>
-				{(auth.user?.profile.assassin as OpenIDScopeProps)?.admin ? (
+				{(auth.user?.profile.tracker as OpenIDScopeProps)?.admin ? (
 					<Button
 						className="admin"
 						color={'blue'}
