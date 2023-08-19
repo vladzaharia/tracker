@@ -119,8 +119,8 @@ export const Trip = () => {
 								<Action className="column" text="Message" description={`${messageText.length}/160`}>
 									<textarea className="green" value={messageText} maxLength={160} onChange={(e) => setMessageText(e.currentTarget.value)} />
 								</Action>
-								<Action>
-									<Button color="green" iconProps={{ icon: faPaperPlaneTop }} text="Create" onClick={onSendMessage} />
+								<Action className="action-button">
+									<Button color="green" iconProps={{ icon: faPaperPlaneTop }} text="Send" onClick={onSendMessage} />
 								</Action>
 							</>
 						</Modal>

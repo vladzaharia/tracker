@@ -58,6 +58,10 @@
 	padding-bottom: 1.5rem;
 }
 
+.modal .warning-text {
+	text-align: center;
+}
+
 @media only screen and (max-width: 87.5rem) {
 	.modal.MuiModal-root {
 		min-width: 50vw;
@@ -73,7 +77,31 @@
 @media only screen and (max-width: 50rem) {
 	.modal.MuiModal-root {
 		min-width: 90vw;
-		max-height: 75vh;
-		top: 20%;
+		max-height: 85vh;
+		top: 10%;
+	}
+
+	.modal .warning-text {
+		padding: 1rem;
+	}
+
+	.modal .action {
+		flex-direction: column;
+		text-align: center;
+		gap: 1rem;
+	}
+
+	.modal .action .input-wrapper {
+		width: 100%;
+		display: flex;
+		justify-content: stretch;
+	}
+
+	.modal .action .input-wrapper input {
+		width: 100%;
+	}
+
+	.modal .action-button {
+		gap: 0;
 	}
 }

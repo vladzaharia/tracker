@@ -108,7 +108,7 @@ export function CreateModal({
 						<input type="text" value={inputText} onChange={(e) => setInputText(e.currentTarget.value)} />
 					</div>
 				</Action>
-				<Action>
+				<Action className="action-button">
 					<Button color="green" iconProps={{ icon: faPlus }} text="Create" onClick={onCreate} />
 				</Action>
 			</>
