@@ -1,3 +1,5 @@
+import { TripType } from "../tables/db"
+
 export interface Trip {
 	name: string
 	id: AllTrips
@@ -7,7 +9,5 @@ export interface Trip {
 	end_date: Date
 	time_zone: string
 }
-
-export type TripType = 'scuba' | 'road'
 
 export type AllTrips = 'mexico' | 'bahamas-2022' | 'bahamas-2024' | 'road-trip' | 'philippines' | 'test'
