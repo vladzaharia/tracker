@@ -29,6 +29,10 @@ export const GetTrip = async (c: Context<{ Bindings: Bindings }>) => {
 		return c.json({ message: 'Trip not found!' }, 404)
 	}
 
+	console.log(`startDate ${tripDetails.start_date}`)
+	console.log(`endDate ${tripDetails.end_date}`)
+
+
 	return c.json(
 		{
 			...(await ConvertTrip(c, tripDetails, true)),

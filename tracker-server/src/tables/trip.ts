@@ -13,7 +13,7 @@ export async function listTrips(db: D1Database) {
 export async function listUpcomingTrips(db: D1Database) {
 	return await getKyselyDb(db)
 		.selectFrom('trip')
-		.where('end_date', '>', new Date().getTime())
+		.where('start_date', '>', new Date().getTime())
 		.selectAll()
 		.orderBy('start_date', 'asc')
 		.execute()
@@ -34,7 +34,7 @@ export async function findCurrentTrip(db: D1Database) {
 	return await getKyselyDb(db)
 		.selectFrom('trip')
 		.selectAll()
-		.where(({ and, cmpr }) => and([cmpr('start_date', '>', currentDate), cmpr('end_date', '<', currentDate)]))
+		.where(({ and, cmpr }) => and([cmpr('start_date', '<', currentDate), cmpr('end_date', '>', currentDate)]))
 		.executeTakeFirst()
 }
 
