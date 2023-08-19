@@ -16,6 +16,7 @@ import { RollbackDb } from './routes/db/rollback'
 import { AddTrip } from './routes/trip/add'
 import { UpdateTrip } from './routes/trip/update'
 import { DeleteTrip } from './routes/trip/delete'
+import { AuthMiddleware } from './auth/auth'
 
 const app = new Hono<{ Bindings: Bindings }>()
 
@@ -27,6 +28,10 @@ app.use(
 		origin: '*',
 	})
 )
+
+// JWT Authentication for specific paths
+app.use('/api/*', AuthMiddleware)
+// #endregion
 
 // Simple Ok response
 app.get('/api', Info)
