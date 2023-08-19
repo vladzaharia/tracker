@@ -29,7 +29,7 @@ d1_databases = [
 [env.staging]
 route = { pattern = "staging.track.vlad.gg", custom_domain = true }
 vars = { ENVIRONMENT = "staging", BASE_URL="https://staging.track.vlad.gg" }
-triggers = { crons = ["0 0 * * *"] }
+triggers = { crons = ["*/10 * * * *"] }
 kv_namespaces = [
 		{ binding = "OPENID", id = "6f381b541a7841929e29028fbbcc4e8a", preview_id = "6f381b541a7841929e29028fbbcc4e8a" },
     { binding = "GEOJSON", id = "ab3868993a4d46f498712bb7e9c939d8", preview_id = "ab3868993a4d46f498712bb7e9c939d8" },
