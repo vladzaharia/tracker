@@ -19,5 +19,5 @@ jobs:
     uses: ./.github/workflows/shared-deploy.yml
     with:
       environment: staging
-      baseUrl: https://staging.tracker.vlad.gg
+      baseUrl: https://staging.track.vlad.gg
     secrets: inherit
