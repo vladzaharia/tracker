@@ -9,6 +9,10 @@ import { Bindings } from './bindings'
 import { GetTripGeoJSONPoints } from './routes/trip/geojson/points'
 import { GetTripGeoJSONTrack } from './routes/trip/geojson/track'
 import { SendMessage } from './routes/action/message'
+import { DbInfo } from './routes/db/info'
+import { MigrateDb } from './routes/db/migrate'
+import { ResetDb } from './routes/db/reset'
+import { RollbackDb } from './routes/db/rollback'
 
 const app = new Hono<{ Bindings: Bindings }>()
 
@@ -38,6 +42,12 @@ app.get('/api/trip/:trip/geojson/track', GetTripGeoJSONTrack)
 
 // Actions
 app.put('/api/action/message', SendMessage)
+
+// Database endpoints
+app.get('/api/db', DbInfo)
+app.put('/api/db/migrate', MigrateDb)
+app.put('/api/db/rollback', RollbackDb)
+app.put('/api/db/reset', ResetDb)
 
 // App
 app.get(
