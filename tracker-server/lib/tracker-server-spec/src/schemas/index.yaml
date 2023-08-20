@@ -140,6 +140,39 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
 
+  /trip/{trip}/geojson/points:
+    get:
+      summary: Get points GeoJSON
+      description: Get coordinates for a trip as GeoJSON.
+      operationId: getTripJSONPoints
+      tags:
+        - Trip
+      parameters:
+        - $ref: '#/components/parameters/TripId'
+      responses:
+        200:
+          description: Trip points, as GeoJSON
+        404:
+          $ref: '#/components/responses/TripNotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /trip/{trip}/geojson/track:
+    get:
+      summary: Get track GeoJSON
+      description: Get track for a trip as GeoJSON.
+      operationId: getTripJSONTrack
+      tags:
+        - Trip
+      parameters:
+        - $ref: '#/components/parameters/TripId'
+      responses:
+        200:
+          description: Trip track, as GeoJSON
+        404:
+          $ref: '#/components/responses/TripNotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+
   /waypoint:
     get:
       summary: List waypoints
@@ -185,6 +218,30 @@ paths:
           $ref: '#/components/responses/WaypointNotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+    post:
+      summary: Add waypoint
+      description: Add a waypoint.
+      operationId: addWaypoint
+      tags:
+        - Waypoint
+        - Admin
+      security:
+        - JWTAuth: []
+      parameters:
+        - $ref: '#/components/parameters/TripId'
+        - $ref: '#/components/parameters/WaypointTimestamp'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddWaypointBody'
+      responses:
+        200:
+          $ref: '#/components/responses/Success'
+        400:
+          $ref: '#/components/responses/WaypointExists'
+        500:
+          $ref: '#/components/responses/InternalServerError'
     patch:
       summary: Update waypoint
       description: Update a waypoint's information.
@@ -211,37 +268,23 @@ paths:
           $ref: '#/components/responses/WaypointNotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
-
-  /trip/{trip}/geojson/points:
-    get:
-      summary: Get points GeoJSON
-      description: Get coordinates for a trip as GeoJSON.
-      operationId: getTripJSONPoints
+    delete:
+      summary: Delete waypoint
+      description: Delete a waypoint.
+      operationId: deleteWaypoint
       tags:
-        - Trip
+        - Waypoint
+        - Admin
+      security:
+        - JWTAuth: []
       parameters:
         - $ref: '#/components/parameters/TripId'
+        - $ref: '#/components/parameters/WaypointTimestamp'
       responses:
         200:
-          description: Trip points, as GeoJSON
+          $ref: '#/components/responses/Success'
         404:
-          $ref: '#/components/responses/TripNotFound'
-        500:
-          $ref: '#/components/responses/InternalServerError'
-  /trip/{trip}/geojson/track:
-    get:
-      summary: Get track GeoJSON
-      description: Get track for a trip as GeoJSON.
-      operationId: getTripJSONTrack
-      tags:
-        - Trip
-      parameters:
-        - $ref: '#/components/parameters/TripId'
-      responses:
-        200:
-          description: Trip track, as GeoJSON
-        404:
-          $ref: '#/components/responses/TripNotFound'
+          $ref: '#/components/responses/WaypointNotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
 
@@ -504,6 +547,19 @@ components:
                 type: string
                 description: Message for this error.
                 example: You can only do this during a current trip!
+            required:
+              - message
+    WaypointExists:
+      description: Waypoint already exists.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Message for this error.
+                example: Waypoint already exists!
             required:
               - message
     WaypointNotFound:
@@ -811,15 +867,19 @@ components:
           $ref: '#/components/schemas/WaypointLongitude'
         timestamp:
           $ref: '#/components/schemas/WaypointTimestamp'
+        managed:
+          type: boolean
+          description: Whether this waypoint was imported from Garmin or user-defined.
+          example: true
       required:
         - trip_id
         - name
         - latitude
         - longitude
         - timestamp
-    UpdateWaypointBody:
+    AddWaypointBody:
       type: object
-      description: Editable fields on a waypoint
+      description: Parameters to send when adding waypoints
       properties:
         name:
           $ref: '#/components/schemas/WaypointName'
@@ -827,6 +887,28 @@ components:
           $ref: '#/components/schemas/WaypointIcon'
         color:
           $ref: '#/components/schemas/WaypointColor'
+        latitude:
+          $ref: '#/components/schemas/WaypointLatitude'
+        longitude:
+          $ref: '#/components/schemas/WaypointLongitude'
+      required:
+        - name
+        - latitude
+        - longitude
+    UpdateWaypointBody:
+      type: object
+      description: Editable fields on a waypoint. Can only set latitude/longitude on unmanaged waypoints.
+      properties:
+        name:
+          $ref: '#/components/schemas/WaypointName'
+        icon:
+          $ref: '#/components/schemas/WaypointIcon'
+        color:
+          $ref: '#/components/schemas/WaypointColor'
+        latitude:
+          $ref: '#/components/schemas/WaypointLatitude'
+        longitude:
+          $ref: '#/components/schemas/WaypointLongitude'
     MigrationVersion:
       type: number
       description: Database schema version associated with a migration

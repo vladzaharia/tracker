@@ -8,7 +8,7 @@ const WAYPOINT_URL = 'https://share.garmin.com/mynameisvlad/Waypoints/'
 export const getWaypoints = async (env: Bindings) => {
 	const waypoints = await getWaypointsFromGarmin()
 
-	const result: WaypointTable[] = []
+	const result: Omit<WaypointTable, 'managed'>[] = []
 
 	for (const wp of waypoints.Waypoints) {
 		const trips = await listTripsForTimestamp(env.D1DATABASE, moment(wp.C).unix() * 1000)
