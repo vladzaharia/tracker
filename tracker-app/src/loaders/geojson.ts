@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Params } from 'react-router-dom'
-import { createTrackerApi } from '../api'
+import { createTripApi } from '../api'
 
 export default async function GetTripGeoJSONLoader({ params }: { params: Params }) {
 	try {
-		const trackerApi = createTrackerApi()
+		const tripApi = createTripApi()
 
 		return {
-			points: (await trackerApi.getTripJSONPoints(params.trip || '')).data,
-			track: (await trackerApi.getTripJSONTrack(params.trip || '')).data,
+			points: (await tripApi.getTripJSONPoints(params.trip || '')).data,
+			track: (await tripApi.getTripJSONTrack(params.trip || '')).data,
 		}
 	} catch {
 		return null

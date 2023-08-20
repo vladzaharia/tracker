@@ -21,6 +21,7 @@ export interface TripTable {
 export interface WaypointTable {
 	trip_id: string
 	name: string
+	icon?: string
 	latitude: number
 	longitude: number
 	timestamp: number
