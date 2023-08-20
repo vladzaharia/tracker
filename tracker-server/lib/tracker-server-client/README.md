@@ -12,7 +12,7 @@ You can go check those options, and modify them if you need to, in `workspace.js
 When you are good, build the sources running:
 
 ```sh
-nx run tracker-server-docs:build
+nx run tracker-server-client:build
 ```
 
 You should run - either manually or via CI - this `build` builder every time the API spec file changes.
