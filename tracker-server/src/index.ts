@@ -69,6 +69,14 @@ app.put('/api/db/migrate', MigrateDb)
 app.put('/api/db/rollback', RollbackDb)
 app.put('/api/db/reset', ResetDb)
 
+// OpenAPI
+app.get(
+	'/api/openapi/openapi.swagger',
+	serveStatic({
+		path: './openapi/openapi.swagger',
+	})
+)
+
 // App
 app.get(
 	'/:tripId',
