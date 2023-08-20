@@ -17,6 +17,10 @@ import { AddTrip } from './routes/trip/add'
 import { UpdateTrip } from './routes/trip/update'
 import { DeleteTrip } from './routes/trip/delete'
 import { AuthMiddleware } from './auth/auth'
+import { ListWaypoints } from './routes/waypoint/list'
+import { GetWaypoint } from './routes/waypoint/get'
+import { UpdateWaypoint } from './routes/waypoint/update'
+import { FetchWaypoints } from './cron/fetch_waypoints'
 
 const app = new Hono<{ Bindings: Bindings }>()
 
@@ -54,6 +58,11 @@ app.get('/api/trip/:trip/geojson/track', GetTripGeoJSONTrack)
 // Actions
 app.put('/api/action/message', SendMessage)
 
+// Waypoints
+app.get('/api/waypoint', ListWaypoints)
+app.get('/api/waypoint/:trip/:timestamp', GetWaypoint)
+app.patch('/api/waypoint/:trip/:timestamp', UpdateWaypoint)
+
 // Database endpoints
 app.get('/api/db', DbInfo)
 app.put('/api/db/migrate', MigrateDb)
@@ -86,6 +95,18 @@ app.get(
 	})
 )
 app.get(
+	'/admin/waypoint',
+	serveStatic({
+		path: './app/index.html',
+	})
+)
+app.get(
+	'/admin/waypoint/:waypointTrip/:waypointTimestamp',
+	serveStatic({
+		path: './app/index.html',
+	})
+)
+app.get(
 	'/admin/database',
 	serveStatic({
 		path: './app/index.html',
@@ -102,5 +123,6 @@ export default {
 	fetch: app.fetch,
 	async scheduled(event, env, ctx) {
 		ctx.waitUntil(FetchGeoJSON(env))
+		ctx.waitUntil(FetchWaypoints(env))
 	},
 } as ExportedHandler<Bindings>

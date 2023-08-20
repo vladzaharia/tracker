@@ -30,7 +30,7 @@ export const TripEdit = ({ inModal, onModalClose }: { inModal?: boolean; onModal
 	const [type, setType] = useState(trip.type || '')
 	const [startDate, setStartDate] = useState(trip.start_date ? moment(trip.start_date) : moment())
 	const [endDate, setEndDate] = useState(trip.end_date ? moment(trip.end_date) : moment())
-	const [timeZone, setTimeZone] = useState(trip.time_zone || '')
+	const [timeZone, setTimeZone] = useState(trip.time_zone || 'America/Los_Angeles')
 
 	const addTrip = async () => {
 		await request(
@@ -123,8 +123,7 @@ export const TripEdit = ({ inModal, onModalClose }: { inModal?: boolean; onModal
 						<Select
 							className="timezone-select"
 							id="timezone"
-							value={!inModal ? timeZone : undefined}
-							defaultValue={inModal ? 'America/Los_Angeles' : undefined}
+							value={timeZone}
 							// label="Time zone"
 							onChange={(e) => setTimeZone(e.target.value)}
 						>

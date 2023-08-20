@@ -27,7 +27,7 @@
 	width: 15.75rem;
 }
 
-.trip-edit :not(.action-button) .button {
+.trip-edit .action :not(.action-button) .button {
 	padding: 1.25rem;
 }
 

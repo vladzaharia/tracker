@@ -4,6 +4,15 @@ import { Trip } from '../../types'
 import { VelocityRegex, GetActivity } from '../../util/activity'
 import moment from 'moment'
 import { TripTable } from '../../tables/db'
+import { listWaypointsForTrip } from '../../tables/waypoint'
+
+export const GetTripWaypoints = async (c: Context<{ Bindings: Bindings }>, trip: TripTable) => {
+	const waypoints = await listWaypointsForTrip(c.env.D1DATABASE, trip.id)
+
+	return {
+		waypoints: waypoints.length > 0 ? waypoints : undefined,
+	}
+}
 
 export const ConvertTrip = async (c: Context<{ Bindings: Bindings }>, trip: TripTable) => {
 	const convertedTrip: Trip = {
@@ -12,8 +21,11 @@ export const ConvertTrip = async (c: Context<{ Bindings: Bindings }>, trip: Trip
 		end_date: moment(trip.end_date).toDate(),
 	}
 
+	const waypoints = await listWaypointsForTrip(c.env.D1DATABASE, trip.id)
+
 	return {
 		...convertedTrip,
+		total_waypoints: waypoints.length,
 		...(await GetTripStatus(c, convertedTrip)),
 	}
 }
@@ -47,6 +59,10 @@ export const GetTripStatus = async (c: Context<{ Bindings: Bindings }>, tripDeta
 					course: Number(courseMatch && courseMatch[1]),
 				},
 			},
+		}
+	} else {
+		return {
+			total_points: 0,
 		}
 	}
 }

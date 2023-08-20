@@ -1,14 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { useCallback, useState } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { IconName, faMapMarkerAlt } from '@fortawesome/pro-solid-svg-icons'
 import { useLoaderData, useRouteLoaderData } from 'react-router-dom'
-import { Layer, Map, NavigationControl, Source, Popup, MapLayerMouseEvent, MapGeoJSONFeature } from 'react-map-gl'
-import { Trip } from 'tracker-server-client'
+import { Layer, Map, NavigationControl, Source, Popup, MapLayerMouseEvent, MapGeoJSONFeature, Marker } from 'react-map-gl'
+import { Trip, Waypoint } from 'tracker-server-client'
 import { TripGeoJSON } from '../../../loaders/geojson'
 import useReload from '../../../hooks/reload'
 import { TripPosition } from '../../../components/trip-position/trip-position'
+import { AddToLibrary } from '../../../components/icons/icons'
 
 import 'mapbox-gl/dist/mapbox-gl.css'
 import './map.css'
-import { useCallback, useState } from 'react'
+import moment from 'moment'
 
 interface PopupInfo {
 	latitude: number
@@ -31,7 +35,11 @@ export const TripMap = () => {
 	const courseMatch = lastCourse?.match(courseRegex)
 	const lastBearing = lastCourse && courseMatch ? courseMatch[1] : '0'
 
+	const isCurrentTrip = moment(trip.start_date) < moment() && moment(trip.end_date) > moment()
+
 	const mapStyle = trip.type === 'scuba' ? 'clki08zbf003q01r24v4l5vuq' : 'clkhyotqc003m01pm7lz5d6c9'
+
+	AddToLibrary()
 
 	const onClick = useCallback((event: MapLayerMouseEvent) => {
 		const { features } = event
@@ -73,6 +81,17 @@ export const TripMap = () => {
 		}
 	}, [])
 
+	const MarkerPin = ({ waypoint }: { waypoint: Waypoint }) => {
+		return (
+			<div className={`marker ${waypoint.color || ''}`}>
+				<div className="marker-content">
+					<FontAwesomeIcon icon={waypoint.icon as IconName || faMapMarkerAlt} />
+					<span>{waypoint.name}</span>
+				</div>
+			</div>
+		)
+	}
+
 	return (
 		<div className="trip-map">
 			{tripJSON && (
@@ -81,9 +100,9 @@ export const TripMap = () => {
 					initialViewState={{
 						longitude: lastLocation?.geometry?.coordinates[0],
 						latitude: lastLocation?.geometry?.coordinates[1],
-						zoom: trip.type === 'scuba' ? 12 : 8,
+						zoom: trip.type === 'scuba' && isCurrentTrip ? 12 : 8,
 						pitch: 60,
-						bearing: trip.type === 'scuba' ? parseFloat(lastBearing) : undefined,
+						bearing: trip.type === 'scuba' && isCurrentTrip ? parseFloat(lastBearing) : undefined,
 					}}
 					style={{ borderBottomRightRadius: '1rem' }}
 					mapStyle={`mapbox://styles/vladzaharia/${mapStyle}`}
@@ -91,6 +110,7 @@ export const TripMap = () => {
 					onClick={onClick}
 				>
 					<NavigationControl visualizePitch={true} position="top-left" />
+					{trip.waypoints.length > 0 ? trip.waypoints.map((wp) => <Marker key={wp.timestamp} longitude={wp.longitude} latitude={wp.latitude}><MarkerPin waypoint={wp} /></Marker>) : undefined}
 					<Source id="points" type="geojson" data={tripJSON.points}>
 						<Layer
 							id={`${trip.id}-points`}

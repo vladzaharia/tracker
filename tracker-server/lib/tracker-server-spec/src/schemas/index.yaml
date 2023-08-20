@@ -17,7 +17,7 @@ paths:
       description: Provide server information to client
       operationId: serverInfo
       tags:
-        - Tracker
+        - Info
       responses:
         200:
           $ref: '#/components/responses/Success'
@@ -28,7 +28,6 @@ paths:
       description: List all available trips.
       operationId: listTrips
       tags:
-        - Tracker
         - Trip
       responses:
         200:
@@ -53,16 +52,16 @@ paths:
                   - past
         500:
           $ref: '#/components/responses/InternalServerError'
+
   /trip/{trip}:
     get:
       summary: Get trip
       description: Get information about a trip.
       operationId: getTrip
       tags:
-        - Tracker
         - Trip
       parameters:
-        - $ref: '#/components/parameters/TripName'
+        - $ref: '#/components/parameters/TripId'
       responses:
         200:
           description: Trip information
@@ -79,13 +78,12 @@ paths:
       description: Add a trip.
       operationId: addTrip
       tags:
-        - Tracker
         - Trip
         - Admin
       security:
         - JWTAuth: []
       parameters:
-        - $ref: '#/components/parameters/TripName'
+        - $ref: '#/components/parameters/TripId'
       requestBody:
         content:
           application/json:
@@ -103,13 +101,12 @@ paths:
       description: Update a trip.
       operationId: updateTrip
       tags:
-        - Tracker
         - Trip
         - Admin
       security:
         - JWTAuth: []
       parameters:
-        - $ref: '#/components/parameters/TripName'
+        - $ref: '#/components/parameters/TripId'
       requestBody:
         content:
           application/json:
@@ -119,16 +116,7 @@ paths:
         200:
           $ref: '#/components/responses/Success'
         400:
-          description: Missing an input.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    description: Message for this error.
-                    example: Must set at least one property!
+          $ref: '#/components/responses/MustSetInput'
         404:
           $ref: '#/components/responses/TripNotFound'
         500:
@@ -138,18 +126,89 @@ paths:
       description: Delete a trip.
       operationId: deleteTrip
       tags:
-        - Tracker
         - Trip
         - Admin
       security:
         - JWTAuth: []
       parameters:
-        - $ref: '#/components/parameters/TripName'
+        - $ref: '#/components/parameters/TripId'
       responses:
         200:
           $ref: '#/components/responses/Success'
         404:
           $ref: '#/components/responses/TripNotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+
+  /waypoint:
+    get:
+      summary: List waypoints
+      description: List all imported waypoints.
+      operationId: listWaypoints
+      tags:
+        - Waypoint
+      responses:
+        200:
+          description: List of waypoints available.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  waypoints:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Waypoint'
+                required:
+                  - waypoints
+        500:
+          $ref: '#/components/responses/InternalServerError'
+
+  /waypoint/{trip}/{timestamp}:
+    get:
+      summary: Get waypoint
+      description: Get information about a waypoint.
+      operationId: getWaypoint
+      tags:
+        - Waypoint
+      parameters:
+        - $ref: '#/components/parameters/TripId'
+        - $ref: '#/components/parameters/WaypointTimestamp'
+      responses:
+        200:
+          description: Waypoint information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Waypoint'
+        404:
+          $ref: '#/components/responses/WaypointNotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+    patch:
+      summary: Update waypoint
+      description: Update a waypoint's information.
+      operationId: updateWaypoint
+      tags:
+        - Waypoint
+        - Admin
+      security:
+        - JWTAuth: []
+      parameters:
+        - $ref: '#/components/parameters/TripId'
+        - $ref: '#/components/parameters/WaypointTimestamp'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateWaypointBody'
+      responses:
+        200:
+          $ref: '#/components/responses/Success'
+        400:
+          $ref: '#/components/responses/MustSetInput'
+        404:
+          $ref: '#/components/responses/WaypointNotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
 
@@ -159,10 +218,9 @@ paths:
       description: Get coordinates for a trip as GeoJSON.
       operationId: getTripJSONPoints
       tags:
-        - Tracker
         - Trip
       parameters:
-        - $ref: '#/components/parameters/TripName'
+        - $ref: '#/components/parameters/TripId'
       responses:
         200:
           description: Trip points, as GeoJSON
@@ -176,10 +234,9 @@ paths:
       description: Get track for a trip as GeoJSON.
       operationId: getTripJSONTrack
       tags:
-        - Tracker
         - Trip
       parameters:
-        - $ref: '#/components/parameters/TripName'
+        - $ref: '#/components/parameters/TripId'
       responses:
         200:
           description: Trip track, as GeoJSON
@@ -194,7 +251,6 @@ paths:
       description: Send message to InReach device.
       operationId: sendMessage
       tags:
-        - Tracker
         - Action
       requestBody:
         content:
@@ -356,12 +412,20 @@ components:
       description: Authentication with JWT generated by zhr.one auth
 
   parameters:
-    TripName:
+    TripId:
       name: trip
-      description: Name of trip to use.
+      description: Id of trip to use.
       schema:
-        $ref: '#/components/schemas/TripName'
+        $ref: '#/components/schemas/TripId'
       example: mexico
+      in: path
+      required: true
+    WaypointTimestamp:
+      name: timestamp
+      description: Timestamp of the waypoint.
+      schema:
+        $ref: '#/components/schemas/WaypointTimestamp'
+      example: 1692422871
       in: path
       required: true
 
@@ -392,6 +456,17 @@ components:
                 example: Somethng went wrong!
             required:
               - message
+    MustSetInput:
+      description: Missing an input.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Message for this error.
+                example: Must set at least one property!
     TripNotFound:
       description: Could not find trip.
       content:
@@ -429,6 +504,19 @@ components:
                 type: string
                 description: Message for this error.
                 example: You can only do this during a current trip!
+            required:
+              - message
+    WaypointNotFound:
+      description: Could not find waypoint.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Message for this error.
+                example: Waypoint not found!
             required:
               - message
     NoMigrationsToApply:
@@ -574,6 +662,15 @@ components:
           type: number
           description: Total number of points for this trip.
           example: 1234
+        total_waypoints:
+          type: number
+          description: Total number of waypoints for this trip.
+          example: 1234
+        waypoints:
+          type: array
+          description: List of waypoints for this trip.
+          items:
+            $ref: '#/components/schemas/Waypoint'
       required:
         - name
         - id
@@ -584,6 +681,8 @@ components:
         - time_zone
         - status
         - total_points
+        - total_waypoints
+        - waypoints
     AddTripBody:
       type: object
       properties:
@@ -662,6 +761,72 @@ components:
       type: string
       description: IANA time zone for this trip.
       example: America/Los_Angeles
+    WaypointName:
+      type: string
+      description: Name of this waypoint.
+      example: La Paz
+    WaypointIcon:
+      type: string
+      description: Icon to use for this waypoint.
+      example: wedding
+    WaypointColor:
+      type: string
+      description: Color to use for this waypoint.
+      example: blue
+      enum:
+        - primary
+        - blue
+        - red
+        - green
+        - purple
+        - orange
+        - yellow
+    WaypointLatitude:
+      type: number
+      description: Latitude of this waypoint.
+      example: 31.10399
+    WaypointLongitude:
+      type: number
+      description: Longitude of this waypoint.
+      example: -113.563743
+    WaypointTimestamp:
+      type: number
+      description: Time this waypoint was sent, as unix timestamp.
+      example: 1692422871
+    Waypoint:
+      type: object
+      description: A waypoint
+      properties:
+        trip_id:
+          $ref: '#/components/schemas/TripId'
+        name:
+          $ref: '#/components/schemas/WaypointName'
+        icon:
+          $ref: '#/components/schemas/WaypointIcon'
+        color:
+          $ref: '#/components/schemas/WaypointColor'
+        latitude:
+          $ref: '#/components/schemas/WaypointLatitude'
+        longitude:
+          $ref: '#/components/schemas/WaypointLongitude'
+        timestamp:
+          $ref: '#/components/schemas/WaypointTimestamp'
+      required:
+        - trip_id
+        - name
+        - latitude
+        - longitude
+        - timestamp
+    UpdateWaypointBody:
+      type: object
+      description: Editable fields on a waypoint
+      properties:
+        name:
+          $ref: '#/components/schemas/WaypointName'
+        icon:
+          $ref: '#/components/schemas/WaypointIcon'
+        color:
+          $ref: '#/components/schemas/WaypointColor'
     MigrationVersion:
       type: number
       description: Database schema version associated with a migration

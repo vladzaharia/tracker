@@ -28,8 +28,7 @@ export const TripPosition = ({
 					</Action>
 				) : undefined}
 
-				<Action text="Latitude">{trip.status.position.latitude}</Action>
-				<Action text="Longitude">{trip.status.position.longitude}</Action>
+				<span className="coordinates">{trip.status.position.latitude}, {trip.status.position.longitude}</span>
 
 				<Action
 					text={

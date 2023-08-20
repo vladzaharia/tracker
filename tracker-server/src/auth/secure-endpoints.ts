@@ -19,5 +19,10 @@ export function getSecureEndpoints(): SecureEndpoint[] {
 			methods: ['POST', 'PATCH', 'DELETE'],
 			authTypes: ['admin'],
 		},
+		{
+			path: /waypoint\/\w*$/,
+			methods: ['PATCH'],
+			authTypes: ['admin'],
+		},
 	]
 }

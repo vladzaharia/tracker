@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import './global-nav.css'
 import Button from '../button/button'
 import { faRightFromBracket, faRightToBracket, faHome, faCog, faSun, faMoon } from '@fortawesome/pro-solid-svg-icons'
@@ -9,7 +9,6 @@ import { ThemeContext } from '../../hooks/theme'
 
 export default function GlobalNav() {
 	const auth = useAuth()
-	const location = useLocation()
 	const navigate = useNavigate()
 	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const { theme, setTheme } = useContext(ThemeContext)!
@@ -21,7 +20,7 @@ export default function GlobalNav() {
 			<div className={`buttons`}>
 				<Button
 					className="login"
-					color={auth.isAuthenticated ? 'primary' : 'green'}
+					color={auth.isAuthenticated ? 'red' : 'green'}
 					iconProps={{
 						icon: auth.isAuthenticated ? faRightFromBracket : faRightToBracket,
 						size: 'lg',
@@ -40,16 +39,27 @@ export default function GlobalNav() {
 							: undefined
 					}
 				/>
+				<Button
+					className="home"
+					color={'blue'}
+					iconProps={{
+						icon:  faHome,
+						size: 'lg',
+					}}
+					onClick={() => {
+						navigate('/')
+					}}
+				/>
 				{(auth.user?.profile.tracker as OpenIDScopeProps)?.admin ? (
 					<Button
 						className="admin"
 						color={'blue'}
 						iconProps={{
-							icon: location.pathname.includes('/admin') ? faHome : faCog,
+							icon: faCog,
 							size: 'lg',
 						}}
 						onClick={() => {
-							location.pathname.includes('/admin') ? navigate('/') : navigate('/admin')
+							navigate('/admin')
 						}}
 					/>
 				) : undefined}
