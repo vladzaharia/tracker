@@ -95,6 +95,18 @@ app.get(
 	})
 )
 app.get(
+	'/admin/waypoint',
+	serveStatic({
+		path: './app/index.html',
+	})
+)
+app.get(
+	'/admin/waypoint/:waypointTrip/:waypointTimestamp',
+	serveStatic({
+		path: './app/index.html',
+	})
+)
+app.get(
 	'/admin/database',
 	serveStatic({
 		path: './app/index.html',
