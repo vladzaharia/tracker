@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import './global-nav.css'
 import Button from '../button/button'
 import { faRightFromBracket, faRightToBracket, faHome, faCog, faSun, faMoon } from '@fortawesome/pro-solid-svg-icons'
@@ -9,7 +9,6 @@ import { ThemeContext } from '../../hooks/theme'
 
 export default function GlobalNav() {
 	const auth = useAuth()
-	const location = useLocation()
 	const navigate = useNavigate()
 	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const { theme, setTheme } = useContext(ThemeContext)!

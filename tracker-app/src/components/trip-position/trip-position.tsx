@@ -1,4 +1,4 @@
-import { faGauge, faLocationArrow } from '@fortawesome/pro-solid-svg-icons'
+import { faCompass, faGauge, faLocationArrow } from '@fortawesome/pro-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import moment from 'moment'
 import { Trip } from 'tracker-server-client'
@@ -28,9 +28,18 @@ export const TripPosition = ({
 					</Action>
 				) : undefined}
 
-				<Action text="Latitude">{trip.status.position.latitude}</Action>
-				<Action text="Longitude">{trip.status.position.longitude}</Action>
+				<span className="coordinates">{trip.status.position.latitude}, {trip.status.position.longitude}</span>
 
+				<Action
+					className='coordinates-mobile'
+					text={
+						<>
+							<FontAwesomeIcon className="mr-05" icon={faCompass} /> Coordinates
+						</>
+					}
+				>
+					<span className="coords">{trip.status.position.latitude}, {trip.status.position.longitude}</span>
+				</Action>
 				<Action
 					text={
 						<>
