@@ -25,16 +25,3 @@
 	margin: 1rem;
 }
 
-.trip-position .coordinates-mobile {
-	display: none;
-}
-
-@media (max-width: 768px) {
-	.trip-position .coordinates {
-		display: none;
-	}
-
-	.trip-position .coordinates-mobile {
-		display: flex;
-	}
-}
