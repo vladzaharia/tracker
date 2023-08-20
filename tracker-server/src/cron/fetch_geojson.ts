@@ -1,12 +1,12 @@
 import { kml } from '@tmcw/togeojson'
 import { getTripKML } from '../inreach/kml'
-import { getExistingTrips } from '../migrate/migrations/existing-trips/trip'
 import { DOMParser } from 'xmldom'
 import { Bindings } from '../bindings'
 import moment from 'moment'
+import { listTrips } from '../tables/trip'
 
 export const FetchGeoJSON = async (env: Bindings) => {
-	const allTrips = getExistingTrips(env.ENVIRONMENT)
+	const allTrips = await listTrips(env.D1DATABASE)
 
 	for (const trip of allTrips) {
 		if (moment(trip.end_date).add(moment.duration(1, 'week')) > moment()) {

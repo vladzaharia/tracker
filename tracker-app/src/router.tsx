@@ -5,8 +5,8 @@ import App from './components/app/app'
 import ContentBox from './components/content-box/content-box'
 import './styles'
 import { RouterErrorBoundary } from './pages/error/error'
-import ListTripLoader from './loaders/list'
-import GetTripLoader from './loaders/get'
+import ListTripLoader from './loaders/trip-list'
+import GetTripLoader from './loaders/trip-get'
 import { ListTrips } from './pages/list/list'
 import { Trip } from './pages/trip/trip'
 import GetTripGeoJSONLoader from './loaders/geojson'
@@ -18,6 +18,10 @@ import AdminHome from './pages/admin/home/home'
 import DatabaseLoader from './loaders/database'
 import TripListAdmin from './pages/admin/trip-list/trip-list'
 import TripAdmin from './pages/admin/trip/trip-admin'
+import ListWaypointLoader from './loaders/waypoint-list'
+import GetWaypointLoader from './loaders/waypoint-get'
+import WaypointListAdmin from './pages/admin/waypoint-list/waypoint-list'
+import WaypointAdmin from './pages/admin/waypoint/waypoint-admin'
 
 const oidcConfig: AuthProviderProps = {
 	authority: 'https://auth.zhr.one/application/o/trip-tracker/',
@@ -85,6 +89,18 @@ const router = createBrowserRouter([
 						id: 'admin-trip',
 						loader: GetTripLoader,
 						element: <TripAdmin />,
+					},
+					{
+						path: 'waypoint',
+						id: 'admin-waypoint-list',
+						loader: ListWaypointLoader,
+						element: <WaypointListAdmin />,
+					},
+					{
+						path: 'waypoint/:trip/:timestamp',
+						id: 'admin-waypoint',
+						loader: GetWaypointLoader,
+						element: <WaypointAdmin />,
 					},
 					{
 						path: 'database',

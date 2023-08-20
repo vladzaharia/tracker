@@ -11,10 +11,5 @@ export const GetWaypoint = async (c: Context<{ Bindings: Bindings }>) => {
 		return c.json({ message: 'Waypoint not found!' }, 404)
 	}
 
-	return c.json(
-		{
-			waypoint,
-		},
-		200
-	)
+	return c.json(waypoint, 200)
 }

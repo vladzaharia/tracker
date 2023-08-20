@@ -1,4 +1,13 @@
-import { ActionApi, AdminApi, Configuration, ConfigurationParameters, DatabaseApi, InfoApi, TripApi, WaypointApi } from 'tracker-server-client'
+import {
+	ActionApi,
+	AdminApi,
+	Configuration,
+	ConfigurationParameters,
+	DatabaseApi,
+	InfoApi,
+	TripApi,
+	WaypointApi,
+} from 'tracker-server-client'
 
 export const getApiConfig = (parameters: Omit<ConfigurationParameters, 'basePath'> = {}) => {
 	return new Configuration({

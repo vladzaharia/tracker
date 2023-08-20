@@ -1,8 +1,7 @@
 import { Context } from 'hono'
 import { Bindings } from '../../bindings'
-import { updateTrip } from '../../tables/trip'
 import { WaypointTable } from '../../tables/db'
-import { findWaypointInTrip } from '../../tables/waypoint'
+import { findWaypointInTrip, updateWaypoint } from '../../tables/waypoint'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface UpdateWaypointBody extends Omit<WaypointTable, 'trip_id' | 'timestamp' | 'latitude' | 'longitude'> {}
@@ -25,8 +24,9 @@ export const UpdateWaypoint = async (c: Context<{ Bindings: Bindings }>) => {
 		}
 
 		// Update trip
-		await updateTrip(db, trip, {
+		await updateWaypoint(db, trip, parseInt(timestamp, 10), {
 			name: updated_props.name,
+			icon: updated_props.icon,
 		})
 
 		return c.json({ message: 'Successfully updated trip!' })

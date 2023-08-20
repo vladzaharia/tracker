@@ -61,7 +61,7 @@ app.put('/api/action/message', SendMessage)
 // Waypoints
 app.get('/api/waypoint', ListWaypoints)
 app.get('/api/waypoint/:trip/:timestamp', GetWaypoint)
-app.patch('/api/trip/:trip/:timestamp', UpdateWaypoint)
+app.patch('/api/waypoint/:trip/:timestamp', UpdateWaypoint)
 
 // Database endpoints
 app.get('/api/db', DbInfo)

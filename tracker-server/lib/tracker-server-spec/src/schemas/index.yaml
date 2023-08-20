@@ -780,17 +780,17 @@ components:
       description: A waypoint
       properties:
         trip_id:
-          $ref: "#/components/schemas/TripId"
+          $ref: '#/components/schemas/TripId'
         name:
-          $ref: "#/components/schemas/WaypointName"
+          $ref: '#/components/schemas/WaypointName'
         icon:
-          $ref: "#/components/schemas/WaypointIcon"
+          $ref: '#/components/schemas/WaypointIcon'
         latitude:
-          $ref: "#/components/schemas/WaypointLatitude"
+          $ref: '#/components/schemas/WaypointLatitude'
         longitude:
-          $ref: "#/components/schemas/WaypointLongitude"
+          $ref: '#/components/schemas/WaypointLongitude'
         timestamp:
-          $ref: "#/components/schemas/WaypointTimestamp"
+          $ref: '#/components/schemas/WaypointTimestamp'
       required:
         - trip_id
         - name
@@ -802,9 +802,9 @@ components:
       description: Editable fields on a waypoint
       properties:
         name:
-          $ref: "#/components/schemas/WaypointName"
+          $ref: '#/components/schemas/WaypointName'
         icon:
-          $ref: "#/components/schemas/WaypointIcon"
+          $ref: '#/components/schemas/WaypointIcon'
     MigrationVersion:
       type: number
       description: Database schema version associated with a migration

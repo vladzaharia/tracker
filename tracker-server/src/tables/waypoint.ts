@@ -7,11 +7,11 @@ export async function dropWaypointTable(db: D1Database) {
 }
 
 export async function listWaypoints(db: D1Database) {
-	return await getKyselyDb(db).selectFrom('waypoint').selectAll().execute()
+	return await getKyselyDb(db).selectFrom('waypoint').selectAll().orderBy('timestamp').execute()
 }
 
 export async function listWaypointsForTrip(db: D1Database, tripId: string) {
-	return await getKyselyDb(db).selectFrom('waypoint').selectAll().where('trip_id', '=', tripId).execute()
+	return await getKyselyDb(db).selectFrom('waypoint').selectAll().where('trip_id', '=', tripId).orderBy('timestamp').execute()
 }
 
 export async function findWaypointInTrip(db: D1Database, tripId: string, timestamp: number) {
@@ -29,7 +29,12 @@ export async function insertWaypoint(db: D1Database, waypoint: WaypointTable) {
 export async function updateWaypoint(
 	db: D1Database,
 	tripId: string,
+	timestamp: number,
 	waypoint: Partial<Omit<WaypointTable, 'trip_id' | 'timestamp' | 'latitude' | 'longitude'>>
 ) {
-	return await getKyselyDb(db).updateTable('waypoint').set(waypoint).where('trip_id', '=', tripId).execute()
+	return await getKyselyDb(db)
+		.updateTable('waypoint')
+		.set(waypoint)
+		.where(({ and, cmpr }) => and([cmpr('trip_id', '=', tripId), cmpr('timestamp', '=', timestamp)]))
+		.execute()
 }

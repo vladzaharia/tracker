@@ -21,6 +21,10 @@ export const getWaypoints = async (env: Bindings) => {
 				timestamp: moment(wp.C).unix() * 1000,
 			})
 		}
+
+		if (trips.length === 0) {
+			console.log(`Waypoint ${wp.X} is not within any trip's duration!`)
+		}
 	}
 
 	return result

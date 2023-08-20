@@ -32,7 +32,6 @@ export const ConvertTrip = async (c: Context<{ Bindings: Bindings }>, trip: Trip
 
 export const GetTripStatus = async (c: Context<{ Bindings: Bindings }>, tripDetails: Trip) => {
 	const jsonString = await c.env.GEOJSON.get(`${tripDetails.id}-points`)
-	console.log(`${tripDetails.id} json ${jsonString}`)
 
 	if (jsonString) {
 		const points = JSON.parse(jsonString).features
