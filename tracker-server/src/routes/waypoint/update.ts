@@ -27,6 +27,7 @@ export const UpdateWaypoint = async (c: Context<{ Bindings: Bindings }>) => {
 		await updateWaypoint(db, trip, parseInt(timestamp, 10), {
 			name: updated_props.name,
 			icon: updated_props.icon,
+			color: updated_props.color,
 		})
 
 		return c.json({ message: 'Successfully updated trip!' })

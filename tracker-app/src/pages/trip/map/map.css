@@ -49,3 +49,56 @@
 .mapboxgl-popup-content .timestamp {
 	padding-bottom: 0;
 }
+
+.marker {
+	padding: 0.5rem 1rem;
+	border: 1px solid var(--border);
+	background-color: var(--grey-dark);
+	border-radius: 1rem;
+	font-family: 'Barlow', Roboto, Arial, Helvetica, sans-serif;
+	font-size: 0.9rem;
+	font-weight: 500;
+}
+
+.marker.primary {
+	background-color: var(--primary);
+	color: var(--foreground-alt);
+}
+
+.marker.blue {
+	background-color: var(--blue-dark);
+	color: var(--foreground-alt);
+}
+
+.marker.green {
+	background-color: var(--green-dark);
+	color: var(--foreground-alt);
+}
+
+.marker.red {
+	background-color: var(--red-dark);
+	color: var(--foreground-alt);
+}
+
+.marker.purple {
+	background-color: var(--purple-dark);
+	color: var(--foreground-alt);
+}
+
+.marker.orange {
+	background-color: var(--orange-dark);
+	color: var(--foreground-alt);
+}
+
+.marker.yellow {
+	background-color: var(--yellow-dark);
+	color: var(--foreground);
+}
+
+.marker .marker-content {
+	display: flex;
+	flex-direction: row;
+	gap: 0.5rem;
+	align-items: center;
+	justify-content: center;
+}

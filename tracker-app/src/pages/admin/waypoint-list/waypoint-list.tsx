@@ -36,6 +36,7 @@ export default function WaypointListAdmin() {
 				rows={waypoints.map((waypoint) => {
 					return {
 						name: `${waypoint.trip_id}-${waypoint.timestamp}`,
+						color: waypoint.color,
 						cells: [
 							{
 								element: (

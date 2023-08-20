@@ -22,6 +22,7 @@ export interface WaypointTable {
 	trip_id: string
 	name: string
 	icon?: string
+	color?: string
 	latitude: number
 	longitude: number
 	timestamp: number

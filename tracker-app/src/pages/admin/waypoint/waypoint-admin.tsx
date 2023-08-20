@@ -1,5 +1,5 @@
 import './waypoint-admin.css'
-import { Waypoint } from 'tracker-server-client'
+import { Waypoint, WaypointColor } from 'tracker-server-client'
 import { useAuth } from 'react-oidc-context'
 import { useLoaderData, useNavigate } from 'react-router-dom'
 import { useNotificationAwareRequest } from '../../../hooks/notification'
@@ -7,13 +7,14 @@ import useReload from '../../../hooks/reload'
 import { useState } from 'react'
 import { createAdminApi } from '../../../api'
 import Header from '../../../components/header/header'
-import { IconName, faCheck, faChevronLeft, faMapMarkerAlt } from '@fortawesome/pro-solid-svg-icons'
+import { IconName, faCheck, faChevronLeft, faCircle, faMapMarkerAlt } from '@fortawesome/pro-solid-svg-icons'
 import Button from '../../../components/button/button'
 import Action from '../../../components/action/action'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { AVAILABLE_ICONS, AddToLibrary } from '../../../components/icons/icons'
 import Pill from '../../../components/pill/pill'
 import moment from 'moment'
+import { CommonColor } from '../../../types'
 
 export default function TripAdmin() {
 	const waypoint = useLoaderData() as Waypoint
@@ -25,12 +26,14 @@ export default function TripAdmin() {
 
 	const [name, setName] = useState(waypoint.name || '')
 	const [icon, setIcon] = useState<string | null>(waypoint.icon || '')
+	const [color, setColor] = useState<string | null>(waypoint.color || '')
 
 	const updateWaypoint = async () => {
 		await request(() =>
 			api.updateWaypoint(waypoint.trip_id, waypoint.timestamp, {
 				name,
 				icon: icon || undefined,
+				color: color as WaypointColor || undefined
 			})
 		)
 		navigate('/admin/waypoint')
@@ -48,6 +51,23 @@ export default function TripAdmin() {
 						className={i.iconName === icon ? 'active' : undefined}
 						text={<FontAwesomeIcon icon={i} />}
 						onClick={() => setIcon(i.iconName === icon ? null : i.iconName)}
+					/>
+				))}
+			</div>
+		)
+	}
+
+	const ColorSelector = () => {
+		const colors: CommonColor[] = ["primary", "blue", "green", "red", "purple", "yellow", "orange", "grey-dark"]
+		return (
+			<div className="icons">
+				{colors.map((c) => (
+					<Pill
+						key={c}
+						color={c}
+						className={c === color ? 'active' : undefined}
+						text={<FontAwesomeIcon icon={faCircle} />}
+						onClick={() => setColor(c)}
 					/>
 				))}
 			</div>
@@ -81,6 +101,17 @@ export default function TripAdmin() {
 				}
 			>
 				<IconSelector />
+			</Action>
+			<Action
+				className={'column'}
+				text="Color"
+				description={
+					<span className="mr-05">
+						{color || '(default color)'}
+					</span>
+				}
+			>
+				<ColorSelector />
 			</Action>
 			<Action className="waypoint-admin-input" text="Latitude" description="Latitude for this waypoint.">
 				{waypoint.latitude}

@@ -40,6 +40,12 @@
 	border-color: var(--orange-trans);
 }
 
+.pill.yellow {
+	background-color: var(--yellow-trans);
+	color: var(--yellow);
+	border-color: var(--yellow-trans);
+}
+
 .pill.active {
 	border-color: var(--grey-light);
 }

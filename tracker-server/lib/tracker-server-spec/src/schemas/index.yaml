@@ -666,6 +666,11 @@ components:
           type: number
           description: Total number of waypoints for this trip.
           example: 1234
+        waypoints:
+          type: array
+          description: List of waypoints for this trip.
+          items:
+            $ref: '#/components/schemas/Waypoint'
       required:
         - name
         - id
@@ -677,6 +682,7 @@ components:
         - status
         - total_points
         - total_waypoints
+        - waypoints
     AddTripBody:
       type: object
       properties:
@@ -763,6 +769,18 @@ components:
       type: string
       description: Icon to use for this waypoint.
       example: wedding
+    WaypointColor:
+      type: string
+      description: Color to use for this waypoint.
+      example: blue
+      enum:
+        - primary
+        - blue
+        - red
+        - green
+        - purple
+        - orange
+        - yellow
     WaypointLatitude:
       type: number
       description: Latitude of this waypoint.
@@ -785,6 +803,8 @@ components:
           $ref: '#/components/schemas/WaypointName'
         icon:
           $ref: '#/components/schemas/WaypointIcon'
+        color:
+          $ref: '#/components/schemas/WaypointColor'
         latitude:
           $ref: '#/components/schemas/WaypointLatitude'
         longitude:
@@ -805,6 +825,8 @@ components:
           $ref: '#/components/schemas/WaypointName'
         icon:
           $ref: '#/components/schemas/WaypointIcon'
+        color:
+          $ref: '#/components/schemas/WaypointColor'
     MigrationVersion:
       type: number
       description: Database schema version associated with a migration
