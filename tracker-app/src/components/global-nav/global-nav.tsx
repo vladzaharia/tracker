@@ -21,7 +21,7 @@ export default function GlobalNav() {
 			<div className={`buttons`}>
 				<Button
 					className="login"
-					color={auth.isAuthenticated ? 'primary' : 'green'}
+					color={auth.isAuthenticated ? 'red' : 'green'}
 					iconProps={{
 						icon: auth.isAuthenticated ? faRightFromBracket : faRightToBracket,
 						size: 'lg',
@@ -40,16 +40,27 @@ export default function GlobalNav() {
 							: undefined
 					}
 				/>
+				<Button
+					className="home"
+					color={'blue'}
+					iconProps={{
+						icon:  faHome,
+						size: 'lg',
+					}}
+					onClick={() => {
+						navigate('/')
+					}}
+				/>
 				{(auth.user?.profile.tracker as OpenIDScopeProps)?.admin ? (
 					<Button
 						className="admin"
 						color={'blue'}
 						iconProps={{
-							icon: location.pathname.includes('/admin') ? faHome : faCog,
+							icon: faCog,
 							size: 'lg',
 						}}
 						onClick={() => {
-							location.pathname.includes('/admin') ? navigate('/') : navigate('/admin')
+							navigate('/admin')
 						}}
 					/>
 				) : undefined}
