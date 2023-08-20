@@ -60,5 +60,9 @@ export const GetTripStatus = async (c: Context<{ Bindings: Bindings }>, tripDeta
 				},
 			},
 		}
+	} else {
+		return {
+			total_points: 0,
+		}
 	}
 }
