@@ -52,7 +52,9 @@ export const WaypointEdit = ({ inModal, onModalClose }: { inModal?: boolean; onM
 			api.updateWaypoint(waypoint.trip_id, waypoint.timestamp, {
 				name,
 				icon: icon || undefined,
-				color: color as WaypointColor || undefined
+				color: color as WaypointColor || undefined,
+				latitude: !waypoint.managed ? parseFloat(latitude) : undefined,
+				longitude: !waypoint.managed ? parseFloat(longitude) : undefined
 			})
 		)
 		navigate('/admin/waypoint')
