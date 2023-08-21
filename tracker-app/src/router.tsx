@@ -24,6 +24,7 @@ import WaypointListAdmin from './pages/admin/waypoint-list/waypoint-list'
 import WaypointAdmin from './pages/admin/waypoint/waypoint-admin'
 import ConfigLoader from './loaders/config'
 import AdminConfig from './pages/admin/config/config'
+import ListTripAdminLoader from './loaders/trip-list-admin'
 
 const oidcConfig: AuthProviderProps = {
 	authority: 'https://auth.zhr.one/application/o/trip-tracker/',
@@ -83,7 +84,7 @@ const router = createBrowserRouter([
 					{
 						path: 'trip',
 						id: 'admin-trip-list',
-						loader: ListTripLoader,
+						loader: ListTripAdminLoader,
 						element: <TripListAdmin />,
 					},
 					{

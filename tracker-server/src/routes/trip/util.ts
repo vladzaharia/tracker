@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Context } from 'hono'
 import { Bindings } from '../../bindings'
 import { Trip } from '../../types'
@@ -10,27 +11,25 @@ export const GetTripWaypoints = async (c: Context<{ Bindings: Bindings }>, trip:
 	const waypoints = await listWaypointsForTrip(c.env.D1DATABASE, trip.id)
 
 	return {
-		waypoints: waypoints.length > 0 ? waypoints : undefined,
+		waypoints: waypoints.length > 0 ? waypoints : [],
 	}
 }
 
-export const ConvertTrip = async (c: Context<{ Bindings: Bindings }>, trip: TripTable) => {
+export const ConvertTrip = async (c: Context<{ Bindings: Bindings }>, trip: TripTable, showStatus = false, showTotals = false, showCenterPoint = false) => {
 	const convertedTrip: Trip = {
 		...trip,
 		start_date: moment(trip.start_date).toDate(),
 		end_date: moment(trip.end_date).toDate(),
 	}
 
-	const waypoints = await listWaypointsForTrip(c.env.D1DATABASE, trip.id)
-
 	return {
 		...convertedTrip,
-		total_waypoints: waypoints.length,
-		...(await GetTripStatus(c, convertedTrip)),
+		total_waypoints: showTotals ? (await listWaypointsForTrip(c.env.D1DATABASE, trip.id)).length : undefined,
+		... (showStatus ? (await GetTripStatus(c, convertedTrip, showTotals, showCenterPoint)) : {}),
 	}
 }
 
-export const GetTripStatus = async (c: Context<{ Bindings: Bindings }>, tripDetails: Trip) => {
+export const GetTripStatus = async (c: Context<{ Bindings: Bindings }>, tripDetails: Trip, showTotals = false, showCenterPoint = false) => {
 	const jsonString = await c.env.GEOJSON.get(`${tripDetails.id}-points`)
 
 	if (jsonString) {
@@ -38,7 +37,7 @@ export const GetTripStatus = async (c: Context<{ Bindings: Bindings }>, tripDeta
 
 		if (points.length === 0) {
 			return {
-				total_points: 0,
+				total_points: showTotals ? 0 : undefined,
 			}
 		}
 
@@ -46,9 +45,25 @@ export const GetTripStatus = async (c: Context<{ Bindings: Bindings }>, tripDeta
 		const velocityMatch = lastPoint?.properties?.Velocity?.match(VelocityRegex)
 		const courseMatch = lastPoint?.properties?.Course?.match(/(\d{1,3}\.\d{2}) ° True/)
 
+		const getCenterPoint = () => {
+			// Check if trip is current
+			if (moment(tripDetails.start_date) < moment() && moment(tripDetails.end_date) > moment()) {
+				return {
+					latitude: Number(lastPoint?.properties?.Latitude),
+					longitude: Number(lastPoint?.properties?.Longitude),
+				}
+			}
+
+			return {
+				latitude: points.reduce((acc: number, point: any) => acc + Number(point.properties.Latitude), 0) / points.length,
+				longitude: points.reduce((acc: number, point: any) => acc + Number(point.properties.Longitude), 0) / points.length
+			}
+		}
+
 		return {
-			last_point: lastPoint,
-			total_points: points.length,
+			last_point: showTotals ? lastPoint : undefined,
+			total_points: showTotals ? points.length : undefined,
+			center_point: showCenterPoint ? getCenterPoint() : undefined,
 			status: {
 				activity: GetActivity(lastPoint, tripDetails),
 				position: {

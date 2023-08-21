@@ -100,8 +100,8 @@ export const TripMap = () => {
 				<Map
 					mapboxAccessToken="pk.eyJ1IjoidmxhZHphaGFyaWEiLCJhIjoiY2xraHpnNDMyMGRkcjNxcDQ1bXVyZHVrbiJ9.JTKDWIqIwMjJs9K4D0Qjdw"
 					initialViewState={{
-						longitude: lastLocation?.geometry?.coordinates[0],
-						latitude: lastLocation?.geometry?.coordinates[1],
+						longitude: trip.center_point.longitude,
+						latitude: trip.center_point.latitude,
 						zoom: trip.type === 'scuba' && isCurrentTrip ? 12 : 8,
 						pitch: 60,
 						bearing: trip.type === 'scuba' && isCurrentTrip ? parseFloat(lastBearing) : undefined,
