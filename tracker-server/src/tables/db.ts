@@ -5,6 +5,7 @@ import { TripType } from '../types'
 export interface Database {
 	trip: TripTable
 	waypoint: WaypointTable
+	config: ConfigTable
 	migration: MigrationTable
 }
 
@@ -27,6 +28,14 @@ export interface WaypointTable {
 	latitude: number
 	longitude: number
 	timestamp: number
+}
+
+export interface ConfigTable {
+	id: string
+	name: string
+	description: string
+	value: string
+	editable: 0 | 1
 }
 
 export interface MigrationTable {

@@ -1,4 +1,5 @@
 .table {
+	height: 45vh;
 	width: 100%;
 	max-width: 95%;
 	display: flex;
@@ -220,6 +221,7 @@
 
 @media only screen and (max-width: 50rem) {
 	.table {
+		height: 50vh;
 		max-width: 100%;
 		border-radius: 0;
 		margin: 1rem 0;

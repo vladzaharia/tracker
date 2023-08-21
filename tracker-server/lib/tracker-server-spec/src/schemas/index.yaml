@@ -313,6 +313,74 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
 
+  /config:
+    get:
+      summary: List configs
+      description: List all config values.
+      operationId: listConfig
+      tags:
+        - Config
+      responses:
+        200:
+          description: All configs
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  configs:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Config'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+
+  /config/{id}:
+    get:
+      summary: Get config value
+      description: Get config's value.
+      operationId: getConfigValue
+      tags:
+        - Config
+      parameters:
+        - $ref: '#/components/parameters/ConfigId'
+      responses:
+        200:
+          description: Value
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/ConfigValue'
+        404:
+          $ref: '#/components/responses/ConfigNotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+    patch:
+      summary: Update config
+      description: Update a configuration.
+      operationId: updateConfig
+      tags:
+        - Config
+        - Admin
+      security:
+        - JWTAuth: []
+      parameters:
+        - $ref: '#/components/parameters/ConfigId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateConfigBody'
+      responses:
+        200:
+          $ref: '#/components/responses/Success'
+        400:
+          $ref: '#/components/responses/ConfigValueRequired'
+        404:
+          $ref: '#/components/responses/ConfigNotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+
   /action/message:
     put:
       summary: Send message
@@ -496,6 +564,14 @@ components:
       example: 1692422871
       in: path
       required: true
+    ConfigId:
+      name: id
+      description: Id of config to use.
+      schema:
+        $ref: '#/components/schemas/ConfigId'
+      example: garmin_username
+      in: path
+      required: true
 
   responses:
     Success:
@@ -598,6 +674,32 @@ components:
                 type: string
                 description: Message for this error.
                 example: Waypoint not found!
+            required:
+              - message
+    ConfigNotFound:
+      description: Could not find config.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Message for this error.
+                example: Config not found!
+            required:
+              - message
+    ConfigValueRequired:
+      description: Config value is required.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Message for this error.
+                example: Config value is required!
             required:
               - message
     NoMigrationsToApply:
@@ -934,6 +1036,48 @@ components:
           $ref: '#/components/schemas/WaypointLatitude'
         longitude:
           $ref: '#/components/schemas/WaypointLongitude'
+    ConfigId:
+      description: ID of a config entry.
+      type: string
+      example: garmin_username
+    ConfigValue:
+      description: Value of a config entry.
+      type: string
+      example: mynameisvlad
+    Config:
+      type: object
+      description: A config entry
+      properties:
+        id:
+          $ref: '#/components/schemas/ConfigId'
+        name:
+          type: string
+          description: Display name of this config entry.
+          example: Garmin Username
+        description:
+          type: string
+          description: Description of this config entry.
+          example: Username for Garmin account
+        value:
+          $ref: '#/components/schemas/ConfigValue'
+        editable:
+          type: boolean
+          description: Whether this config entry can be edited.
+          example: true
+      required:
+        - id
+        - name
+        - description
+        - value
+        - editable
+    UpdateConfigBody:
+      type: object
+      description: Editable fields for config entry.
+      properties:
+        value:
+          $ref: '#/components/schemas/ConfigValue'
+      required:
+        - value
     MigrationVersion:
       type: number
       description: Database schema version associated with a migration
