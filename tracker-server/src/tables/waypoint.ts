@@ -23,10 +23,13 @@ export async function findWaypointInTrip(db: D1Database, tripId: string, timesta
 }
 
 export async function insertWaypoint(db: D1Database, waypoint: Omit<WaypointTable, 'managed'>, isManaged = false) {
-	return await getKyselyDb(db).insertInto('waypoint').values({
-		... waypoint,
-		managed: isManaged ? 1 : 0
-	}).execute()
+	return await getKyselyDb(db)
+		.insertInto('waypoint')
+		.values({
+			...waypoint,
+			managed: isManaged ? 1 : 0,
+		})
+		.execute()
 }
 
 export async function updateWaypoint(
@@ -43,5 +46,8 @@ export async function updateWaypoint(
 }
 
 export async function deleteWaypoint(db: D1Database, tripId: string, timestamp: number) {
-	return await getKyselyDb(db).deleteFrom('waypoint').where(({ and, cmpr }) => and([cmpr('trip_id', '=', tripId), cmpr('timestamp', '=', timestamp)])).execute()
+	return await getKyselyDb(db)
+		.deleteFrom('waypoint')
+		.where(({ and, cmpr }) => and([cmpr('trip_id', '=', tripId), cmpr('timestamp', '=', timestamp)]))
+		.execute()
 }

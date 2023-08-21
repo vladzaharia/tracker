@@ -23,7 +23,7 @@ export default function WaypointListAdmin() {
 	const auth = useAuth()
 	const api = createAdminApi(auth.user?.access_token || '')
 	const request = useNotificationAwareRequest()
-	const [deleteModalInfo, setDeleteModalInfo] = useState<{ trip_id: string, timestamp: number } | undefined>()
+	const [deleteModalInfo, setDeleteModalInfo] = useState<{ trip_id: string; timestamp: number } | undefined>()
 	const [showCreateModal, setShowCreateModal] = useState<boolean>(false)
 
 	const deleteWaypoint = async (trip_id: string, timestamp: number) => {
@@ -89,7 +89,9 @@ export default function WaypointListAdmin() {
 											}}
 										/>
 									</div>
-								) : '',
+								) : (
+									''
+								),
 							},
 						],
 						onClick: () => navigate(`${waypoint.trip_id}/${waypoint.timestamp}`),

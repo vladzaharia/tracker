@@ -46,7 +46,7 @@ export const AddWaypoint = async (c: Context<{ Bindings: Bindings }>) => {
 			icon,
 			color,
 			latitude,
-			longitude
+			longitude,
 		})
 
 		return c.json({ message: 'Successfully added waypoint!' })

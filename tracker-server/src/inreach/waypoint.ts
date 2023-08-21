@@ -2,11 +2,16 @@ import moment from 'moment'
 import { Bindings } from '../bindings'
 import { WaypointTable } from '../tables/db'
 import { listTripsForTimestamp } from '../tables/trip'
-
-const WAYPOINT_URL = 'https://share.garmin.com/mynameisvlad/Waypoints/'
+import { findConfig } from '../tables/config'
 
 export const getWaypoints = async (env: Bindings) => {
-	const waypoints = await getWaypointsFromGarmin()
+	// Get Garmin Username
+	const config = await findConfig(env.D1DATABASE, 'garmin_username')
+	if (!config) {
+		throw new Error('Garmin username not found!')
+	}
+
+	const waypoints = await getWaypointsFromGarmin(config.value)
 
 	const result: Omit<WaypointTable, 'managed'>[] = []
 
@@ -30,8 +35,8 @@ export const getWaypoints = async (env: Bindings) => {
 	return result
 }
 
-const getWaypointsFromGarmin = async () => {
-	const url = new URL(WAYPOINT_URL)
+const getWaypointsFromGarmin = async (username: string) => {
+	const url = new URL(`https://share.garmin.com/${username}/Waypoints/`)
 
 	const response = await fetch(url.toString(), {
 		method: 'GET',

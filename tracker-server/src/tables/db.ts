@@ -35,6 +35,7 @@ export interface ConfigTable {
 	name: string
 	description: string
 	value: string
+	format: 'text' | 'number' | 'boolean' | 'datetime'
 	editable: 0 | 1
 }
 

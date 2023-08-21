@@ -7,7 +7,7 @@ export const ListTripInfo = async (c: Context<{ Bindings: Bindings }>) => {
 
 	return c.json(
 		{
-			trips
+			trips,
 		},
 		200
 	)

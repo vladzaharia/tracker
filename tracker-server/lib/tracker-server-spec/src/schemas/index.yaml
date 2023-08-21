@@ -1061,6 +1061,15 @@ components:
           example: Username for Garmin account
         value:
           $ref: '#/components/schemas/ConfigValue'
+        format:
+          type: string
+          description: Format of this config entry.
+          example: text
+          enum:
+            - text
+            - number
+            - boolean
+            - datetime
         editable:
           type: boolean
           description: Whether this config entry can be edited.

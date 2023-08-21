@@ -7,10 +7,12 @@ export const ListConfigs = async (c: Context<{ Bindings: Bindings }>) => {
 
 	return c.json(
 		{
-			configs: configs.map((c) => { return {
-				... c,
-				editable: c.editable === 1,
-			}}),
+			configs: configs.map((c) => {
+				return {
+					...c,
+					editable: c.editable === 1,
+				}
+			}),
 		},
 		200
 	)
