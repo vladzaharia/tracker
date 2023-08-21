@@ -5,6 +5,9 @@
 		"local": {
 			"host": "http://localhost:8787/api",
 		},
+		"staging": {
+			"host": "https://staging.track.vlad.gg/api",
+		},
 		"prod": {
 			"host": "https://track.vlad.gg/api",
 		}
