@@ -17,6 +17,7 @@ import { AddToLibrary, AVAILABLE_ICONS } from '../icons/icons'
 import Pill from '../pill/pill'
 import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
+import { TripDropdown } from '../trip-dropdown/trip-dropdown'
 
 export const WaypointEdit = ({ inModal, onModalClose }: { inModal?: boolean; onModalClose?: () => void }) => {
 	const waypoint = useLoaderData() as Waypoint
@@ -111,14 +112,38 @@ export const WaypointEdit = ({ inModal, onModalClose }: { inModal?: boolean; onM
 				<Action className="waypoint-admin-input" text="Trip" description="Trip this waypoint is associated with.">
 					{inModal ? (
 						<div className="input-wrapper">
-							<input type="text" value={tripId} onChange={(e) => setTripId(e.currentTarget.value)} />
+							<TripDropdown onChange={(v) => setTripId(v)} />
 						</div>
 					) : waypoint.trip_id }
 				</Action>
+
 				<Action className="waypoint-admin-input" text="Name" description="Display name for this waypoint.">
 					<div className="input-wrapper">
 						<input type="text" value={name} onChange={(e) => setName(e.currentTarget.value)} />
 					</div>
+				</Action>
+				<Action className="waypoint-admin-input" text="Timestamp" description="When this waypoint was sent.">
+					{inModal ? (
+						<DateTimePicker
+							className="waypoint-edit-date-picker"
+							defaultValue={moment()}
+							onChange={(v) => v && setTimestamp(v)}
+						/>
+					) : timestamp.format('MMM D, YYYY h:mm a')}
+				</Action>
+				<Action className="waypoint-admin-input" text="Latitude" description="Latitude for this waypoint.">
+					{inModal || !waypoint.managed ? (
+						<div className="input-wrapper">
+							<input type="text" value={latitude} onChange={(e) => setLatitude(e.currentTarget.value)} />
+						</div>
+					) : waypoint.latitude }
+				</Action>
+				<Action className="waypoint-admin-input" text="Longitude" description="Longitude for this waypoint.">
+				{inModal || !waypoint.managed ? (
+						<div className="input-wrapper">
+							<input type="text" value={longitude} onChange={(e) => setLongitude(e.currentTarget.value)} />
+						</div>
+					) : waypoint.longitude }
 				</Action>
 				<Action
 					className={'column'}
@@ -141,29 +166,6 @@ export const WaypointEdit = ({ inModal, onModalClose }: { inModal?: boolean; onM
 					}
 				>
 					<ColorSelector />
-				</Action>
-				<Action className="waypoint-admin-input" text="Latitude" description="Latitude for this waypoint.">
-					{inModal || !waypoint.managed ? (
-						<div className="input-wrapper">
-							<input type="text" value={latitude} onChange={(e) => setLatitude(e.currentTarget.value)} />
-						</div>
-					) : waypoint.latitude }
-				</Action>
-				<Action className="waypoint-admin-input" text="Longitude" description="Longitude for this waypoint.">
-				{inModal || !waypoint.managed ? (
-						<div className="input-wrapper">
-							<input type="text" value={longitude} onChange={(e) => setLongitude(e.currentTarget.value)} />
-						</div>
-					) : waypoint.longitude }
-				</Action>
-				<Action className="waypoint-admin-input" text="Timestamp" description="When this waypoint was sent.">
-					{inModal ? (
-						<DateTimePicker
-							className="waypoint-edit-date-picker"
-							defaultValue={moment()}
-							onChange={(v) => v && setTimestamp(v)}
-						/>
-					) : timestamp.format('MMM D, YYYY h:mm a')}
 				</Action>
 				{inModal ? (
 						<Action className="action-button">
