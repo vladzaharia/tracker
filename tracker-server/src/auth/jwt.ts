@@ -19,6 +19,7 @@ export const verifyToken = async (c: Context<{ Bindings: Bindings }>, token: str
 	// Get oidc_secret from DB
 	const config = await findConfig(c.env.D1DATABASE, 'oidc_client_secret')
 	if (!config || config.value === '') {
+		console.warn('No oidc_client_secret found in DB, returning authenticated and admin')
 		return { payload: { tracker: { admin: true, user: true } } }
 	}
 
