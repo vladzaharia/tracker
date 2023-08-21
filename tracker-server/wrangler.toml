@@ -7,7 +7,6 @@ triggers = { crons = ["*/5 * * * *"] }
 vars = { ENVIRONMENT = "local", BASE_URL="https://local.track.vlad.gg" }
 
 kv_namespaces = [
-		{ binding = "OPENID", id = "6f381b541a7841929e29028fbbcc4e8a", preview_id = "6f381b541a7841929e29028fbbcc4e8a" },
 		{ binding = "GEOJSON", id = "d088c955dc004bb4aff34533429e40d0", preview_id = "d088c955dc004bb4aff34533429e40d0" },
 ]
 d1_databases = [
@@ -19,7 +18,6 @@ route = { pattern = "dev.track.vlad.gg", custom_domain = true }
 vars = { ENVIRONMENT = "dev", BASE_URL="https://dev.track.vlad.gg" }
 triggers = { crons = ["0 0 * * *"] }
 kv_namespaces = [
-		{ binding = "OPENID", id = "6f381b541a7841929e29028fbbcc4e8a", preview_id = "6f381b541a7841929e29028fbbcc4e8a" },
     { binding = "GEOJSON", id = "a8611f1b1ba44009a19142b198f49409", preview_id = "a8611f1b1ba44009a19142b198f49409" },
 ]
 d1_databases = [
@@ -31,7 +29,6 @@ route = { pattern = "staging.track.vlad.gg", custom_domain = true }
 vars = { ENVIRONMENT = "staging", BASE_URL="https://staging.track.vlad.gg" }
 triggers = { crons = ["*/10 * * * *"] }
 kv_namespaces = [
-		{ binding = "OPENID", id = "6f381b541a7841929e29028fbbcc4e8a", preview_id = "6f381b541a7841929e29028fbbcc4e8a" },
     { binding = "GEOJSON", id = "ab3868993a4d46f498712bb7e9c939d8", preview_id = "ab3868993a4d46f498712bb7e9c939d8" },
 ]
 d1_databases = [
@@ -42,7 +39,6 @@ d1_databases = [
 route = { pattern = "track.vlad.gg", custom_domain = true }
 vars = { ENVIRONMENT = "live", BASE_URL="https://track.vlad.gg" }
 kv_namespaces = [
-		{ binding = "OPENID", id = "6f381b541a7841929e29028fbbcc4e8a", preview_id = "6f381b541a7841929e29028fbbcc4e8a" },
     { binding = "GEOJSON", id = "d088c955dc004bb4aff34533429e40d0", preview_id = "d088c955dc004bb4aff34533429e40d0" },
 ]
 d1_databases = [

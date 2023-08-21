@@ -10,7 +10,9 @@ export const ListConfigs = async (c: Context<{ Bindings: Bindings }>) => {
 			configs: configs.map((c) => {
 				return {
 					...c,
+					value: c.secret !== 1 ? c.value : undefined,
 					editable: c.editable === 1,
+					secret: c.secret === 1
 				}
 			}),
 		},

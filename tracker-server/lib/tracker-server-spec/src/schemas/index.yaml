@@ -1109,6 +1109,16 @@ components:
           type: boolean
           description: Whether this config entry can be edited.
           example: true
+          default: false
+        secret:
+          type: boolean
+          description: Whether this config entry is a secret (can't be viewed from UI/API).
+          example: false
+          default: false
+        category:
+          type: string
+          description: Category of this config entry.
+          example: OIDC
       required:
         - id
         - name

@@ -11,5 +11,5 @@ export const GetConfig = async (c: Context<{ Bindings: Bindings }>) => {
 		return c.json({ message: 'Config not found!' }, 404)
 	}
 
-	return c.text(config.value, 200)
+	return c.text(config.secret !== 1 ? config.value : '**', 200)
 }

@@ -10,6 +10,11 @@ export interface SecureEndpoint {
 export function getSecureEndpoints(): SecureEndpoint[] {
 	return [
 		{
+			path: /config.*$/,
+			methods: ['PATCH'],
+			authTypes: ['admin'],
+		},
+		{
 			path: /db.*$/,
 			methods: ['POST', 'PUT', 'DELETE'],
 			authTypes: ['admin'],
