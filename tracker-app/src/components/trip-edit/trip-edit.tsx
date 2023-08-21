@@ -1,4 +1,4 @@
-import { faChevronLeft, faMaskSnorkel, faVanShuttle, faPlus, faCheck, faSquareQuestion } from '@fortawesome/pro-solid-svg-icons'
+import { faChevronLeft, faMaskSnorkel, faVanShuttle, faPlus, faCheck, faSquareQuestion, faGlobeAmericas } from '@fortawesome/pro-solid-svg-icons'
 import { ButtonGroup, MenuItem, Select } from '@mui/material'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import moment from 'moment'
@@ -43,7 +43,10 @@ export const TripEdit = ({ inModal, onModalClose }: { inModal?: boolean; onModal
 					end_date: endDate.unix() * 1000,
 					time_zone: timeZone,
 				}),
-			undefined,
+			{
+				icon: faGlobeAmericas,
+				message: 'Successfully created trip!',
+			},
 			() => onModalClose && onModalClose()
 		)
 	}
@@ -57,7 +60,11 @@ export const TripEdit = ({ inModal, onModalClose }: { inModal?: boolean; onModal
 				start_date: startDate.unix() * 1000,
 				end_date: endDate.unix() * 1000,
 				time_zone: timeZone,
-			})
+			}),
+			{
+				icon: faGlobeAmericas,
+				message: 'Successfully edited trip!',
+			},
 		)
 		navigate('/admin/trip')
 	}

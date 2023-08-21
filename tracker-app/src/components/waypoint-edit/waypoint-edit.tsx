@@ -43,7 +43,11 @@ export const WaypointEdit = ({ inModal, onModalClose }: { inModal?: boolean; onM
 				color: (color as WaypointColor) || undefined,
 				latitude: parseFloat(latitude),
 				longitude: parseFloat(longitude),
-			})
+			}),
+			{
+				icon: faMapMarkerAlt,
+				message: 'Successfully created waypoint!',
+			}
 		)
 		onModalClose && onModalClose()
 	}
@@ -56,7 +60,11 @@ export const WaypointEdit = ({ inModal, onModalClose }: { inModal?: boolean; onM
 				color: (color as WaypointColor) || undefined,
 				latitude: !waypoint.managed ? parseFloat(latitude) : undefined,
 				longitude: !waypoint.managed ? parseFloat(longitude) : undefined,
-			})
+			}),
+			{
+				icon: faMapMarkerAlt,
+				message: 'Successfully updated waypoint!',
+			}
 		)
 		navigate('/admin/waypoint')
 	}
