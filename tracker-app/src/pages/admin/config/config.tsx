@@ -1,6 +1,6 @@
 import { faCheck, faCog } from '@fortawesome/pro-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { ListConfig200Response } from 'tracker-server-client'
+import { Config, ListConfig200Response } from 'tracker-server-client'
 import { useState } from 'react'
 import { useAuth } from 'react-oidc-context'
 import { useLoaderData } from 'react-router-dom'
@@ -14,6 +14,7 @@ import './config.css'
 import { DateTimePicker } from '@mui/x-date-pickers'
 import moment from 'moment'
 import Toggle from '../../../components/toggle/toggle'
+import SectionTitle from '../../../components/section-title/section-title'
 
 export default function AdminConfig() {
 	const { configs } = useLoaderData() as ListConfig200Response
@@ -40,17 +41,8 @@ export default function AdminConfig() {
 		)
 	}
 
-	return (
-		<div className="config">
-			<Header
-				title={'Config'}
-				color="red"
-				className="corner-right"
-				leftActions={<FontAwesomeIcon icon={faCog} size="lg" />}
-				rightActions={<Button color="green" onClick={async () => await updateValues()} iconProps={{ icon: faCheck }} />}
-			/>
-			{configs?.map((config) => (
-				<Action key={config.id} text={config.name} description={config.description}>
+	const ConfigAction = ({ config }: { config: Config }) => {
+		return <Action key={config.id} text={config.name} description={config.description}>
 					{config.editable ? (
 						<div className="input-wrapper">
 							{config.format === 'text' || config.format === 'number' ? (
@@ -116,7 +108,31 @@ export default function AdminConfig() {
 						</>
 					)}
 				</Action>
+	}
+
+	// Get config categories
+	const categories = configs?.map((c) => c.category).filter((c) => c && c.length > 0).filter((c, i, a) => a.indexOf(c) === i)
+
+	return (
+		<div className="config">
+			<Header
+				title={'Config'}
+				color="red"
+				className="corner-right"
+				leftActions={<FontAwesomeIcon icon={faCog} size="lg" />}
+				rightActions={<Button color="green" onClick={async () => await updateValues()} iconProps={{ icon: faCheck }} />}
+			/>
+			{configs?.filter((c) => !c.category || c.category.length === 0).map((config) => (
+				<ConfigAction config={config} key={config.id} />
 			))}
+
+			{categories?.map((category) => (
+				<div key={category}>
+					<SectionTitle color="red">
+						{category}
+					</SectionTitle>
+					{configs?.filter((c) => c.category === category).map((config) => <ConfigAction config={config} key={config.id} />)}
+				</div>))}
 		</div>
 	)
 }

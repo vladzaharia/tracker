@@ -37,6 +37,8 @@ export interface ConfigTable {
 	value: string
 	format: 'text' | 'number' | 'boolean' | 'datetime'
 	editable: 0 | 1
+	secret?: 0 | 1
+	category?: string
 }
 
 export interface MigrationTable {

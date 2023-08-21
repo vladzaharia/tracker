@@ -25,109 +25,117 @@ import WaypointAdmin from './pages/admin/waypoint/waypoint-admin'
 import ConfigLoader from './loaders/config'
 import AdminConfig from './pages/admin/config/config'
 import ListTripAdminLoader from './loaders/trip-list-admin'
+import { createInfoApi } from './api'
 
-const oidcConfig: AuthProviderProps = {
-	authority: 'https://auth.zhr.one/application/o/trip-tracker/',
-	client_id: '9FbtspzZkyBQfCUCCtZbj38eKrMRFn26cwpu2D3C',
-	redirect_uri: `${window.location.protocol}//${window.location.host}${window.location.pathname}`,
-	scope: 'openid profile tracker',
-	onSigninCallback: () => {
-		window.history.replaceState({}, document.title, window.location.pathname)
-	},
+const init = async () => {
+	const api = createInfoApi()
+	const {configs} = await (await api.listConfig()).data
+
+	const oidcConfig: AuthProviderProps = {
+		authority: configs?.find((c) => c.id === 'oidc_authority')?.value || '',
+		client_id: configs?.find((c) => c.id === 'oidc_client_id')?.value || '',
+		scope: configs?.find((c) => c.id === 'oidc_scope')?.value || '',
+		redirect_uri: `${window.location.protocol}//${window.location.host}${window.location.pathname}`,
+		onSigninCallback: () => {
+			window.history.replaceState({}, document.title, window.location.pathname)
+		},
+	}
+
+	const router = createBrowserRouter([
+		{
+			element: (
+				<App>
+					<ContentBox />
+				</App>
+			),
+			id: 'root',
+			errorElement: (
+				<App>
+					<ContentBox>
+						<RouterErrorBoundary />
+					</ContentBox>
+				</App>
+			),
+			children: [
+				{
+					path: '/',
+					id: 'trips',
+					loader: ListTripLoader,
+					element: <ListTrips />,
+				},
+				{
+					path: ':trip',
+					id: 'trip',
+					element: <Trip />,
+					loader: GetTripLoader,
+					children: [
+						{
+							path: '',
+							id: 'trip-map',
+							loader: GetTripGeoJSONLoader,
+							element: <TripMap />,
+						},
+					],
+				},
+				{
+					path: 'admin',
+					element: <Admin />,
+					children: [
+						{
+							path: '',
+							id: 'admin-home',
+							element: <AdminHome />,
+						},
+						{
+							path: 'trip',
+							id: 'admin-trip-list',
+							loader: ListTripAdminLoader,
+							element: <TripListAdmin />,
+						},
+						{
+							path: 'trip/:trip',
+							id: 'admin-trip',
+							loader: GetTripLoader,
+							element: <TripAdmin />,
+						},
+						{
+							path: 'waypoint',
+							id: 'admin-waypoint-list',
+							loader: ListWaypointLoader,
+							element: <WaypointListAdmin />,
+						},
+						{
+							path: 'waypoint/:trip/:timestamp',
+							id: 'admin-waypoint',
+							loader: GetWaypointLoader,
+							element: <WaypointAdmin />,
+						},
+						{
+							path: 'database',
+							id: 'admin-database',
+							loader: DatabaseLoader,
+							element: <AdminDatabase />,
+						},
+						{
+							path: 'config',
+							id: 'admin-config',
+							loader: ConfigLoader,
+							element: <AdminConfig />,
+						},
+					],
+				},
+			],
+		},
+	])
+
+	const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
+	root.render(
+		<StrictMode>
+			<AuthProvider {...oidcConfig}>
+				<RouterProvider router={router} />
+			</AuthProvider>
+		</StrictMode>
+	)
 }
 
-const router = createBrowserRouter([
-	{
-		element: (
-			<App>
-				<ContentBox />
-			</App>
-		),
-		id: 'root',
-		errorElement: (
-			<App>
-				<ContentBox>
-					<RouterErrorBoundary />
-				</ContentBox>
-			</App>
-		),
-		children: [
-			{
-				path: '/',
-				id: 'trips',
-				loader: ListTripLoader,
-				element: <ListTrips />,
-			},
-			{
-				path: ':trip',
-				id: 'trip',
-				element: <Trip />,
-				loader: GetTripLoader,
-				children: [
-					{
-						path: '',
-						id: 'trip-map',
-						loader: GetTripGeoJSONLoader,
-						element: <TripMap />,
-					},
-				],
-			},
-			{
-				path: 'admin',
-				element: <Admin />,
-				children: [
-					{
-						path: '',
-						id: 'admin-home',
-						element: <AdminHome />,
-					},
-					{
-						path: 'trip',
-						id: 'admin-trip-list',
-						loader: ListTripAdminLoader,
-						element: <TripListAdmin />,
-					},
-					{
-						path: 'trip/:trip',
-						id: 'admin-trip',
-						loader: GetTripLoader,
-						element: <TripAdmin />,
-					},
-					{
-						path: 'waypoint',
-						id: 'admin-waypoint-list',
-						loader: ListWaypointLoader,
-						element: <WaypointListAdmin />,
-					},
-					{
-						path: 'waypoint/:trip/:timestamp',
-						id: 'admin-waypoint',
-						loader: GetWaypointLoader,
-						element: <WaypointAdmin />,
-					},
-					{
-						path: 'database',
-						id: 'admin-database',
-						loader: DatabaseLoader,
-						element: <AdminDatabase />,
-					},
-					{
-						path: 'config',
-						id: 'admin-config',
-						loader: ConfigLoader,
-						element: <AdminConfig />,
-					},
-				],
-			},
-		],
-	},
-])
-
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
-root.render(
-	<StrictMode>
-		<AuthProvider {...oidcConfig}>
-			<RouterProvider router={router} />
-		</AuthProvider>
-	</StrictMode>
-)
+init()
