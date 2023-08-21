@@ -83,10 +83,12 @@ export const TripMap = () => {
 
 	const MarkerPin = ({ waypoint }: { waypoint: Waypoint }) => {
 		return (
-			<div className={`marker ${waypoint.color || ''}`}>
-				<div className="marker-content">
-					<FontAwesomeIcon icon={waypoint.icon as IconName || faMapMarkerAlt} />
-					<span>{waypoint.name}</span>
+			<div className='marker-wrapper'>
+				<div className={`marker ${waypoint.color || ''}`}>
+					<div className="marker-content">
+						<FontAwesomeIcon icon={waypoint.icon as IconName || faMapMarkerAlt} />
+						<span>{waypoint.name}</span>
+					</div>
 				</div>
 			</div>
 		)

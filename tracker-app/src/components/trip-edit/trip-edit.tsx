@@ -77,13 +77,14 @@ export const TripEdit = ({ inModal, onModalClose }: { inModal?: boolean; onModal
 						leftActions={<Button color="blue" onClick={() => navigate(`/admin/trip`)} iconProps={{ icon: faChevronLeft }} />}
 						rightActions={<Button color="green" onClick={() => updateTrip()} iconProps={{ icon: faCheck }} />}
 					/>
-				) : (
+				) : undefined}
+				{inModal ? (
 					<Action className="trip-edit-input" text="ID" description="Unique ID for this trip.">
 						<div className="input-wrapper">
 							<input type="text" value={id} onChange={(e) => setId(e.currentTarget.value)} />
 						</div>
 					</Action>
-				)}
+				) : undefined}
 
 				<Action className="trip-edit-input" text="Name" description="Display name for this trip.">
 					<div className="input-wrapper">

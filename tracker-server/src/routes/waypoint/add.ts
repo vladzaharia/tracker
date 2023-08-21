@@ -2,6 +2,7 @@ import { Context } from 'hono'
 import { Bindings } from '../../bindings'
 import { WaypointTable } from '../../tables/db'
 import { findWaypointInTrip, insertWaypoint } from '../../tables/waypoint'
+import { findTrip } from '../../tables/trip'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface AddWaypointBody extends Omit<WaypointTable, 'trip_id' | 'timestamp' | 'managed'> {}
@@ -25,9 +26,15 @@ export const AddWaypoint = async (c: Context<{ Bindings: Bindings }>) => {
 			return c.json({ message: 'Must set `longitude`!' }, 400)
 		}
 
+		// Try to find trip
+		const tripRecord = await findTrip(db, trip)
+		if (!tripRecord) {
+			return c.json({ message: 'Trip not found!' }, 404)
+		}
+
 		// Try to find waypoint
 		const record = await findWaypointInTrip(db, trip, parseInt(timestamp, 10))
-		if (!record) {
+		if (record) {
 			return c.json({ message: 'Waypoint already exists!' }, 400)
 		}
 

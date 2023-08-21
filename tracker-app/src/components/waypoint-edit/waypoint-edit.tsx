@@ -1,0 +1,174 @@
+import { faChevronLeft, faCheck, IconName, faCircle, faMapMarkerAlt, faPlus } from '@fortawesome/pro-solid-svg-icons'
+import moment from 'moment'
+import Action from '../action/action'
+import Header from '../header/header'
+import { useState } from 'react'
+import { useAuth } from 'react-oidc-context'
+import { useLoaderData, useNavigate } from 'react-router-dom'
+import { createAdminApi } from '../../api'
+import { useNotificationAwareRequest } from '../../hooks/notification'
+import useReload from '../../hooks/reload'
+import { Waypoint, WaypointColor } from 'tracker-server-client'
+import Button from '../button/button'
+import './waypoint-edit.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { CommonColor } from '../../types'
+import { AddToLibrary, AVAILABLE_ICONS } from '../icons/icons'
+import Pill from '../pill/pill'
+import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers'
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
+
+export const WaypointEdit = ({ inModal, onModalClose }: { inModal?: boolean; onModalClose?: () => void }) => {
+	const waypoint = useLoaderData() as Waypoint
+	useReload(waypoint)
+	const navigate = useNavigate()
+	const request = useNotificationAwareRequest()
+	const auth = useAuth()
+	const api = createAdminApi(auth.user?.access_token || '')
+
+	const [tripId, setTripId] = useState(waypoint.trip_id || '')
+	const [timestamp, setTimestamp] = useState(moment(waypoint.timestamp) || '')
+	const [name, setName] = useState(waypoint.name || '')
+	const [icon, setIcon] = useState<string | null>(waypoint.icon || '')
+	const [color, setColor] = useState<string | null>(waypoint.color || '')
+	const [latitude, setLatitude] = useState(waypoint.latitude ? waypoint.latitude.toString() : '')
+	const [longitude, setLongitude] = useState(waypoint.longitude ? waypoint.longitude.toString() : '')
+
+	const addWaypoint = async () => {
+		await request(() =>
+			api.addWaypoint(tripId, timestamp.unix() * 1000, {
+				name,
+				icon: icon || undefined,
+				color: color as WaypointColor || undefined,
+				latitude: parseFloat(latitude),
+				longitude: parseFloat(longitude)
+			})
+		)
+		onModalClose && onModalClose()
+	}
+
+	const updateWaypoint = async () => {
+		await request(() =>
+			api.updateWaypoint(waypoint.trip_id, waypoint.timestamp, {
+				name,
+				icon: icon || undefined,
+				color: color as WaypointColor || undefined
+			})
+		)
+		navigate('/admin/waypoint')
+	}
+
+	AddToLibrary()
+
+	const IconSelector = () => {
+		return (
+			<div className="icons">
+				{AVAILABLE_ICONS.map((i) => (
+					<Pill
+						key={i.iconName}
+						color="green"
+						className={i.iconName === icon ? 'active' : undefined}
+						text={<FontAwesomeIcon icon={i} />}
+						onClick={() => setIcon(i.iconName === icon ? null : i.iconName)}
+					/>
+				))}
+			</div>
+		)
+	}
+
+	const ColorSelector = () => {
+		const colors: CommonColor[] = ["primary", "blue", "green", "red", "purple", "yellow", "orange", "grey-dark"]
+		return (
+			<div className="icons">
+				{colors.map((c) => (
+					<Pill
+						key={c}
+						color={c}
+						className={c === color ? 'active' : undefined}
+						text={<FontAwesomeIcon icon={faCircle} />}
+						onClick={() => setColor(c)}
+					/>
+				))}
+			</div>
+		)
+	}
+
+	return (
+		<LocalizationProvider dateAdapter={AdapterMoment}>
+			<div className="waypoint-admin">
+				{!inModal ? (
+					<Header
+						title={waypoint.name}
+						color="green"
+						className="corner-right"
+						leftActions={<Button color="green" onClick={() => navigate(`/admin/waypoint`)} iconProps={{ icon: faChevronLeft }} />}
+						rightActions={<Button color="green" onClick={() => updateWaypoint()} iconProps={{ icon: faCheck }} />}
+					/>
+				) : undefined}
+
+				<Action className="waypoint-admin-input" text="Trip" description="Trip this waypoint is associated with.">
+					{inModal ? (
+						<div className="input-wrapper">
+							<input type="text" value={tripId} onChange={(e) => setTripId(e.currentTarget.value)} />
+						</div>
+					) : waypoint.trip_id }
+				</Action>
+				<Action className="waypoint-admin-input" text="Name" description="Display name for this waypoint.">
+					<div className="input-wrapper">
+						<input type="text" value={name} onChange={(e) => setName(e.currentTarget.value)} />
+					</div>
+				</Action>
+				<Action
+					className={'column'}
+					text="Icon"
+					description={
+						<span className="mr-05">
+							<FontAwesomeIcon className="mr-05" icon={(icon as IconName) || faMapMarkerAlt} /> {icon || '(default icon)'}
+						</span>
+					}
+				>
+					<IconSelector />
+				</Action>
+				<Action
+					className={'column'}
+					text="Color"
+					description={
+						<span className="mr-05">
+							{color || '(default color)'}
+						</span>
+					}
+				>
+					<ColorSelector />
+				</Action>
+				<Action className="waypoint-admin-input" text="Latitude" description="Latitude for this waypoint.">
+					{inModal || !waypoint.managed ? (
+						<div className="input-wrapper">
+							<input type="text" value={latitude} onChange={(e) => setLatitude(e.currentTarget.value)} />
+						</div>
+					) : waypoint.latitude }
+				</Action>
+				<Action className="waypoint-admin-input" text="Longitude" description="Longitude for this waypoint.">
+				{inModal || !waypoint.managed ? (
+						<div className="input-wrapper">
+							<input type="text" value={longitude} onChange={(e) => setLongitude(e.currentTarget.value)} />
+						</div>
+					) : waypoint.longitude }
+				</Action>
+				<Action className="waypoint-admin-input" text="Timestamp" description="When this waypoint was sent.">
+					{inModal ? (
+						<DateTimePicker
+							className="waypoint-edit-date-picker"
+							defaultValue={moment()}
+							onChange={(v) => v && setTimestamp(v)}
+						/>
+					) : timestamp.format('MMM D, YYYY h:mm a')}
+				</Action>
+				{inModal ? (
+						<Action className="action-button">
+							<Button color="green" iconProps={{ icon: faPlus }} text="Create" onClick={() => addWaypoint()} />
+						</Action>
+					) : undefined}
+			</div>
+		</LocalizationProvider>
+	)
+}

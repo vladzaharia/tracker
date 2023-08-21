@@ -21,6 +21,8 @@ import { ListWaypoints } from './routes/waypoint/list'
 import { GetWaypoint } from './routes/waypoint/get'
 import { UpdateWaypoint } from './routes/waypoint/update'
 import { FetchWaypoints } from './cron/fetch_waypoints'
+import { AddWaypoint } from './routes/waypoint/add'
+import { DeleteWaypoint } from './routes/waypoint/delete'
 
 const app = new Hono<{ Bindings: Bindings }>()
 
@@ -61,7 +63,9 @@ app.put('/api/action/message', SendMessage)
 // Waypoints
 app.get('/api/waypoint', ListWaypoints)
 app.get('/api/waypoint/:trip/:timestamp', GetWaypoint)
+app.post('/api/waypoint/:trip/:timestamp', AddWaypoint)
 app.patch('/api/waypoint/:trip/:timestamp', UpdateWaypoint)
+app.delete('/api/waypoint/:trip/:timestamp', DeleteWaypoint)
 
 // Database endpoints
 app.get('/api/db', DbInfo)

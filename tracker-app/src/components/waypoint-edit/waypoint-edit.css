@@ -1,0 +1,26 @@
+.icons {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	gap: 0.75rem;
+	padding: 1rem;
+}
+
+.icons .pill {
+	height: 2.25rem;
+	width: 2.25rem;
+}
+
+.waypoint-edit-date-picker input {
+	padding: 0;
+}
+
+.waypoint-edit-date-picker .MuiOutlinedInput-root {
+	outline: 1px solid var(--border);
+}
+
+.waypoint-edit-date-picker .MuiIconButton-root {
+	color: var(--foreground);
+}

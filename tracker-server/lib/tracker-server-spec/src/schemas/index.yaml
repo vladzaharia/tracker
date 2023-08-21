@@ -240,6 +240,8 @@ paths:
           $ref: '#/components/responses/Success'
         400:
           $ref: '#/components/responses/WaypointExists'
+        404:
+          $ref: '#/components/responses/TripNotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
     patch:
