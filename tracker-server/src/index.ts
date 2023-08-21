@@ -24,6 +24,10 @@ import { FetchWaypoints } from './cron/fetch_waypoints'
 import { AddWaypoint } from './routes/waypoint/add'
 import { DeleteWaypoint } from './routes/waypoint/delete'
 import { ListTripInfo } from './routes/trip/all'
+import { updateLastFetchTime } from './tables/config'
+import { ListConfigs } from './routes/config/list'
+import { GetConfig } from './routes/config/get'
+import { UpdateConfig } from './routes/config/update'
 
 const app = new Hono<{ Bindings: Bindings }>()
 
@@ -64,10 +68,17 @@ app.put('/api/action/message', SendMessage)
 
 // Waypoints
 app.get('/api/waypoint', ListWaypoints)
+app.get('/api/waypoint/', ListWaypoints)
 app.get('/api/waypoint/:trip/:timestamp', GetWaypoint)
 app.post('/api/waypoint/:trip/:timestamp', AddWaypoint)
 app.patch('/api/waypoint/:trip/:timestamp', UpdateWaypoint)
 app.delete('/api/waypoint/:trip/:timestamp', DeleteWaypoint)
+
+// Config
+app.get('/api/config', ListConfigs)
+app.get('/api/config/', ListConfigs)
+app.get('/api/config/:id', GetConfig)
+app.patch('/api/config/:id', UpdateConfig)
 
 // Database endpoints
 app.get('/api/db', DbInfo)
@@ -121,6 +132,12 @@ app.get(
 	})
 )
 app.get(
+	'/admin/config',
+	serveStatic({
+		path: './app/index.html',
+	})
+)
+app.get(
 	'/admin/database',
 	serveStatic({
 		path: './app/index.html',
@@ -138,5 +155,6 @@ export default {
 	async scheduled(event, env, ctx) {
 		ctx.waitUntil(FetchGeoJSON(env))
 		ctx.waitUntil(FetchWaypoints(env))
+		ctx.waitUntil(updateLastFetchTime(env.D1DATABASE))
 	},
 } as ExportedHandler<Bindings>

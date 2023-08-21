@@ -29,7 +29,7 @@ export const SendMessage = async (c: Context<{ Bindings: Bindings }>) => {
 		}
 
 		// Send message
-		await sendMessage(phoneNumber, message)
+		await sendMessage(c.env, phoneNumber, message)
 		return c.json({ message: 'Successfully sent message!' })
 	} catch (e) {
 		console.error('err', e)

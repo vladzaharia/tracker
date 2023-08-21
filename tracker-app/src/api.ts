@@ -1,6 +1,7 @@
 import {
 	ActionApi,
 	AdminApi,
+	ConfigApi,
 	Configuration,
 	ConfigurationParameters,
 	DatabaseApi,
@@ -38,4 +39,8 @@ export const createAdminApi = (accessToken: string) => {
 
 export const createDatabaseApi = (accessToken: string) => {
 	return new DatabaseApi(getApiConfig({ accessToken }))
+}
+
+export const createConfigApi = (accessToken: string) => {
+	return new ConfigApi(getApiConfig({ accessToken }))
 }

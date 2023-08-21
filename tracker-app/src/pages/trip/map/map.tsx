@@ -83,10 +83,10 @@ export const TripMap = () => {
 
 	const MarkerPin = ({ waypoint }: { waypoint: Waypoint }) => {
 		return (
-			<div className='marker-wrapper'>
+			<div className="marker-wrapper">
 				<div className={`marker ${waypoint.color || ''}`}>
 					<div className="marker-content">
-						<FontAwesomeIcon icon={waypoint.icon as IconName || faMapMarkerAlt} />
+						<FontAwesomeIcon icon={(waypoint.icon as IconName) || faMapMarkerAlt} />
 						<span>{waypoint.name}</span>
 					</div>
 				</div>
@@ -112,7 +112,13 @@ export const TripMap = () => {
 					onClick={onClick}
 				>
 					<NavigationControl visualizePitch={true} position="top-left" />
-					{trip.waypoints.length > 0 ? trip.waypoints.map((wp) => <Marker key={wp.timestamp} longitude={wp.longitude} latitude={wp.latitude}><MarkerPin waypoint={wp} /></Marker>) : undefined}
+					{trip.waypoints.length > 0
+						? trip.waypoints.map((wp) => (
+								<Marker key={wp.timestamp} longitude={wp.longitude} latitude={wp.latitude}>
+									<MarkerPin waypoint={wp} />
+								</Marker>
+						  ))
+						: undefined}
 					<Source id="points" type="geojson" data={tripJSON.points}>
 						<Layer
 							id={`${trip.id}-points`}

@@ -40,9 +40,9 @@ export const WaypointEdit = ({ inModal, onModalClose }: { inModal?: boolean; onM
 			api.addWaypoint(tripId, timestamp.unix() * 1000, {
 				name,
 				icon: icon || undefined,
-				color: color as WaypointColor || undefined,
+				color: (color as WaypointColor) || undefined,
 				latitude: parseFloat(latitude),
-				longitude: parseFloat(longitude)
+				longitude: parseFloat(longitude),
 			})
 		)
 		onModalClose && onModalClose()
@@ -53,9 +53,9 @@ export const WaypointEdit = ({ inModal, onModalClose }: { inModal?: boolean; onM
 			api.updateWaypoint(waypoint.trip_id, waypoint.timestamp, {
 				name,
 				icon: icon || undefined,
-				color: color as WaypointColor || undefined,
+				color: (color as WaypointColor) || undefined,
 				latitude: !waypoint.managed ? parseFloat(latitude) : undefined,
-				longitude: !waypoint.managed ? parseFloat(longitude) : undefined
+				longitude: !waypoint.managed ? parseFloat(longitude) : undefined,
 			})
 		)
 		navigate('/admin/waypoint')
@@ -80,7 +80,23 @@ export const WaypointEdit = ({ inModal, onModalClose }: { inModal?: boolean; onM
 	}
 
 	const ColorSelector = () => {
-		const colors: (CommonColor | CommonColorAlt)[] = ["primary", "blue", "green", "red", "purple", "yellow", "orange", "grey-dark", "primary alt", "blue alt", "green alt", "red alt", "purple alt", "yellow alt", "orange alt"]
+		const colors: (CommonColor | CommonColorAlt)[] = [
+			'primary',
+			'blue',
+			'green',
+			'red',
+			'purple',
+			'yellow',
+			'orange',
+			'grey-dark',
+			'primary alt',
+			'blue alt',
+			'green alt',
+			'red alt',
+			'purple alt',
+			'yellow alt',
+			'orange alt',
+		]
 		return (
 			<div className="icons">
 				{colors.map((c) => (
@@ -114,7 +130,9 @@ export const WaypointEdit = ({ inModal, onModalClose }: { inModal?: boolean; onM
 						<div className="input-wrapper">
 							<TripDropdown onChange={(v) => setTripId(v)} />
 						</div>
-					) : waypoint.trip_id }
+					) : (
+						waypoint.trip_id
+					)}
 				</Action>
 
 				<Action className="waypoint-admin-input" text="Name" description="Display name for this waypoint.">
@@ -124,26 +142,28 @@ export const WaypointEdit = ({ inModal, onModalClose }: { inModal?: boolean; onM
 				</Action>
 				<Action className="waypoint-admin-input" text="Timestamp" description="When this waypoint was sent.">
 					{inModal ? (
-						<DateTimePicker
-							className="waypoint-edit-date-picker"
-							defaultValue={moment()}
-							onChange={(v) => v && setTimestamp(v)}
-						/>
-					) : timestamp.format('MMM D, YYYY h:mm a')}
+						<DateTimePicker className="waypoint-edit-date-picker" defaultValue={moment()} onChange={(v) => v && setTimestamp(v)} />
+					) : (
+						timestamp.format('MMM D, YYYY h:mm a')
+					)}
 				</Action>
 				<Action className="waypoint-admin-input" text="Latitude" description="Latitude for this waypoint.">
 					{inModal || !waypoint.managed ? (
 						<div className="input-wrapper">
 							<input type="text" value={latitude} onChange={(e) => setLatitude(e.currentTarget.value)} />
 						</div>
-					) : waypoint.latitude }
+					) : (
+						waypoint.latitude
+					)}
 				</Action>
 				<Action className="waypoint-admin-input" text="Longitude" description="Longitude for this waypoint.">
-				{inModal || !waypoint.managed ? (
+					{inModal || !waypoint.managed ? (
 						<div className="input-wrapper">
 							<input type="text" value={longitude} onChange={(e) => setLongitude(e.currentTarget.value)} />
 						</div>
-					) : waypoint.longitude }
+					) : (
+						waypoint.longitude
+					)}
 				</Action>
 				<Action
 					className={'column'}
@@ -156,22 +176,14 @@ export const WaypointEdit = ({ inModal, onModalClose }: { inModal?: boolean; onM
 				>
 					<IconSelector />
 				</Action>
-				<Action
-					className={'column'}
-					text="Color"
-					description={
-						<span className="mr-05">
-							{color || '(default color)'}
-						</span>
-					}
-				>
+				<Action className={'column'} text="Color" description={<span className="mr-05">{color || '(default color)'}</span>}>
 					<ColorSelector />
 				</Action>
 				{inModal ? (
-						<Action className="action-button">
-							<Button color="green" iconProps={{ icon: faPlus }} text="Create" onClick={() => addWaypoint()} />
-						</Action>
-					) : undefined}
+					<Action className="action-button">
+						<Button color="green" iconProps={{ icon: faPlus }} text="Create" onClick={() => addWaypoint()} />
+					</Action>
+				) : undefined}
 			</div>
 		</LocalizationProvider>
 	)

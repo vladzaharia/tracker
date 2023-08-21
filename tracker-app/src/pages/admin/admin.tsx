@@ -1,6 +1,6 @@
 import Menu from '../../components/menu/menu'
 import { hasAuthParams, useAuth } from 'react-oidc-context'
-import { faGlobeAmericas, faDatabase, faMapMarkerAlt } from '@fortawesome/pro-solid-svg-icons'
+import { faGlobeAmericas, faDatabase, faMapMarkerAlt, faCog } from '@fortawesome/pro-solid-svg-icons'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import './admin.css'
@@ -37,6 +37,7 @@ export default function Admin() {
 					<>
 						<MenuItem key="trip" color="blue" text="Trips" icon={faGlobeAmericas} destination="trip" />
 						<MenuItem key="waypoint" color="green" text="Waypoints" icon={faMapMarkerAlt} destination="waypoint" />
+						<MenuItem key="config" color="red" text="Config" icon={faCog} destination="config" />
 						<MenuItem key="db" color="purple" text="Database" icon={faDatabase} destination="database" />
 					</>
 				) : undefined}

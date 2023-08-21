@@ -43,7 +43,7 @@ export default function GlobalNav() {
 					className="home"
 					color={'blue'}
 					iconProps={{
-						icon:  faHome,
+						icon: faHome,
 						size: 'lg',
 					}}
 					onClick={() => {

@@ -37,7 +37,7 @@ export const UpdateWaypoint = async (c: Context<{ Bindings: Bindings }>) => {
 			icon: updated_props.icon,
 			color: updated_props.color,
 			latitude: updated_props.latitude,
-			longitude: updated_props.longitude
+			longitude: updated_props.longitude,
 		})
 
 		return c.json({ message: 'Successfully updated waypoint!' })
