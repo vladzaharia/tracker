@@ -106,6 +106,41 @@
 	border-color: var(--yellow-trans-50);
 }
 
+.marker.primary.alt {
+	background-color: var(--primary-dark);
+	color: var(--foreground-alt);
+}
+
+.marker.blue.alt {
+	background-color: var(--blue-dark);
+	color: var(--foreground-alt);
+}
+
+.marker.red.alt {
+	background-color: var(--red-dark);
+	color: var(--foreground-alt);
+}
+
+.marker.green.alt {
+	background-color: var(--green-dark);
+	color: var(--foreground-alt);
+}
+
+.marker.purple.alt {
+	background-color: var(--purple-dark);
+	color: var(--foreground-alt);
+}
+
+.marker.orange.alt {
+	background-color: var(--orange-dark);
+	color: var(--foreground-alt);
+}
+
+.marker.yellow.alt {
+	background-color: var(--yellow-dark);
+	color: var(--foreground-alt);
+}
+
 .marker .marker-content {
 	display: flex;
 	flex-direction: row;

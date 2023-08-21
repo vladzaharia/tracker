@@ -12,7 +12,7 @@ import { Waypoint, WaypointColor } from 'tracker-server-client'
 import Button from '../button/button'
 import './waypoint-edit.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { CommonColor } from '../../types'
+import { CommonColor, CommonColorAlt } from '../../types'
 import { AddToLibrary, AVAILABLE_ICONS } from '../icons/icons'
 import Pill from '../pill/pill'
 import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers'
@@ -80,13 +80,13 @@ export const WaypointEdit = ({ inModal, onModalClose }: { inModal?: boolean; onM
 	}
 
 	const ColorSelector = () => {
-		const colors: CommonColor[] = ["primary", "blue", "green", "red", "purple", "yellow", "orange", "grey-dark"]
+		const colors: (CommonColor | CommonColorAlt)[] = ["primary", "blue", "green", "red", "purple", "yellow", "orange", "grey-dark", "primary alt", "blue alt", "green alt", "red alt", "purple alt", "yellow alt", "orange alt"]
 		return (
 			<div className="icons">
 				{colors.map((c) => (
 					<Pill
 						key={c}
-						color={c}
+						color={c as CommonColor}
 						className={c === color ? 'active' : undefined}
 						text={<FontAwesomeIcon icon={faCircle} />}
 						onClick={() => setColor(c)}

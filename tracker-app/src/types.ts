@@ -1,4 +1,5 @@
 export type CommonColor = 'primary' | 'blue' | 'green' | 'red' | 'orange' | 'purple' | 'yellow' | 'grey-dark'
+export type CommonColorAlt = 'primary alt' | 'blue alt' | 'green alt' | 'red alt' | 'orange alt' | 'purple alt' | 'yellow alt'
 
 export type ApiType = 'gm' | 'admin'
 
