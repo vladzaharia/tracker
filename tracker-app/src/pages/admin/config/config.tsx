@@ -93,8 +93,26 @@ export default function AdminConfig() {
 						</div>
 					) : (
 						<>
-							{config.format === 'text' || config.format === 'number' || config.format === 'boolean' ? config.value : undefined}
-							{config.format === 'datetime' ? moment(config.value).calendar() : undefined}
+							{config.format === 'text' || config.format === 'number' ? config.value : undefined}
+							{config.format === 'boolean' ? (
+								<Toggle
+									color="red"
+									checked={config.value === 'true'}
+									disabled
+									onChange={(e) =>
+										setChangedValues({
+											...changedValues,
+											[config.id]: config.value === 'true' ? 'false' : 'true',
+										})
+									}
+								/>
+							) : undefined}
+							{config.format === 'datetime' ? (
+								<span className="fetch-time">
+									<span className="fw-500">{moment(config.value).calendar()}</span>
+									<span className="description">{moment(config.value).utc().format('MMM Do YYYY, HH:mm')} UTC</span>
+								</span>
+							) : undefined}
 						</>
 					)}
 				</Action>
