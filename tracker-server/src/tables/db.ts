@@ -19,6 +19,7 @@ export interface TripTable {
 }
 
 export interface WaypointTable {
+	managed: 0 | 1
 	trip_id: string
 	name: string
 	icon?: string

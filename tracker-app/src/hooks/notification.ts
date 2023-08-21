@@ -4,7 +4,7 @@ import { isAxiosError } from 'axios'
 import { faCheck } from '@fortawesome/pro-solid-svg-icons'
 import { useRevalidator } from 'react-router-dom'
 
-export type NotificationSource = 'trip' | 'db-reset' | 'db-migrate' | 'db-rollback'
+export type NotificationSource = 'trip' | 'db-reset' | 'db-migrate' | 'db-rollback' | 'waypoint'
 export type NotificationType = 'success' | 'failed' | 'warning'
 
 export interface NotificationDetails {

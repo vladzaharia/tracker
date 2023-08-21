@@ -24,7 +24,6 @@ export default function TripListAdmin() {
 	const [deleteModalTripId, setDeleteModalTripId] = useState<string | undefined>()
 	const [showCreateModal, setShowCreateModal] = useState<boolean>(false)
 
-	// const api = createAdminApi(auth.user?.access_token || '')
 	const deleteTrip = async (id: string) => {
 		await request(
 			async () => await api.deleteTrip(id),
@@ -112,7 +111,7 @@ export default function TripListAdmin() {
 								element: (
 									<div className="buttons">
 										<Button
-											color="primary"
+											color="red"
 											iconProps={{ icon: faTrash }}
 											onClick={(e) => {
 												e.stopPropagation()

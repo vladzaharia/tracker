@@ -50,49 +50,60 @@
 	padding-bottom: 0;
 }
 
-.marker {
-	padding: 0.5rem 1rem;
-	border: 1px solid var(--border);
-	background-color: var(--grey-dark);
+.marker-wrapper {
+	background-color: var(--background);
 	border-radius: 1rem;
 	font-family: 'Barlow', Roboto, Arial, Helvetica, sans-serif;
 	font-size: 0.9rem;
 	font-weight: 500;
 }
 
+.marker {
+	padding: 0.5rem 1rem;
+	border: 1px solid var(--border);
+	border-radius: 1rem;
+}
+
 .marker.primary {
-	background-color: var(--primary);
-	color: var(--foreground-alt);
+	background-color: var(--primary-trans);
+	color: var(--primary);
+	border-color: var(--primary-trans-50);
 }
 
 .marker.blue {
-	background-color: var(--blue-dark);
-	color: var(--foreground-alt);
+	background-color: var(--blue-trans);
+	color: var(--blue);
+	border-color: var(--blue-trans-50);
 }
 
 .marker.green {
-	background-color: var(--green-dark);
-	color: var(--foreground-alt);
+	background-color: var(--green-trans);
+	color: var(--green);
+	border-color: var(--green-trans-50);
 }
 
 .marker.red {
-	background-color: var(--red-dark);
-	color: var(--foreground-alt);
+	background-color: var(--red-trans);
+	color: var(--red);
+	border-color: var(--red-trans-50);
 }
 
 .marker.purple {
-	background-color: var(--purple-dark);
-	color: var(--foreground-alt);
+	background-color: var(--purple-trans-50);
+	color: var(--purple);
+	border-color: var(--purple-trans-50);
 }
 
 .marker.orange {
-	background-color: var(--orange-dark);
-	color: var(--foreground-alt);
+	background-color: var(--orange-trans);
+	color: var(--orange);
+	border-color: var(--orange-trans-50);
 }
 
 .marker.yellow {
-	background-color: var(--yellow-dark);
-	color: var(--foreground);
+	background-color: var(--yellow-trans);
+	color: var(--yellow);
+	border-color: var(--yellow-trans-50);
 }
 
 .marker .marker-content {

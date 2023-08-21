@@ -22,19 +22,26 @@ export async function findWaypointInTrip(db: D1Database, tripId: string, timesta
 		.executeTakeFirst()
 }
 
-export async function insertWaypoint(db: D1Database, waypoint: WaypointTable) {
-	return await getKyselyDb(db).insertInto('waypoint').values(waypoint).execute()
+export async function insertWaypoint(db: D1Database, waypoint: Omit<WaypointTable, 'managed'>, isManaged = false) {
+	return await getKyselyDb(db).insertInto('waypoint').values({
+		... waypoint,
+		managed: isManaged ? 1 : 0
+	}).execute()
 }
 
 export async function updateWaypoint(
 	db: D1Database,
 	tripId: string,
 	timestamp: number,
-	waypoint: Partial<Omit<WaypointTable, 'trip_id' | 'timestamp' | 'latitude' | 'longitude'>>
+	waypoint: Partial<Omit<WaypointTable, 'trip_id' | 'timestamp'>>
 ) {
 	return await getKyselyDb(db)
 		.updateTable('waypoint')
 		.set(waypoint)
 		.where(({ and, cmpr }) => and([cmpr('trip_id', '=', tripId), cmpr('timestamp', '=', timestamp)]))
 		.execute()
+}
+
+export async function deleteWaypoint(db: D1Database, tripId: string, timestamp: number) {
+	return await getKyselyDb(db).deleteFrom('waypoint').where(({ and, cmpr }) => and([cmpr('trip_id', '=', tripId), cmpr('timestamp', '=', timestamp)])).execute()
 }

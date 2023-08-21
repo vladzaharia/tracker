@@ -11,7 +11,7 @@ export const FetchWaypoints = async (env: Bindings) => {
 		if (foundWaypoint) {
 			console.log(`Waypoint ${waypoint.name} already exists in trip ${waypoint.trip_id}`)
 		} else {
-			await insertWaypoint(env.D1DATABASE, waypoint)
+			await insertWaypoint(env.D1DATABASE, waypoint, true)
 			console.log(`Waypoint ${waypoint.name} inserted in trip ${waypoint.trip_id}`)
 		}
 	}
