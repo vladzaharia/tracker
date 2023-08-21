@@ -27,3 +27,12 @@
 	color: var(--foreground);
 }
 
+.admin-waypoint-list .table {
+	height: 40vh;
+}
+
+@media only screen and (max-width: 50rem) {
+	.admin-waypoint-list .table {
+		height: 50vh;
+	}
+}

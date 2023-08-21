@@ -2,8 +2,8 @@ import { dropConfigTable, insertConfig } from '../../tables/config'
 import { Migration } from '../types'
 
 export const MIGRATION_4_CONFIG: Migration = {
-	version: 2,
-	name: 'waypoints',
+	version: 4,
+	name: 'config',
 	up: async (db: D1Database) => {
 		await db.exec(
 			`CREATE TABLE IF NOT EXISTS config (id TEXT PRIMARY KEY, name TEXT NOT NULL, description TEXT NOT NULL, value TEXT NOT NULL, editable INTEGER NOT NULL);`

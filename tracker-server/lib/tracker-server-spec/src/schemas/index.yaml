@@ -320,6 +320,7 @@ paths:
       operationId: listConfig
       tags:
         - Config
+        - Info
       responses:
         200:
           description: All configs

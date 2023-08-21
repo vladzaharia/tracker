@@ -68,15 +68,17 @@ app.put('/api/action/message', SendMessage)
 
 // Waypoints
 app.get('/api/waypoint', ListWaypoints)
+app.get('/api/waypoint/', ListWaypoints)
 app.get('/api/waypoint/:trip/:timestamp', GetWaypoint)
 app.post('/api/waypoint/:trip/:timestamp', AddWaypoint)
 app.patch('/api/waypoint/:trip/:timestamp', UpdateWaypoint)
 app.delete('/api/waypoint/:trip/:timestamp', DeleteWaypoint)
 
 // Config
-app.get('/config', ListConfigs)
-app.get('/config/:id', GetConfig)
-app.patch('/config/:id', UpdateConfig)
+app.get('/api/config', ListConfigs)
+app.get('/api/config/', ListConfigs)
+app.get('/api/config/:id', GetConfig)
+app.patch('/api/config/:id', UpdateConfig)
 
 // Database endpoints
 app.get('/api/db', DbInfo)
@@ -125,6 +127,12 @@ app.get(
 )
 app.get(
 	'/admin/waypoint/:waypointTrip/:waypointTimestamp',
+	serveStatic({
+		path: './app/index.html',
+	})
+)
+app.get(
+	'/admin/config',
 	serveStatic({
 		path: './app/index.html',
 	})
