@@ -52,6 +52,41 @@
 	border-color: var(--yellow-trans);
 }
 
+.pill.primary.alt {
+	background-color: var(--primary-dark);
+	color: var(--foreground-alt);
+}
+
+.pill.blue.alt {
+	background-color: var(--blue-dark);
+	color: var(--foreground-alt);
+}
+
+.pill.red.alt {
+	background-color: var(--red-dark);
+	color: var(--foreground-alt);
+}
+
+.pill.green.alt {
+	background-color: var(--green-dark);
+	color: var(--foreground-alt);
+}
+
+.pill.purple.alt {
+	background-color: var(--purple-dark);
+	color: var(--foreground-alt);
+}
+
+.pill.orange.alt {
+	background-color: var(--orange-dark);
+	color: var(--foreground-alt);
+}
+
+.pill.yellow.alt {
+	background-color: var(--yellow-dark);
+	color: var(--foreground-alt);
+}
+
 .pill.active {
 	border-color: var(--grey-light);
 }
