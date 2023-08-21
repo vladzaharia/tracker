@@ -23,6 +23,7 @@ import { UpdateWaypoint } from './routes/waypoint/update'
 import { FetchWaypoints } from './cron/fetch_waypoints'
 import { AddWaypoint } from './routes/waypoint/add'
 import { DeleteWaypoint } from './routes/waypoint/delete'
+import { ListTripInfo } from './routes/trip/all'
 
 const app = new Hono<{ Bindings: Bindings }>()
 
@@ -46,6 +47,7 @@ app.get('/api/', Info)
 // List trips
 app.get('/api/trip', ListTrips)
 app.get('/api/trip/', ListTrips)
+app.get('/api/trip/all', ListTripInfo)
 
 // Trip routes
 app.get('/api/trip/:trip', GetTrip)

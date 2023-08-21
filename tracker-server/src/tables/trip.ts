@@ -7,7 +7,7 @@ export async function dropTripTable(db: D1Database) {
 }
 
 export async function listTrips(db: D1Database) {
-	return await getKyselyDb(db).selectFrom('trip').selectAll().execute()
+	return await getKyselyDb(db).selectFrom('trip').selectAll().orderBy('start_date', 'desc').execute()
 }
 
 export async function listUpcomingTrips(db: D1Database) {

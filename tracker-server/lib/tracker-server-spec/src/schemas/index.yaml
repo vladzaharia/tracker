@@ -52,6 +52,29 @@ paths:
                   - past
         500:
           $ref: '#/components/responses/InternalServerError'
+  /trip/all:
+    get:
+      summary: List trip info
+      description: List all available trips, with basic info only.
+      operationId: listTripInfo
+      tags:
+        - Trip
+      responses:
+        200:
+          description: List of trips available.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  trips:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/BasicTrip'
+                required:
+                  - trips
+        500:
+          $ref: '#/components/responses/InternalServerError'
 
   /trip/{trip}:
     get:

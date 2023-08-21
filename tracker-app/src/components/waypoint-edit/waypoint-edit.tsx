@@ -17,6 +17,7 @@ import { AddToLibrary, AVAILABLE_ICONS } from '../icons/icons'
 import Pill from '../pill/pill'
 import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
+import { TripDropdown } from '../trip-dropdown/trip-dropdown'
 
 export const WaypointEdit = ({ inModal, onModalClose }: { inModal?: boolean; onModalClose?: () => void }) => {
 	const waypoint = useLoaderData() as Waypoint
@@ -111,7 +112,7 @@ export const WaypointEdit = ({ inModal, onModalClose }: { inModal?: boolean; onM
 				<Action className="waypoint-admin-input" text="Trip" description="Trip this waypoint is associated with.">
 					{inModal ? (
 						<div className="input-wrapper">
-							<input type="text" value={tripId} onChange={(e) => setTripId(e.currentTarget.value)} />
+							<TripDropdown onChange={(v) => setTripId(v)} />
 						</div>
 					) : waypoint.trip_id }
 				</Action>
