@@ -5,7 +5,6 @@ import { Trip } from '../../types'
 import { findTrip } from '../../tables/trip'
 import { ConvertTrip, GetTripStatus, GetTripWaypoints } from './util'
 import { WaypointTable } from '../../tables/db'
-import { listWaypointsForTrip } from '../../tables/waypoint'
 
 interface GetTripResponse extends Trip, GetTripStatus, TripWaypoints {}
 
@@ -35,13 +34,10 @@ export const GetTrip = async (c: Context<{ Bindings: Bindings }>) => {
 		return c.json({ message: 'Trip not found!' }, 404)
 	}
 
-	const waypoints = await listWaypointsForTrip(c.env.D1DATABASE, tripDetails.id)
-
 	return c.json(
 		{
 			...(await GetTripWaypoints(c, tripDetails)),
-			...(await ConvertTrip(c, tripDetails)),
-			waypoints,
+			...(await ConvertTrip(c, tripDetails, true, true, true)),
 		} as GetTripResponse,
 		200
 	)

@@ -29,6 +29,25 @@ paths:
       operationId: listTrips
       tags:
         - Trip
+      parameters:
+        - name: showStatus
+          description: Whether to include current position/activity in response.
+          in: query
+          schema:
+            type: boolean
+          example: true
+        - name: showTotals
+          description: Whether to include total points/waypoints in response.
+          in: query
+          schema:
+            type: boolean
+          example: true
+        - name: showCenterPoint
+          description: Whether to include center point in response.
+          in: query
+          schema:
+            type: boolean
+          example: true
       responses:
         200:
           description: List of trips available.
@@ -842,6 +861,21 @@ components:
           required:
             - activity
             - position
+        center_point:
+          type: object
+          description: Center point of all datapoints for this trip.
+          properties:
+            latitude:
+              type: number
+              description: Latitude of center point.
+              example: 31.10399
+            longitude:
+              type: number
+              description: Longitude of center point.
+              example: -113.563743
+          required:
+            - latitude
+            - longitude
         total_points:
           type: number
           description: Total number of points for this trip.
@@ -864,6 +898,7 @@ components:
         - end_date
         - time_zone
         - status
+        - center_point
         - total_points
         - total_waypoints
         - waypoints
