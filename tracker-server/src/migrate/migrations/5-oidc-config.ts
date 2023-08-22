@@ -20,7 +20,7 @@ export const MIGRATION_5_OIDC_CONFIG: Migration = {
 			value: '',
 			format: 'text',
 			editable: 1,
-			category: 'OIDC'
+			category: 'OIDC',
 		})
 		await insertConfig(db, {
 			id: 'oidc_client_id',
@@ -29,7 +29,7 @@ export const MIGRATION_5_OIDC_CONFIG: Migration = {
 			value: '',
 			format: 'text',
 			editable: 1,
-			category: 'OIDC'
+			category: 'OIDC',
 		})
 		await insertConfig(db, {
 			id: 'oidc_client_secret',
@@ -39,7 +39,7 @@ export const MIGRATION_5_OIDC_CONFIG: Migration = {
 			format: 'text',
 			editable: 1,
 			secret: 1,
-			category: 'OIDC'
+			category: 'OIDC',
 		})
 		await insertConfig(db, {
 			id: 'oidc_scope',
@@ -48,7 +48,7 @@ export const MIGRATION_5_OIDC_CONFIG: Migration = {
 			value: 'openid profile',
 			format: 'text',
 			editable: 1,
-			category: 'OIDC'
+			category: 'OIDC',
 		})
 	},
 	down: async (db: D1Database) => {

@@ -9,7 +9,7 @@ export default async function GetTripGeoJSONLoader({ params }: { params: Params 
 
 		return {
 			mapbox: {
-				token: (await (infoApi.getConfigValue('mapbox_access_token'))).data,
+				token: (await infoApi.getConfigValue('mapbox_access_token')).data,
 			},
 			points: (await tripApi.getTripJSONPoints(params.trip || '')).data,
 			track: (await tripApi.getTripJSONTrack(params.trip || '')).data,

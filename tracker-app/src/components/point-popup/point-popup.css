@@ -1,0 +1,105 @@
+.mapboxgl-popup.mapboxgl-popup-anchor-top {
+	max-width: unset !important;
+}
+
+.mapboxgl-popup .mapboxgl-popup-content {
+	padding: 0;
+}
+
+.point-popup {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: stretch;
+}
+
+.point-popup > * {
+	display: flex;
+	flex-direction: column;
+	white-space: nowrap;
+}
+
+.point-popup-left {
+	justify-content: space-between;
+	align-items: center;
+	text-align: center;
+	padding: 0 1rem;
+}
+
+.point-popup-left .point-popup-position {
+	flex: 1 1 auto;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	align-items: center;
+	justify-content: center;
+	font-size: 1rem;
+	font-weight: 600;
+}
+
+.point-popup-left .point-popup-time {
+	padding-bottom: 0.8rem;
+}
+
+.point-popup-right {
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	border-bottom-right-radius: 0.5rem;
+	padding: 1rem;
+	gap: 1rem;
+	min-width: 6rem;
+}
+
+.point-popup-right .activity-text-wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 0.25rem;
+}
+
+.point-popup-right .activity-title {
+	font-size: 1rem;
+	font-weight: 600;
+}
+
+.activity-description {
+	font-size: 0.9rem;
+	padding: 0 1rem;
+}
+
+.point-popup-right.primary {
+	background-color: var(--primary-trans);
+	color: var(--primary);
+}
+
+.point-popup-right.blue {
+	background-color: var(--blue-trans);
+	color: var(--blue);
+}
+
+.point-popup-right.green {
+	background-color: var(--green-trans);
+	color: var(--green);
+}
+
+.point-popup-right.red {
+	background-color: var(--red-trans);
+	color: var(--red);
+}
+
+.point-popup-right.orange {
+	background-color: var(--orange-trans);
+	color: var(--orange);
+}
+
+.point-popup-right.purple {
+	background-color: var(--purple-trans);
+	color: var(--purple);
+}
+
+.point-popup-right.grey {
+	background-color: var(--grey-trans);
+	color: var(--grey);
+}
