@@ -7,8 +7,8 @@ import { Layer, Map, NavigationControl, Source, Popup, MapLayerMouseEvent, MapGe
 import { Trip, Waypoint } from 'tracker-server-client'
 import { TripGeoJSON } from '../../../loaders/geojson'
 import useReload from '../../../hooks/reload'
-import { TripPosition } from '../../../components/trip-position/trip-position'
 import { AddToLibrary } from '../../../components/icons/icons'
+import { Point, PointPopup } from '../../../components/point-popup/point-popup'
 
 import 'mapbox-gl/dist/mapbox-gl.css'
 import './map.css'
@@ -17,7 +17,7 @@ import moment from 'moment'
 interface PopupInfo {
 	latitude: number
 	longitude: number
-	feature: MapGeoJSONFeature
+	feature: Point
 	trip: Trip
 }
 
@@ -73,7 +73,7 @@ export const TripMap = () => {
 					setPopupInfo({
 						latitude: Number(point.properties.Latitude),
 						longitude: Number(point.properties.Longitude),
-						feature: point,
+						feature: point as unknown as Point,
 						trip: pseudoTrip,
 					})
 				}
@@ -153,7 +153,7 @@ export const TripMap = () => {
 							offset={15}
 						>
 							<div className="map-popup-content">
-								<TripPosition trip={popupInfo.trip} fullTimestamp />
+								<PointPopup point={popupInfo.feature} />
 							</div>
 						</Popup>
 					)}

@@ -15,12 +15,16 @@ export const GetTripWaypoints = async (c: Context<{ Bindings: Bindings }>, trip:
 	}
 }
 
-export const ConvertTrip = async (c: Context<{ Bindings: Bindings }>, trip: TripTable, showStatus = false, showTotals = false, showCenterPoint = false) => {
-	const convertedTrip: Trip = {
+export const ConvertTripDates = (trip: TripTable) => {
+	return {
 		...trip,
 		start_date: moment(trip.start_date).toDate(),
 		end_date: moment(trip.end_date).toDate(),
 	}
+}
+
+export const ConvertTrip = async (c: Context<{ Bindings: Bindings }>, trip: TripTable, showStatus = false, showTotals = false, showCenterPoint = false) => {
+	const convertedTrip: Trip = ConvertTripDates(trip)
 
 	return {
 		...convertedTrip,

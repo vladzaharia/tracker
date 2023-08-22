@@ -5,19 +5,41 @@ export type Activity = 'diving' | 'moving' | 'stopped' | 'sleeping' | 'outdated'
 
 export const VelocityRegex = /(\d{1,3}\.\d{1}) km\/h/
 
+export interface Point {
+	type: string
+	geometry: {
+			type: string
+			coordinates: number[]
+	},
+	properties: {
+		visibility: boolean
+		"Time UTC": string
+		Time: string
+		Latitude: string
+		Longitude: string
+		Elevation: string
+		Velocity: string
+		Course: string
+		timestamp: string
+	}
+}
+
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const GetActivity = (point: any, trip: Trip) => {
+export const GetActivity = (point: Point, trip: Trip, showTimeBasedStatuses = true) => {
 	const velocityMatch = point?.properties?.Velocity?.match(VelocityRegex)
 	const pointDate = moment(point?.properties?.timestamp).tz(trip.time_zone)
 
-	// Check if trip has ended
-	if (moment(trip.end_date) < moment()) {
-		return 'ended'
-	}
+	if (showTimeBasedStatuses) {
+		// Check if trip has ended
+		if (trip && moment(trip.end_date) < moment()) {
+			return 'ended'
+		}
 
-	// Check if point is outdated
-	if (Math.abs(moment.duration(pointDate.diff(moment(Date.now()))).asHours()) > 8) {
-		return 'outdated'
+		// Check if point is outdated
+		if (Math.abs(moment.duration(pointDate.diff(moment(Date.now()))).asHours()) > 8) {
+			return 'outdated'
+		}
 	}
 
 	if (velocityMatch && velocityMatch.length > 1) {
@@ -25,7 +47,7 @@ export const GetActivity = (point: any, trip: Trip) => {
 
 		if (pointDate && (pointDate.hour() < 6 || pointDate.hour() > 21)) {
 			return 'sleeping'
-		} else if (velocity === 0) {
+		} else if (velocity <= 1) {
 			return 'stopped'
 		} else if (trip.type === 'scuba' && velocity < 4) {
 			return 'diving'
