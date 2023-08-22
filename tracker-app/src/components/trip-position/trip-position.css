@@ -24,3 +24,38 @@
 	font-weight: 500;
 	margin: 1rem;
 }
+
+.trip-details .timestamp {
+	flex: 1 1 auto;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	padding-bottom: 1rem;
+	flex-direction: column;
+	gap: 0.25rem;
+}
+
+.trip-details .timestamp .pretty {
+	font-size: 1rem;
+}
+
+.trip-details .timestamp .full {
+	font-size: 0.8rem;
+	margin-top: 0.5rem;
+}
+
+.trip-details .timestamp .tz {
+	font-size: 0.8rem;
+}
+
+@media only screen and (max-width: 50rem) {
+	.trip-details .timestamp {
+		flex-direction: row;
+		justify-content: space-evenly;
+		margin-top: 0.5rem;
+	}
+
+	.trip-details .timestamp .full {
+		margin-top: 0;
+	}
+}

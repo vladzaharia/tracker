@@ -5,7 +5,7 @@ import { Trip, TripStatusActivityEnum } from 'tracker-server-client'
 
 import './point-popup.css'
 import { getColor, getIcon, getTitle } from '../trip-status/activity'
-import moment from 'moment'
+import moment from 'moment-timezone'
 
 export interface Point {
 	type: string
@@ -44,7 +44,7 @@ export const PointPopup = ({ point }: { point: Point }) => {
 					<span>{point?.properties.Longitude}</span>
 				</div>
 
-				<span className="point-popup-time">{moment(point.properties.timestamp).format('MMM D, YYYY h:mm A')}</span>
+				<span className="point-popup-time">{moment(point.properties.timestamp).tz(trip.time_zone).format('MMM D, YYYY h:mm A')}</span>
 			</div>
 
 			<div className={`point-popup-right ${getColor(point.properties.activity)}`}>

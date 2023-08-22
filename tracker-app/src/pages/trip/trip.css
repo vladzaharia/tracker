@@ -4,15 +4,6 @@
 	flex-direction: row;
 }
 
-.timestamp {
-	flex: 1 1 auto;
-	font-size: 0.875rem;
-	display: flex;
-	align-items: flex-end;
-	justify-content: center;
-	padding-bottom: 1rem;
-}
-
 .trip-content {
 	height: 100%;
 	border-left: 0.0625rem solid var(--border);

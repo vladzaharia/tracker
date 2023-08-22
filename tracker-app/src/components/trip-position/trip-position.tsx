@@ -1,33 +1,19 @@
 import { faGauge, faLocationArrow } from '@fortawesome/pro-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import moment from 'moment'
+import moment from 'moment-timezone'
 import { Trip } from 'tracker-server-client'
 import { useLoaderData } from 'react-router-dom'
 
 import './trip-position.css'
 import Action from '../action/action'
 
-export const TripPosition = ({
-	trip: tripProp,
-	className,
-	fullTimestamp,
-}: {
-	className?: string
-	trip?: Trip
-	fullTimestamp?: boolean
-}) => {
+export const TripPosition = ({ trip: tripProp, className }: { className?: string; trip?: Trip }) => {
 	const tripLoader = useLoaderData() as Trip
 	const trip = tripProp || tripLoader
 
 	return (
 		<div className="trip-position-wrapper">
 			<div className={`trip-position ${className || ''}`}>
-				{fullTimestamp ? (
-					<Action text="Timestamp">
-						<span>{moment(trip.status.position.timestamp).format('MMM D, YYYY h:mm A')}</span>
-					</Action>
-				) : undefined}
-
 				<span className="coordinates">
 					{trip.status.position.latitude}, {trip.status.position.longitude}
 				</span>
@@ -55,13 +41,15 @@ export const TripPosition = ({
 					</span>
 				</Action>
 			</div>
-			<span className="timestamp">
-				{!fullTimestamp ? (
-					<>
-						<span className="mr-025">Updated</span> <span className="fw-500">{moment(trip.status.position.timestamp).fromNow()}</span>
-					</>
-				) : undefined}
-			</span>
+			<div className="timestamp">
+				<span className="pretty">
+					<span className="mr-0125">Updated</span> <span className="fw-500">{moment(trip.status.position.timestamp).fromNow()}</span>
+				</span>
+				<span className="full">{moment(trip.status.position.timestamp).tz(trip.time_zone).format('MMM D, YYYY h:mm A')}</span>
+				<span className="tz">
+					{trip.time_zone} ({moment(trip.status.position.timestamp).tz(trip.time_zone).format('Z')})
+				</span>
+			</div>
 		</div>
 	)
 }
