@@ -1,4 +1,4 @@
-import { insertConfig } from '../../tables/config'
+import { deleteConfig, insertConfig } from '../../tables/config'
 import { Migration } from '../types'
 
 export const MIGRATION_5_OIDC_CONFIG: Migration = {
@@ -54,5 +54,10 @@ export const MIGRATION_5_OIDC_CONFIG: Migration = {
 	down: async (db: D1Database) => {
 		await db.exec(`ALTER TABLE config DROP COLUMN secret;`)
 		await db.exec(`ALTER TABLE config DROP COLUMN category;`)
+
+		await deleteConfig(db, 'oidc_authority')
+		await deleteConfig(db, 'oidc_client_id')
+		await deleteConfig(db, 'oidc_client_secret')
+		await deleteConfig(db, 'oidc_scope')
 	},
 }

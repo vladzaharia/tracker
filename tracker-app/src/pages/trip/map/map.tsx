@@ -98,7 +98,7 @@ export const TripMap = () => {
 		<div className="trip-map">
 			{tripJSON && (
 				<Map
-					mapboxAccessToken="pk.eyJ1IjoidmxhZHphaGFyaWEiLCJhIjoiY2xraHpnNDMyMGRkcjNxcDQ1bXVyZHVrbiJ9.JTKDWIqIwMjJs9K4D0Qjdw"
+					mapboxAccessToken={tripJSON.mapbox.token}
 					initialViewState={{
 						longitude: trip.center_point.longitude,
 						latitude: trip.center_point.latitude,

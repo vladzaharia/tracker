@@ -26,3 +26,7 @@ export async function updateConfigValue(db: D1Database, id: string, value: strin
 export async function updateLastFetchTime(db: D1Database) {
 	return await updateConfigValue(db, 'last_fetch_time', moment().toISOString())
 }
+
+export async function deleteConfig(db: D1Database, id: string) {
+	return await getKyselyDb(db).deleteFrom('config').where('id', '=', id).execute()
+}
