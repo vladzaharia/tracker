@@ -1,6 +1,21 @@
-import { faBed, faCircleCheck, faCircleQuestion, faDown, faDownLeft, faDownRight, faHourglass, faLeft, faMaskSnorkel, faOctagon, faRight, faUp, faUpLeft, faUpRight } from "@fortawesome/pro-solid-svg-icons"
-import moment from "moment-timezone"
-import { TripStatusActivityEnum, TripType } from "tracker-server-client"
+import {
+	faBed,
+	faCircleCheck,
+	faCircleQuestion,
+	faDown,
+	faDownLeft,
+	faDownRight,
+	faHourglass,
+	faLeft,
+	faMaskSnorkel,
+	faOctagon,
+	faRight,
+	faUp,
+	faUpLeft,
+	faUpRight,
+} from '@fortawesome/pro-solid-svg-icons'
+import moment from 'moment-timezone'
+import { TripStatusActivityEnum, TripType } from 'tracker-server-client'
 
 export const getIcon = (activity: TripStatusActivityEnum, course: number) => {
 	switch (activity) {
@@ -87,8 +102,7 @@ export const getDescription = (activity: TripStatusActivityEnum, type: TripType,
 		case 'moving':
 			return (
 				<>
-					<span className="mr-025">Heading</span> <span className="fw-500">{course}</span> °{' '}
-					{getDirection(course)}
+					<span className="mr-025">Heading</span> <span className="fw-500">{course}</span> ° {getDirection(course)}
 				</>
 			)
 		case 'stopped':

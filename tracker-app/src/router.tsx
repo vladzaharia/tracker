@@ -29,7 +29,7 @@ import { createInfoApi } from './api'
 
 const init = async () => {
 	const api = createInfoApi()
-	const {configs} = await (await api.listConfig()).data
+	const { configs } = await (await api.listConfig()).data
 
 	const oidcConfig: AuthProviderProps = {
 		authority: configs?.find((c) => c.id === 'oidc_authority')?.value || '',

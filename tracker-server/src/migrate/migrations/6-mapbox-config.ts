@@ -13,7 +13,7 @@ export const MIGRATION_6_MAPBOX_CONFIG: Migration = {
 			value: '',
 			format: 'text',
 			editable: 1,
-			category: 'Mapbox'
+			category: 'Mapbox',
 		})
 	},
 	down: async (db: D1Database) => {

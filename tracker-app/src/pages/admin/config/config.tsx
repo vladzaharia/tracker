@@ -42,76 +42,81 @@ export default function AdminConfig() {
 	}
 
 	const ConfigAction = ({ config }: { config: Config }) => {
-		return <Action key={config.id} text={config.name} description={config.description}>
-					{config.editable ? (
-						<div className="input-wrapper">
-							{config.format === 'text' || config.format === 'number' ? (
-								<input
-									type="text"
-									value={changedValues[config.id] || config.value}
-									onChange={(e) =>
-										setChangedValues({
-											...changedValues,
-											[config.id]: e.currentTarget.value,
-										})
-									}
-								/>
-							) : undefined}
-							{config.format === 'datetime' ? (
-								<DateTimePicker
-									className="date-picker"
-									value={moment(changedValues[config.id] || config.value)}
-									onChange={(v) =>
-										v &&
-										setChangedValues({
-											...changedValues,
-											[config.id]: v.toISOString(),
-										})
-									}
-								/>
-							) : undefined}
-							{config.format === 'boolean' ? (
-								<Toggle
-									color="red"
-									checked={config.value === 'true'}
-									onChange={(e) =>
-										setChangedValues({
-											...changedValues,
-											[config.id]: config.value === 'true' ? 'false' : 'true',
-										})
-									}
-								/>
-							) : undefined}
-						</div>
-					) : (
-						<>
-							{config.format === 'text' || config.format === 'number' ? config.value : undefined}
-							{config.format === 'boolean' ? (
-								<Toggle
-									color="red"
-									checked={config.value === 'true'}
-									disabled
-									onChange={(e) =>
-										setChangedValues({
-											...changedValues,
-											[config.id]: config.value === 'true' ? 'false' : 'true',
-										})
-									}
-								/>
-							) : undefined}
-							{config.format === 'datetime' ? (
-								<span className="fetch-time">
-									<span className="fw-500">{moment(config.value).calendar()}</span>
-									<span className="description">{moment(config.value).utc().format('MMM Do YYYY, HH:mm')} UTC</span>
-								</span>
-							) : undefined}
-						</>
-					)}
-				</Action>
+		return (
+			<Action key={config.id} text={config.name} description={config.description}>
+				{config.editable ? (
+					<div className="input-wrapper">
+						{config.format === 'text' || config.format === 'number' ? (
+							<input
+								type="text"
+								value={changedValues[config.id] || config.value}
+								onChange={(e) =>
+									setChangedValues({
+										...changedValues,
+										[config.id]: e.currentTarget.value,
+									})
+								}
+							/>
+						) : undefined}
+						{config.format === 'datetime' ? (
+							<DateTimePicker
+								className="date-picker"
+								value={moment(changedValues[config.id] || config.value)}
+								onChange={(v) =>
+									v &&
+									setChangedValues({
+										...changedValues,
+										[config.id]: v.toISOString(),
+									})
+								}
+							/>
+						) : undefined}
+						{config.format === 'boolean' ? (
+							<Toggle
+								color="red"
+								checked={config.value === 'true'}
+								onChange={(e) =>
+									setChangedValues({
+										...changedValues,
+										[config.id]: config.value === 'true' ? 'false' : 'true',
+									})
+								}
+							/>
+						) : undefined}
+					</div>
+				) : (
+					<>
+						{config.format === 'text' || config.format === 'number' ? config.value : undefined}
+						{config.format === 'boolean' ? (
+							<Toggle
+								color="red"
+								checked={config.value === 'true'}
+								disabled
+								onChange={(e) =>
+									setChangedValues({
+										...changedValues,
+										[config.id]: config.value === 'true' ? 'false' : 'true',
+									})
+								}
+							/>
+						) : undefined}
+						{config.format === 'datetime' ? (
+							<span className="fetch-time">
+								<span className="fw-500">{moment(config.value).calendar()}</span>
+								<span className="description">{moment(config.value).utc().format('MMM Do YYYY, HH:mm')} UTC</span>
+							</span>
+						) : undefined}
+					</>
+				)}
+			</Action>
+		)
 	}
 
 	// Get config categories
-	const categories = configs?.map((c) => c.category).filter((c) => c && c.length > 0).filter((c, i, a) => a.indexOf(c) === i)
+	const categories = configs
+		?.map((c) => c.category)
+		.filter((c) => c && c.length > 0)
+		.filter((c, i, a) => a.indexOf(c) === i)
 
 	return (
 		<div className="config">
@@ -122,17 +127,22 @@ export default function AdminConfig() {
 				leftActions={<FontAwesomeIcon icon={faCog} size="lg" />}
 				rightActions={<Button color="green" onClick={async () => await updateValues()} iconProps={{ icon: faCheck }} />}
 			/>
-			{configs?.filter((c) => !c.category || c.category.length === 0).map((config) => (
-				<ConfigAction config={config} key={config.id} />
-			))}
+			{configs
+				?.filter((c) => !c.category || c.category.length === 0)
+				.map((config) => (
+					<ConfigAction config={config} key={config.id} />
+				))}
 
 			{categories?.map((category) => (
 				<div key={category}>
-					<SectionTitle color="red">
-						{category}
-					</SectionTitle>
-					{configs?.filter((c) => c.category === category).map((config) => <ConfigAction config={config} key={config.id} />)}
-				</div>))}
+					<SectionTitle color="red">{category}</SectionTitle>
+					{configs
+						?.filter((c) => c.category === category)
+						.map((config) => (
+							<ConfigAction config={config} key={config.id} />
+						))}
+				</div>
+			))}
 		</div>
 	)
 }

@@ -1,6 +1,4 @@
-import {
-	IconDefinition,
-} from '@fortawesome/pro-solid-svg-icons'
+import { IconDefinition } from '@fortawesome/pro-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useRouteLoaderData } from 'react-router-dom'
 import { Trip, TripStatusActivityEnum } from 'tracker-server-client'
@@ -12,13 +10,13 @@ import moment from 'moment'
 export interface Point {
 	type: string
 	geometry: {
-			type: string
-			coordinates: number[]
-	},
+		type: string
+		coordinates: number[]
+	}
 	properties: {
 		activity: TripStatusActivityEnum
 		visibility: boolean
-		"Time UTC": string
+		'Time UTC': string
 		Time: string
 		Latitude: string
 		Longitude: string
@@ -33,24 +31,22 @@ export const PointPopup = ({ point }: { point: Point }) => {
 	const trip = useRouteLoaderData('trip') as Trip
 
 	const courseMatch = point.properties.Course.match(/(\d{1,3}\.\d{2}) ° True/)
-	const course = parseInt(courseMatch && courseMatch[1] || '90', 10)
+	const course = parseInt((courseMatch && courseMatch[1]) || '90', 10)
 
 	const velocityMatch = point.properties.Velocity.match(/(\d{1,3}\.\d{1}) km\/h/)
-	const velocity = parseInt(velocityMatch && velocityMatch[1] || '0', 10)
+	const velocity = parseInt((velocityMatch && velocityMatch[1]) || '0', 10)
 
 	console.log(point)
 
 	return (
-		<div className='point-popup'>
-			<div className='point-popup-left'>
-				<div className='point-popup-position'>
+		<div className="point-popup">
+			<div className="point-popup-left">
+				<div className="point-popup-position">
 					<span>{point?.properties.Latitude}</span>
 					<span>{point?.properties.Longitude}</span>
 				</div>
 
-				<span className='point-popup-time'>
-					{moment(trip.status.position.timestamp).format('MMM D, YYYY h:mm A')}
-				</span>
+				<span className="point-popup-time">{moment(trip.status.position.timestamp).format('MMM D, YYYY h:mm A')}</span>
 			</div>
 
 			<div className={`point-popup-right ${getColor(point.properties.activity)}`}>

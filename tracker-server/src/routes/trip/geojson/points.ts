@@ -27,7 +27,9 @@ export const GetTripGeoJSONPoints = async (c: Context<{ Bindings: Bindings }>) =
 		return c.json({ message: 'Trip GeoJSON empty!' }, 404)
 	}
 
-	parsedJson.features = parsedJson.features.map((point: Point) => { return { ...point, properties: { ...point.properties, activity: GetActivity(point, convertedTrip, false) }}})
+	parsedJson.features = parsedJson.features.map((point: Point) => {
+		return { ...point, properties: { ...point.properties, activity: GetActivity(point, convertedTrip, false) } }
+	})
 
 	return c.json(parsedJson, 200)
 }

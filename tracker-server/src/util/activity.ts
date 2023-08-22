@@ -8,12 +8,12 @@ export const VelocityRegex = /(\d{1,3}\.\d{1}) km\/h/
 export interface Point {
 	type: string
 	geometry: {
-			type: string
-			coordinates: number[]
-	},
+		type: string
+		coordinates: number[]
+	}
 	properties: {
 		visibility: boolean
-		"Time UTC": string
+		'Time UTC': string
 		Time: string
 		Latitude: string
 		Longitude: string
@@ -23,7 +23,6 @@ export interface Point {
 		timestamp: string
 	}
 }
-
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const GetActivity = (point: Point, trip: Trip, showTimeBasedStatuses = true) => {

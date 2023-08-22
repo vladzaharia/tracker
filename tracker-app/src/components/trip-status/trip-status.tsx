@@ -1,6 +1,4 @@
-import {
-	IconDefinition,
-} from '@fortawesome/pro-solid-svg-icons'
+import { IconDefinition } from '@fortawesome/pro-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useLoaderData } from 'react-router-dom'
 import { Trip } from 'tracker-server-client'
@@ -19,7 +17,9 @@ export const TripStatus = ({ trip: tripProp }: { trip?: Trip }) => {
 			</span>
 			<span className="activity-text-wrapper">
 				<span className="activity-title">{getTitle(trip.status.activity, trip.type, trip.status.position.velocity)}</span>
-				<span className="activity-description">{getDescription(trip.status.activity, trip.type, trip.status.position.course, trip.time_zone)}</span>
+				<span className="activity-description">
+					{getDescription(trip.status.activity, trip.type, trip.status.position.course, trip.time_zone)}
+				</span>
 			</span>
 		</div>
 	)

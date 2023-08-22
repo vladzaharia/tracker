@@ -23,13 +23,19 @@ export const ConvertTripDates = (trip: TripTable) => {
 	}
 }
 
-export const ConvertTrip = async (c: Context<{ Bindings: Bindings }>, trip: TripTable, showStatus = false, showTotals = false, showCenterPoint = false) => {
+export const ConvertTrip = async (
+	c: Context<{ Bindings: Bindings }>,
+	trip: TripTable,
+	showStatus = false,
+	showTotals = false,
+	showCenterPoint = false
+) => {
 	const convertedTrip: Trip = ConvertTripDates(trip)
 
 	return {
 		...convertedTrip,
 		total_waypoints: showTotals ? (await listWaypointsForTrip(c.env.D1DATABASE, trip.id)).length : undefined,
-		... (showStatus ? (await GetTripStatus(c, convertedTrip, showTotals, showCenterPoint)) : {}),
+		...(showStatus ? await GetTripStatus(c, convertedTrip, showTotals, showCenterPoint) : {}),
 	}
 }
 
@@ -60,7 +66,7 @@ export const GetTripStatus = async (c: Context<{ Bindings: Bindings }>, tripDeta
 
 			return {
 				latitude: points.reduce((acc: number, point: any) => acc + Number(point.properties.Latitude), 0) / points.length,
-				longitude: points.reduce((acc: number, point: any) => acc + Number(point.properties.Longitude), 0) / points.length
+				longitude: points.reduce((acc: number, point: any) => acc + Number(point.properties.Longitude), 0) / points.length,
 			}
 		}
 

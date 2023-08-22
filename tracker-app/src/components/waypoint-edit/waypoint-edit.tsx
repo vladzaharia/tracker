@@ -36,14 +36,15 @@ export const WaypointEdit = ({ inModal, onModalClose }: { inModal?: boolean; onM
 	const [longitude, setLongitude] = useState(waypoint.longitude ? waypoint.longitude.toString() : '')
 
 	const addWaypoint = async () => {
-		await request(() =>
-			api.addWaypoint(tripId, timestamp.unix() * 1000, {
-				name,
-				icon: icon || undefined,
-				color: (color as WaypointColor) || undefined,
-				latitude: parseFloat(latitude),
-				longitude: parseFloat(longitude),
-			}),
+		await request(
+			() =>
+				api.addWaypoint(tripId, timestamp.unix() * 1000, {
+					name,
+					icon: icon || undefined,
+					color: (color as WaypointColor) || undefined,
+					latitude: parseFloat(latitude),
+					longitude: parseFloat(longitude),
+				}),
 			{
 				icon: faMapMarkerAlt,
 				message: 'Successfully created waypoint!',
@@ -53,14 +54,15 @@ export const WaypointEdit = ({ inModal, onModalClose }: { inModal?: boolean; onM
 	}
 
 	const updateWaypoint = async () => {
-		await request(() =>
-			api.updateWaypoint(waypoint.trip_id, waypoint.timestamp, {
-				name,
-				icon: icon || undefined,
-				color: (color as WaypointColor) || undefined,
-				latitude: !waypoint.managed ? parseFloat(latitude) : undefined,
-				longitude: !waypoint.managed ? parseFloat(longitude) : undefined,
-			}),
+		await request(
+			() =>
+				api.updateWaypoint(waypoint.trip_id, waypoint.timestamp, {
+					name,
+					icon: icon || undefined,
+					color: (color as WaypointColor) || undefined,
+					latitude: !waypoint.managed ? parseFloat(latitude) : undefined,
+					longitude: !waypoint.managed ? parseFloat(longitude) : undefined,
+				}),
 			{
 				icon: faMapMarkerAlt,
 				message: 'Successfully updated waypoint!',
