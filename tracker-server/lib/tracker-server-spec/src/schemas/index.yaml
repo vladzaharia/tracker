@@ -362,6 +362,7 @@ paths:
       operationId: getConfigValue
       tags:
         - Config
+        - Info
       parameters:
         - $ref: '#/components/parameters/ConfigId'
       responses:
