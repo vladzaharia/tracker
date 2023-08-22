@@ -36,8 +36,6 @@ export const PointPopup = ({ point }: { point: Point }) => {
 	const velocityMatch = point.properties.Velocity.match(/(\d{1,3}\.\d{1}) km\/h/)
 	const velocity = parseInt((velocityMatch && velocityMatch[1]) || '0', 10)
 
-	console.log(point)
-
 	return (
 		<div className="point-popup">
 			<div className="point-popup-left">
@@ -46,7 +44,7 @@ export const PointPopup = ({ point }: { point: Point }) => {
 					<span>{point?.properties.Longitude}</span>
 				</div>
 
-				<span className="point-popup-time">{moment(trip.status.position.timestamp).format('MMM D, YYYY h:mm A')}</span>
+				<span className="point-popup-time">{moment(point.properties.timestamp).format('MMM D, YYYY h:mm A')}</span>
 			</div>
 
 			<div className={`point-popup-right ${getColor(point.properties.activity)}`}>
