@@ -4,7 +4,9 @@ import { WaypointTable } from '../../tables/db'
 import { findWaypointInTrip, updateWaypoint } from '../../tables/waypoint'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface UpdateWaypointBody extends Omit<WaypointTable, 'trip_id' | 'timestamp' | 'managed'> {}
+interface UpdateWaypointBody extends Omit<WaypointTable, 'trip_id' | 'timestamp' | 'managed' | 'prominent'> {
+	prominent?: boolean
+}
 
 export const UpdateWaypoint = async (c: Context<{ Bindings: Bindings }>) => {
 	try {
@@ -38,6 +40,7 @@ export const UpdateWaypoint = async (c: Context<{ Bindings: Bindings }>) => {
 			color: updated_props.color,
 			latitude: updated_props.latitude,
 			longitude: updated_props.longitude,
+			prominent: updated_props.prominent ? 1 : 0,
 		})
 
 		return c.json({ message: 'Successfully updated waypoint!' })

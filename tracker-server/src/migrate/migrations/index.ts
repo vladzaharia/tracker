@@ -6,6 +6,7 @@ import { MIGRATION_3_ADD_WAYPOINTS } from './3-add-waypoints'
 import { MIGRATION_4_CONFIG } from './4-config'
 import { MIGRATION_5_OIDC_CONFIG } from './5-oidc-config'
 import { MIGRATION_6_MAPBOX_CONFIG } from './6-mapbox-config'
+import { MIGRATION_7_PROMINENT_WAYPOINTS } from './7-prominent-waypoints'
 
 export function getAllMigrations(): Migration[] {
 	return [
@@ -16,5 +17,6 @@ export function getAllMigrations(): Migration[] {
 		MIGRATION_4_CONFIG,
 		MIGRATION_5_OIDC_CONFIG,
 		MIGRATION_6_MAPBOX_CONFIG,
+		MIGRATION_7_PROMINENT_WAYPOINTS,
 	]
 }

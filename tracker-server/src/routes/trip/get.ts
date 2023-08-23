@@ -21,8 +21,13 @@ interface GetTripStatus {
 	}
 }
 
+interface WaypointResponse extends Omit<WaypointTable, 'managed' | 'prominent'> {
+	managed: boolean
+	prominent: boolean
+}
+
 interface TripWaypoints {
-	waypoints?: WaypointTable[]
+	waypoints?: WaypointResponse[]
 }
 
 export const GetTrip = async (c: Context<{ Bindings: Bindings }>) => {

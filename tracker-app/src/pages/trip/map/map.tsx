@@ -26,6 +26,8 @@ export const TripMap = () => {
 	const tripJSON = useLoaderData() as TripGeoJSON
 	useReload(tripJSON, 5 * 60)
 	const [popupInfo, setPopupInfo] = useState<PopupInfo>()
+	const isCurrentTrip = moment(trip.start_date) < moment() && moment(trip.end_date) > moment()
+	const [zoom, setZoom] = useState(trip.type === 'scuba' && isCurrentTrip ? 12 : 8)
 
 	const points = tripJSON?.points?.features
 	const lastLocation = points && points[points.length - 1]
@@ -34,8 +36,6 @@ export const TripMap = () => {
 	const lastCourse = lastLocation?.properties?.Course as string
 	const courseMatch = lastCourse?.match(courseRegex)
 	const lastBearing = lastCourse && courseMatch ? courseMatch[1] : '0'
-
-	const isCurrentTrip = moment(trip.start_date) < moment() && moment(trip.end_date) > moment()
 
 	const mapStyle = trip.type === 'scuba' ? 'clki08zbf003q01r24v4l5vuq' : 'clkhyotqc003m01pm7lz5d6c9'
 
@@ -102,23 +102,17 @@ export const TripMap = () => {
 					initialViewState={{
 						longitude: trip.center_point.longitude,
 						latitude: trip.center_point.latitude,
-						zoom: trip.type === 'scuba' && isCurrentTrip ? 12 : 8,
+						zoom: zoom,
 						pitch: 60,
 						bearing: trip.type === 'scuba' && isCurrentTrip ? parseFloat(lastBearing) : undefined,
 					}}
-					style={{ borderBottomRightRadius: '1rem' }}
+					style={{ borderBottomRightRadius: '16px' }}
 					mapStyle={`mapbox://styles/vladzaharia/${mapStyle}`}
 					interactiveLayerIds={[`${trip.id}-points`]}
 					onClick={onClick}
+					onZoomEnd={(e) => { setZoom(e.viewState.zoom) }}
 				>
 					<NavigationControl visualizePitch={true} position="top-left" />
-					{trip.waypoints.length > 0
-						? trip.waypoints.map((wp) => (
-								<Marker key={wp.timestamp} longitude={wp.longitude} latitude={wp.latitude}>
-									<MarkerPin waypoint={wp} />
-								</Marker>
-						  ))
-						: undefined}
 					<Source id="points" type="geojson" data={tripJSON.points}>
 						<Layer
 							id={`${trip.id}-points`}
@@ -142,6 +136,12 @@ export const TripMap = () => {
 							layout={{ 'line-cap': 'round', 'line-join': 'round' }}
 						/>
 					</Source>
+					{trip.waypoints.length > 0 ? ((zoom > (trip.type === 'scuba' ? 10 : 7)) ? trip.waypoints : trip.waypoints.filter((wp) => wp.prominent)).map((wp) => (
+								<Marker key={wp.timestamp} longitude={wp.longitude} latitude={wp.latitude}>
+									<MarkerPin waypoint={wp} />
+								</Marker>
+						  ))
+						: undefined}
 					{popupInfo && (
 						<Popup
 							anchor="top"

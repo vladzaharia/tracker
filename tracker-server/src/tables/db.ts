@@ -20,7 +20,6 @@ export interface TripTable {
 }
 
 export interface WaypointTable {
-	managed: 0 | 1
 	trip_id: string
 	name: string
 	icon?: string
@@ -28,6 +27,8 @@ export interface WaypointTable {
 	latitude: number
 	longitude: number
 	timestamp: number
+	managed: 0 | 1
+	prominent: 0 | 1
 }
 
 export interface ConfigTable {
