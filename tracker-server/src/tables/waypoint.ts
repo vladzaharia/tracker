@@ -11,7 +11,7 @@ export async function listWaypoints(db: D1Database) {
 }
 
 export async function listWaypointsForTrip(db: D1Database, tripId: string) {
-	return await getKyselyDb(db).selectFrom('waypoint').selectAll().where('trip_id', '=', tripId).orderBy('timestamp').execute()
+	return await getKyselyDb(db).selectFrom('waypoint').selectAll().where('trip_id', '=', tripId).orderBy('timestamp', 'asc').execute()
 }
 
 export async function findWaypointInTrip(db: D1Database, tripId: string, timestamp: number) {
