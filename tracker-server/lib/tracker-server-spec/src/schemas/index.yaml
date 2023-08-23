@@ -1013,6 +1013,10 @@ components:
       type: number
       description: Time this waypoint was sent, as unix timestamp.
       example: 1692422871
+    WaypointProminent:
+      type: boolean
+      description: Whether this waypoint is visible when zoomed out.
+      example: true
     Waypoint:
       type: object
       description: A waypoint
@@ -1035,6 +1039,8 @@ components:
           type: boolean
           description: Whether this waypoint was imported from Garmin or user-defined.
           example: true
+        prominent:
+          $ref: '#/components/schemas/WaypointProminent'
       required:
         - trip_id
         - name
@@ -1055,6 +1061,8 @@ components:
           $ref: '#/components/schemas/WaypointLatitude'
         longitude:
           $ref: '#/components/schemas/WaypointLongitude'
+        prominent:
+          $ref: '#/components/schemas/WaypointProminent'
       required:
         - name
         - latitude
@@ -1073,6 +1081,8 @@ components:
           $ref: '#/components/schemas/WaypointLatitude'
         longitude:
           $ref: '#/components/schemas/WaypointLongitude'
+        prominent:
+          $ref: '#/components/schemas/WaypointProminent'
     ConfigId:
       description: ID of a config entry.
       type: string

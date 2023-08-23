@@ -15,6 +15,7 @@ export const GetWaypoint = async (c: Context<{ Bindings: Bindings }>) => {
 		{
 			...waypoint,
 			managed: waypoint.managed === 1,
+			prominent: waypoint.prominent === 1
 		},
 		200
 	)

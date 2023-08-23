@@ -11,7 +11,7 @@ export const GetTripWaypoints = async (c: Context<{ Bindings: Bindings }>, trip:
 	const waypoints = await listWaypointsForTrip(c.env.D1DATABASE, trip.id)
 
 	return {
-		waypoints: waypoints.length > 0 ? waypoints : [],
+		waypoints: waypoints.length > 0 ? waypoints.map((wp) => { return { ...wp, managed: wp.managed === 1, prominent: wp.prominent === 1 } }) : [],
 	}
 }
 

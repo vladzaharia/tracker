@@ -24,6 +24,7 @@ export const getWaypoints = async (env: Bindings) => {
 				latitude: wp.L,
 				longitude: wp.N,
 				timestamp: moment(wp.C).unix() * 1000,
+				prominent: 0
 			})
 		}
 

@@ -5,13 +5,15 @@ import { findWaypointInTrip, insertWaypoint } from '../../tables/waypoint'
 import { findTrip } from '../../tables/trip'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface AddWaypointBody extends Omit<WaypointTable, 'trip_id' | 'timestamp' | 'managed'> {}
+interface AddWaypointBody extends Omit<WaypointTable, 'trip_id' | 'timestamp' | 'managed' | 'prominent'> {
+	prominent: boolean
+}
 
 export const AddWaypoint = async (c: Context<{ Bindings: Bindings }>) => {
 	try {
 		const db = c.env.D1DATABASE
 		const { trip, timestamp } = c.req.param()
-		const { name, color, icon, latitude, longitude } = await c.req.json<AddWaypointBody>()
+		const { name, color, icon, latitude, longitude, prominent } = await c.req.json<AddWaypointBody>()
 
 		// Check if params are passed in
 		if (!name) {
@@ -47,6 +49,7 @@ export const AddWaypoint = async (c: Context<{ Bindings: Bindings }>) => {
 			color,
 			latitude,
 			longitude,
+			prominent: prominent ? 1 : 0
 		})
 
 		return c.json({ message: 'Successfully added waypoint!' })

@@ -18,6 +18,7 @@ import Pill from '../pill/pill'
 import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
 import { TripDropdown } from '../trip-dropdown/trip-dropdown'
+import Toggle from '../toggle/toggle'
 
 export const WaypointEdit = ({ inModal, onModalClose }: { inModal?: boolean; onModalClose?: () => void }) => {
 	const waypoint = useLoaderData() as Waypoint
@@ -34,6 +35,7 @@ export const WaypointEdit = ({ inModal, onModalClose }: { inModal?: boolean; onM
 	const [color, setColor] = useState<string | null>(waypoint.color || '')
 	const [latitude, setLatitude] = useState(waypoint.latitude ? waypoint.latitude.toString() : '')
 	const [longitude, setLongitude] = useState(waypoint.longitude ? waypoint.longitude.toString() : '')
+	const [prominent, setProminent] = useState(waypoint.prominent)
 
 	const addWaypoint = async () => {
 		await request(
@@ -44,6 +46,7 @@ export const WaypointEdit = ({ inModal, onModalClose }: { inModal?: boolean; onM
 					color: (color as WaypointColor) || undefined,
 					latitude: parseFloat(latitude),
 					longitude: parseFloat(longitude),
+					prominent
 				}),
 			{
 				icon: faMapMarkerAlt,
@@ -62,6 +65,7 @@ export const WaypointEdit = ({ inModal, onModalClose }: { inModal?: boolean; onM
 					color: (color as WaypointColor) || undefined,
 					latitude: !waypoint.managed ? parseFloat(latitude) : undefined,
 					longitude: !waypoint.managed ? parseFloat(longitude) : undefined,
+					prominent
 				}),
 			{
 				icon: faMapMarkerAlt,
@@ -148,6 +152,11 @@ export const WaypointEdit = ({ inModal, onModalClose }: { inModal?: boolean; onM
 				<Action className="waypoint-admin-input" text="Name" description="Display name for this waypoint.">
 					<div className="input-wrapper">
 						<input type="text" value={name} onChange={(e) => setName(e.currentTarget.value)} />
+					</div>
+				</Action>
+				<Action className="waypoint-admin-input" text="Prominent?" description="Whether this waypoint is displayed when zoomed out.">
+					<div className="input-wrapper">
+						<Toggle color='green' checked={prominent} onChange={(v) => setProminent(v.currentTarget.checked)} />
 					</div>
 				</Action>
 				<Action className="waypoint-admin-input" text="Timestamp" description="When this waypoint was sent.">
