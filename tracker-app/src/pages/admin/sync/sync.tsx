@@ -1,4 +1,4 @@
-import { faCog, faRotate, faRotateExclamation } from '@fortawesome/pro-solid-svg-icons'
+import { faCog, faCompass, faGlobeAmericas, faLocationDot, faRotate, faRotateExclamation, faTimer } from '@fortawesome/pro-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { GetSyncConfig200Response } from 'tracker-server-client'
 import { useAuth } from 'react-oidc-context'
@@ -39,7 +39,7 @@ export default function AdminSync() {
 				title={'Garmin Sync'}
 				color="orange"
 				className="corner-right"
-				leftActions={<FontAwesomeIcon icon={faCog} size="lg" />}
+				leftActions={<FontAwesomeIcon icon={faCompass} size="lg" />}
 				rightActions={
 					<>
 						<Button color="green" onClick={async () => await runSync()} iconProps={{ icon: faRotate }} />
@@ -47,12 +47,12 @@ export default function AdminSync() {
 					</>
 				}
 			/>
-			<SectionTitle color="orange">Configuration</SectionTitle>
+			<SectionTitle color="orange"><FontAwesomeIcon icon={faCog} className='mr-05' /> Configuration</SectionTitle>
 			<Action color="orange" text="Garmin username" description="The username of the Garmin account to fetch data from.">
 				{syncConfig.username}
 			</Action>
 
-			<SectionTitle color="orange">Last fetch</SectionTitle>
+			<SectionTitle color="orange"><FontAwesomeIcon icon={faTimer} className='mr-05' /> Last fetch</SectionTitle>
 			{syncConfig.cron ? (
 				<>
 					<Action color="orange" text="Time fetched" description="When data was last fetched from Garmin.">
@@ -81,7 +81,7 @@ export default function AdminSync() {
 
 			{syncConfig.trips ? (
 				<>
-					<SectionTitle color="orange">Trips</SectionTitle>
+					<SectionTitle color="orange"><FontAwesomeIcon icon={faGlobeAmericas} className='mr-05' /> Trips</SectionTitle>
 					<Action color="orange" text="Number imported" description="Number of trips imported on last fetch.">
 						{syncConfig.trips.imported}
 					</Action>
@@ -95,7 +95,7 @@ export default function AdminSync() {
 			) : undefined}
 			{syncConfig.waypoints ? (
 				<>
-					<SectionTitle color="orange">Waypoints</SectionTitle>
+					<SectionTitle color="orange"><FontAwesomeIcon icon={faLocationDot} className='mr-05' /> Waypoints</SectionTitle>
 					<Action color="orange" text="Number imported" description="Number of waypoints imported on last fetch.">
 						{syncConfig.waypoints.imported}
 					</Action>

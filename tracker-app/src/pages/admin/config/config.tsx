@@ -1,4 +1,4 @@
-import { faCheck, faCog } from '@fortawesome/pro-solid-svg-icons'
+import { faCheck, faCog, faCompass, faLock, faMap } from '@fortawesome/pro-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Config, ListConfig200Response } from 'tracker-server-client'
 import { useState } from 'react'
@@ -135,7 +135,10 @@ export default function AdminConfig() {
 
 			{categories?.map((category) => (
 				<div key={category}>
-					<SectionTitle color="red">{category}</SectionTitle>
+					<SectionTitle color="red">
+						{getCategoryIcon(category) ? <FontAwesomeIcon icon={getCategoryIcon(category)} className="mr-05" /> : undefined}
+						{category}
+					</SectionTitle>
 					{configs
 						?.filter((c) => c.category === category)
 						.map((config) => (
@@ -145,4 +148,17 @@ export default function AdminConfig() {
 			))}
 		</div>
 	)
+}
+
+const getCategoryIcon = (category?: string) => {
+	switch (category) {
+		case 'Garmin Sync':
+			return faCompass
+		case 'OIDC':
+			return faLock
+		case 'Mapbox':
+			return faMap
+	}
+
+	return faCog
 }
