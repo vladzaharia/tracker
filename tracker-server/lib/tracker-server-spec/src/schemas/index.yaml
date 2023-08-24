@@ -30,6 +30,12 @@ paths:
       tags:
         - Trip
       parameters:
+        - name: showUpcomingTrips
+          description: Whether to include future trips in list, defaults to `true`.
+          in: query
+          schema:
+            type: boolean
+          example: true
         - name: showStatus
           description: Whether to include current position/activity in response.
           in: query
@@ -69,29 +75,6 @@ paths:
                 required:
                   - upcoming
                   - past
-        500:
-          $ref: '#/components/responses/InternalServerError'
-  /trip/all:
-    get:
-      summary: List trip info
-      description: List all available trips, with basic info only.
-      operationId: listTripInfo
-      tags:
-        - Trip
-      responses:
-        200:
-          description: List of trips available.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  trips:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/BasicTrip'
-                required:
-                  - trips
         500:
           $ref: '#/components/responses/InternalServerError'
 

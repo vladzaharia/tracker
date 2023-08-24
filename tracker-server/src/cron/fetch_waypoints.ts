@@ -13,7 +13,7 @@ export const FetchWaypoints = async (env: Bindings) => {
 			await updateWaypoint(env.D1DATABASE, waypoint.trip_id, waypoint.timestamp, {
 				latitude: waypoint.latitude,
 				longitude: waypoint.longitude,
-				managed: 1
+				managed: 1,
 			})
 		} else {
 			await insertWaypoint(env.D1DATABASE, waypoint, true)

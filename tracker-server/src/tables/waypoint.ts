@@ -11,7 +11,7 @@ export async function listWaypoints(db: D1Database) {
 }
 
 export async function listWaypointsForTrip(db: D1Database, tripId: string) {
-	return await getKyselyDb(db).selectFrom('waypoint').selectAll().where('trip_id', '=', tripId).orderBy('timestamp', 'asc').execute()
+	return await getKyselyDb(db).selectFrom('waypoint').selectAll().where('trip_id', '=', tripId).orderBy('timestamp').execute()
 }
 
 export async function findWaypointInTrip(db: D1Database, tripId: string, timestamp: number) {
@@ -27,7 +27,7 @@ export async function insertWaypoint(db: D1Database, waypoint: Omit<WaypointTabl
 		.insertInto('waypoint')
 		.values({
 			...waypoint,
-			managed: isManaged ? 1 : 0
+			managed: isManaged ? 1 : 0,
 		})
 		.execute()
 }

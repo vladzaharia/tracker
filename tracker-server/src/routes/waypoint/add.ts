@@ -3,6 +3,7 @@ import { Bindings } from '../../bindings'
 import { WaypointTable } from '../../tables/db'
 import { findWaypointInTrip, insertWaypoint } from '../../tables/waypoint'
 import { findTrip } from '../../tables/trip'
+import moment from 'moment'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface AddWaypointBody extends Omit<WaypointTable, 'trip_id' | 'timestamp' | 'managed' | 'prominent'> {
@@ -35,9 +36,16 @@ export const AddWaypoint = async (c: Context<{ Bindings: Bindings }>) => {
 		}
 
 		// Try to find waypoint
-		const record = await findWaypointInTrip(db, trip, parseInt(timestamp, 10))
+		const timestampNum = parseInt(timestamp, 10)
+		const timestampDate = moment(timestampNum)
+		const record = await findWaypointInTrip(db, trip, timestampNum)
 		if (record) {
 			return c.json({ message: 'Waypoint already exists!' }, 400)
+		}
+
+		// Check that waypoint is in trip time range
+		if (!(moment(tripRecord.start_date) < timestampDate && moment(tripRecord.end_date) > timestampDate)) {
+			return c.json({ message: 'Waypoint must be in trip time range!' }, 400)
 		}
 
 		// Add waypoint
@@ -49,7 +57,7 @@ export const AddWaypoint = async (c: Context<{ Bindings: Bindings }>) => {
 			color,
 			latitude,
 			longitude,
-			prominent: prominent ? 1 : 0
+			prominent: prominent ? 1 : 0,
 		})
 
 		return c.json({ message: 'Successfully added waypoint!' })
