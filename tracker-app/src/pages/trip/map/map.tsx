@@ -110,7 +110,9 @@ export const TripMap = () => {
 					mapStyle={`mapbox://styles/vladzaharia/${mapStyle}`}
 					interactiveLayerIds={[`${trip.id}-points`]}
 					onClick={onClick}
-					onZoomEnd={(e) => { setZoom(e.viewState.zoom) }}
+					onZoomEnd={(e) => {
+						setZoom(e.viewState.zoom)
+					}}
 				>
 					<NavigationControl visualizePitch={true} position="top-left" />
 					<Source id="points" type="geojson" data={tripJSON.points}>
@@ -136,12 +138,26 @@ export const TripMap = () => {
 							layout={{ 'line-cap': 'round', 'line-join': 'round' }}
 						/>
 					</Source>
-					{trip.waypoints.length > 0 ? ((zoom > (trip.type === 'scuba' ? 10 : 7)) ? trip.waypoints : trip.waypoints.filter((wp) => wp.prominent)).map((wp) => (
-								<Marker key={wp.timestamp} longitude={wp.longitude} latitude={wp.latitude}>
-									<MarkerPin waypoint={wp} />
-								</Marker>
-						  ))
-						: undefined}
+					{trip.waypoints.length > 0 ? (
+						<>
+							{zoom > (trip.type === 'scuba' ? 10 : 7)
+								? trip.waypoints
+										.filter((wp) => !wp.prominent)
+										.map((wp) => (
+											<Marker key={wp.timestamp} longitude={wp.longitude} latitude={wp.latitude}>
+												<MarkerPin waypoint={wp} />
+											</Marker>
+										))
+								: undefined}
+							{trip.waypoints
+								.filter((wp) => wp.prominent)
+								.map((wp) => (
+									<Marker key={wp.timestamp} longitude={wp.longitude} latitude={wp.latitude}>
+										<MarkerPin waypoint={wp} />
+									</Marker>
+								))}
+						</>
+					) : undefined}
 					{popupInfo && (
 						<Popup
 							anchor="top"

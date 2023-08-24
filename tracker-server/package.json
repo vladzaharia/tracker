@@ -14,13 +14,14 @@
 		"wrangler": "^3.2.0"
 	},
 	"dependencies": {
+		"@tmcw/togeojson": "^5.7.0",
+		"cron-parser": "^4.9.0",
 		"hono": "^3.2.5",
 		"jose": "^4.14.4",
 		"kysely": "^0.25.0",
 		"kysely-d1": "^0.3.0",
 		"moment": "^2.29.0",
 		"moment-timezone": "^0.5.43",
-		"xmldom": "^0.6.0",
-		"@tmcw/togeojson": "^5.7.0"
+		"xmldom": "^0.6.0"
 	}
 }

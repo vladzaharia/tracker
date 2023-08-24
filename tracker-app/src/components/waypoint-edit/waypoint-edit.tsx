@@ -46,14 +46,14 @@ export const WaypointEdit = ({ inModal, onModalClose }: { inModal?: boolean; onM
 					color: (color as WaypointColor) || undefined,
 					latitude: parseFloat(latitude),
 					longitude: parseFloat(longitude),
-					prominent
+					prominent,
 				}),
 			{
 				icon: faMapMarkerAlt,
 				message: 'Successfully created waypoint!',
-			}
+			},
+			() => onModalClose && onModalClose()
 		)
-		onModalClose && onModalClose()
 	}
 
 	const updateWaypoint = async () => {
@@ -65,14 +65,14 @@ export const WaypointEdit = ({ inModal, onModalClose }: { inModal?: boolean; onM
 					color: (color as WaypointColor) || undefined,
 					latitude: !waypoint.managed ? parseFloat(latitude) : undefined,
 					longitude: !waypoint.managed ? parseFloat(longitude) : undefined,
-					prominent
+					prominent,
 				}),
 			{
 				icon: faMapMarkerAlt,
 				message: 'Successfully updated waypoint!',
-			}
+			},
+			() => navigate('/admin/waypoint')
 		)
-		navigate('/admin/waypoint')
 	}
 
 	AddToLibrary()
@@ -156,7 +156,7 @@ export const WaypointEdit = ({ inModal, onModalClose }: { inModal?: boolean; onM
 				</Action>
 				<Action className="waypoint-admin-input" text="Prominent?" description="Whether this waypoint is displayed when zoomed out.">
 					<div className="input-wrapper">
-						<Toggle color='green' checked={prominent} onChange={(v) => setProminent(v.currentTarget.checked)} />
+						<Toggle color="green" checked={prominent} onChange={(v) => setProminent(v.currentTarget.checked)} />
 					</div>
 				</Action>
 				<Action className="waypoint-admin-input" text="Timestamp" description="When this waypoint was sent.">

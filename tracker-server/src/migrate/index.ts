@@ -1,8 +1,10 @@
-import { insertMigration, getCurrentMigration, updateRollback } from '../tables/migration'
+import { insertMigration, getCurrentMigration, updateRollback, createMigrationTable } from '../tables/migration'
 import { getAllMigrations } from './migrations'
 import { Migration } from './types'
 
 export const getAvailableMigrations = async (db: D1Database) => {
+	await createMigrationTable(db)
+
 	const currentMigration = await getCurrentMigration(db)
 
 	const getMigrationDetails = (migration: Migration) => {

@@ -2,6 +2,11 @@ import { Kysely } from 'kysely'
 import { D1Dialect } from 'kysely-d1'
 import { TripType } from '../types'
 
+export type StringColumn = string
+export type NumberColumn = number
+export type FormatColumn = 'text' | 'number' | 'boolean' | 'datetime'
+export type BooleanColumn = 0 | 1
+
 export interface Database {
 	trip: TripTable
 	waypoint: WaypointTable
@@ -10,43 +15,44 @@ export interface Database {
 }
 
 export interface TripTable {
-	name: string
-	id: string
-	emoji: string
+	name: StringColumn
+	id: StringColumn
+	emoji: StringColumn
 	type: TripType
-	start_date: number
-	end_date: number
-	time_zone: string
+	start_date: NumberColumn
+	end_date: NumberColumn
+	time_zone: StringColumn
 }
 
 export interface WaypointTable {
-	trip_id: string
-	name: string
-	icon?: string
-	color?: string
-	latitude: number
-	longitude: number
-	timestamp: number
-	managed: 0 | 1
-	prominent: 0 | 1
+	trip_id: StringColumn
+	name: StringColumn
+	icon?: StringColumn
+	color?: StringColumn
+	latitude: NumberColumn
+	longitude: NumberColumn
+	timestamp: NumberColumn
+	managed: BooleanColumn
+	prominent: BooleanColumn
 }
 
 export interface ConfigTable {
-	id: string
-	name: string
-	description: string
-	value: string
-	format: 'text' | 'number' | 'boolean' | 'datetime'
-	editable: 0 | 1
-	secret?: 0 | 1
-	category?: string
+	id: StringColumn
+	name: StringColumn
+	description: StringColumn
+	value: StringColumn
+	format: FormatColumn
+	editable: BooleanColumn
+	secret?: BooleanColumn
+	hidden?: BooleanColumn
+	category?: StringColumn
 }
 
 export interface MigrationTable {
-	version: number
-	name: string
-	applied: number
-	rolledBack?: number
+	version: NumberColumn
+	name: StringColumn
+	applied: NumberColumn
+	rolledBack?: NumberColumn
 }
 
 export const getKyselyDb = (database: D1Database) => {

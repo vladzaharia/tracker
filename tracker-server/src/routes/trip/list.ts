@@ -5,7 +5,7 @@ import { Trip } from '../../types'
 import { ConvertTrip } from './util'
 
 export const ListTrips = async (c: Context<{ Bindings: Bindings }>) => {
-	const { showStatus, showTotals, showCenterPoint } = c.req.query()
+	const { showUpcomingTrips, showStatus, showTotals, showCenterPoint } = c.req.query()
 
 	const currentTrip = await findCurrentTrip(c.env.D1DATABASE)
 	const upcomingTrips = await listUpcomingTrips(c.env.D1DATABASE)
@@ -27,7 +27,7 @@ export const ListTrips = async (c: Context<{ Bindings: Bindings }>) => {
 			current: currentTrip && {
 				...(await ConvertTrip(c, currentTrip, true, true, showCenterPoint === 'true')),
 			},
-			upcoming: convertedUpcomingTrips,
+			upcoming: showUpcomingTrips !== 'false' ? convertedUpcomingTrips : undefined,
 			past: convertedPastTrips,
 		},
 		200

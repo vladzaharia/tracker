@@ -26,6 +26,8 @@ import ConfigLoader from './loaders/config'
 import AdminConfig from './pages/admin/config/config'
 import ListTripAdminLoader from './loaders/trip-list-admin'
 import { createInfoApi } from './api'
+import SyncLoader from './loaders/sync'
+import AdminSync from './pages/admin/sync/sync'
 
 const init = async () => {
 	const api = createInfoApi()
@@ -121,6 +123,12 @@ const init = async () => {
 							id: 'admin-config',
 							loader: ConfigLoader,
 							element: <AdminConfig />,
+						},
+						{
+							path: 'sync',
+							id: 'admin-sync',
+							loader: SyncLoader,
+							element: <AdminSync />,
 						},
 					],
 				},

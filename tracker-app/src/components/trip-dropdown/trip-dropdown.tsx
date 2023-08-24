@@ -12,7 +12,9 @@ export const TripDropdown = ({ onChange }: { onChange: (value: string) => void }
 	const container = useContext(ContainerContext)
 
 	const fetchTrips = async () => {
-		setTrips((await api.listTripInfo()).data.trips)
+		const data = (await api.listTrips(false, false, false, false)).data
+
+		setTrips([...(data.current ? [data.current] : []), ...data.past])
 	}
 
 	useEffect(() => {

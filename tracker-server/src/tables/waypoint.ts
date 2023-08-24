@@ -27,7 +27,7 @@ export async function insertWaypoint(db: D1Database, waypoint: Omit<WaypointTabl
 		.insertInto('waypoint')
 		.values({
 			...waypoint,
-			managed: isManaged ? 1 : 0
+			managed: isManaged ? 1 : 0,
 		})
 		.execute()
 }

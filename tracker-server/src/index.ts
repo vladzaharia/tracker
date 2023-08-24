@@ -4,7 +4,6 @@ import { cors } from 'hono/cors'
 import { Info } from './routes/info'
 import { GetTrip } from './routes/trip/get'
 import { ListTrips } from './routes/trip/list'
-import { FetchGeoJSON } from './cron/fetch_geojson'
 import { Bindings } from './bindings'
 import { GetTripGeoJSONPoints } from './routes/trip/geojson/points'
 import { GetTripGeoJSONTrack } from './routes/trip/geojson/track'
@@ -20,14 +19,13 @@ import { AuthMiddleware } from './auth/auth'
 import { ListWaypoints } from './routes/waypoint/list'
 import { GetWaypoint } from './routes/waypoint/get'
 import { UpdateWaypoint } from './routes/waypoint/update'
-import { FetchWaypoints } from './cron/fetch_waypoints'
 import { AddWaypoint } from './routes/waypoint/add'
 import { DeleteWaypoint } from './routes/waypoint/delete'
-import { ListTripInfo } from './routes/trip/all'
-import { updateLastFetchTime } from './tables/config'
 import { ListConfigs } from './routes/config/list'
 import { GetConfig } from './routes/config/get'
 import { UpdateConfig } from './routes/config/update'
+import { GetSync } from './routes/sync/get'
+import { ExecuteSync, RunSync } from './routes/sync/run'
 
 const app = new Hono<{ Bindings: Bindings }>()
 
@@ -51,7 +49,6 @@ app.get('/api/', Info)
 // List trips
 app.get('/api/trip', ListTrips)
 app.get('/api/trip/', ListTrips)
-app.get('/api/trip/all', ListTripInfo)
 
 // Trip routes
 app.get('/api/trip/:trip', GetTrip)
@@ -79,6 +76,10 @@ app.get('/api/config', ListConfigs)
 app.get('/api/config/', ListConfigs)
 app.get('/api/config/:id', GetConfig)
 app.patch('/api/config/:id', UpdateConfig)
+
+// Garmin Sync
+app.get('/api/sync', GetSync)
+app.post('/api/sync', RunSync)
 
 // Database endpoints
 app.get('/api/db', DbInfo)
@@ -138,6 +139,12 @@ app.get(
 	})
 )
 app.get(
+	'/admin/sync',
+	serveStatic({
+		path: './app/index.html',
+	})
+)
+app.get(
 	'/admin/database',
 	serveStatic({
 		path: './app/index.html',
@@ -153,8 +160,14 @@ app.get(
 export default {
 	fetch: app.fetch,
 	async scheduled(event, env, ctx) {
-		ctx.waitUntil(FetchGeoJSON(env))
-		ctx.waitUntil(FetchWaypoints(env))
-		ctx.waitUntil(updateLastFetchTime(env.D1DATABASE))
+		ctx.waitUntil(
+			(async () => {
+				try {
+					await ExecuteSync(env, event.cron, 'schedule')
+				} catch (e) {
+					console.error(`Error while running import: ${e}`)
+				}
+			})()
+		)
 	},
 } as ExportedHandler<Bindings>
