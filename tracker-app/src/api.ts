@@ -6,6 +6,7 @@ import {
 	ConfigurationParameters,
 	DatabaseApi,
 	InfoApi,
+	SyncApi,
 	TripApi,
 	WaypointApi,
 } from 'tracker-server-client'
@@ -43,4 +44,8 @@ export const createDatabaseApi = (accessToken: string) => {
 
 export const createConfigApi = (accessToken: string) => {
 	return new ConfigApi(getApiConfig({ accessToken }))
+}
+
+export const createSyncApi = (accessToken: string) => {
+	return new SyncApi(getApiConfig({ accessToken }))
 }

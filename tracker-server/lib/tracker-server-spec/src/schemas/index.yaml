@@ -385,6 +385,116 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
 
+  /sync:
+    get:
+      summary: Get sync config
+      description: Gets configuration information for syncing.
+      operationId: getSyncConfig
+      tags:
+        - Sync
+        - Info
+      responses:
+        200:
+          description: Sync config
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  username:
+                    type: string
+                    description: Username for Garmin account
+                    example: mynameisvlad
+                  cron:
+                    type: object
+                    description: Cron schedule for syncing
+                    properties:
+                      last_run:
+                        type: string
+                        description: Last time sync ran
+                        example: '2021-10-16T06:29:00Z'
+                      next_run:
+                        type: string
+                        description: Next time sync will run
+                        example: '2021-10-16T06:29:00Z'
+                      schedule:
+                        type: string
+                        description: Cron schedule for syncing
+                        example: '0 0 * * *'
+                      reason:
+                        type: string
+                        description: Reason for last fetch
+                        example: 'schedule'
+                        enum:
+                          - schedule
+                          - manual
+                    required:
+                      - last_run
+                      - schedule
+                  trips:
+                    type: object
+                    description: Last sync information for trips
+                    properties:
+                      imported:
+                        type: number
+                        description: Number of trips imported
+                        example: 1
+                      skipped:
+                        type: number
+                        description: Number of trips skipped
+                        example: 0
+                      points:
+                        type: number
+                        description: Number of points imported
+                        example: 1234
+                    required:
+                      - imported
+                      - skipped
+                      - points
+                  waypoints:
+                    type: object
+                    description: Last sync information for waypoints
+                    properties:
+                      imported:
+                        type: number
+                        description: Number of waypoints imported
+                        example: 1
+                      updated:
+                        type: number
+                        description: Number of waypoints updated
+                        example: 0
+                      skipped:
+                        type: number
+                        description: Number of waypoints skipped
+                        example: 0
+                    required:
+                      - imported
+                      - updated
+                      - skipped
+        500:
+          $ref: '#/components/responses/InternalServerError'
+    post:
+      summary: Run Garmin sync
+      description: Runs Garmin trip and waypoint sync.
+      operationId: runSync
+      tags:
+        - Sync
+        - Admin
+      security:
+        - JWTAuth: []
+      parameters:
+        - name: updateAll
+          description: Whether to force update trips and waypoints.
+          in: query
+          schema:
+            type: boolean
+          example: true
+      responses:
+        200:
+          $ref: '#/components/responses/Success'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+
   /action/message:
     put:
       summary: Send message
