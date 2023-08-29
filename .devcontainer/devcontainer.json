@@ -23,7 +23,9 @@
 		"source=${localWorkspaceFolderBasename}-node_modules,target=${containerWorkspaceFolder}/node_modules,type=volume"
 	],
 
-	"runArgs": ["--env-file",".devcontainer/.env"],
+	"containerEnv": {
+		"CLOUDFLARE_API_TOKEN": "${localEnv:CLOUDFLARE_API_TOKEN}"
+	},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	"forwardPorts": [4200, 8787],
@@ -31,7 +33,6 @@
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": "sudo chown vlad node_modules && npm install",
 	"postStartCommand": "npm run build",
-
 
 	// Configure tool-specific properties.
 	"customizations": {
