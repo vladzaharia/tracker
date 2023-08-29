@@ -14,7 +14,4 @@ RUN groupadd --gid $USER_GID $USERNAME \
     && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME
 
-# Installs starship
-RUN curl -fsSL https://starship.rs/install.sh | sh -s -- -y
-
 USER $USERNAME
