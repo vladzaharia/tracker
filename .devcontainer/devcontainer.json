@@ -51,10 +51,34 @@
 				"42Crunch.vscode-openapi",
 				"esbenp.prettier-vscode",
 				"cipchk.cssrem",
-				"redhat.vscode-yaml"
+				"redhat.vscode-yaml",
+				"GitHub.vscode-pull-request-github",
+				"humao.rest-client",
+				"PROxZIMA.sweetdracula"
 			],
 			"settings": {
-				"terminal.integrated.defaultProfile.linux": "bash"
+				"terminal.integrated.defaultProfile.linux": "bash",
+				"workbench.colorTheme": "Sweet Dracula",
+				"workbench.preferredDarkColorTheme": "Default Dark Modern",
+				"diffEditor.ignoreTrimWhitespace": false,
+				"git.enableSmartCommit": true,
+				"git.autofetch": true,
+				"git.confirmSync": false,
+				"[typescript]": {
+					"editor.defaultFormatter": "vscode.typescript-language-features"
+				},
+				"[typescriptreact]": {
+					"editor.defaultFormatter": "esbenp.prettier-vscode"
+				},			
+				"[json]": {
+					"editor.defaultFormatter": "esbenp.prettier-vscode"
+				},
+				"[markdown]": {
+					"editor.defaultFormatter": "esbenp.prettier-vscode"
+				},
+			    "files.associations": {
+					"*.swagger": "yaml"
+				}
 			}
 		}
 	},
