@@ -1,0 +1,62 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/typescript-node
+{
+	"name": "Tracker Dev",
+	"build": { "dockerfile": "Dockerfile" },
+
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	"features": {
+		"ghcr.io/devcontainers/features/common-utils:2": {},
+		"ghcr.io/balazs23/devcontainers-features/nx:1": {},
+		"ghcr.io/devcontainers-contrib/features/cloudflare-wrangler:1": {},
+		"ghcr.io/devcontainers/features/docker-in-docker:2": {},
+		"ghcr.io/devcontainers-contrib/features/prettier:1": {}
+	},
+
+	"mounts": [
+		// "source=${localEnv:HOME}${localEnv:USERPROFILE},target=/home/vlad,type=bind,consistency=cached",
+		"source=${localEnv:HOME}${localEnv:USERPROFILE}/.config,target=/home/vlad/.config,type=bind,consistency=cached",
+		"source=${localEnv:HOME}${localEnv:USERPROFILE}/.gitconfig,target=/home/vlad/.gitconfig,type=bind,consistency=cached",
+		"source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/vlad/.ssh,type=bind,consistency=cached",
+		"source=${localEnv:HOME}${localEnv:USERPROFILE}/.npmrc,target=/home/vlad/.npmrc,type=bind,consistency=cached",
+		"source=${localWorkspaceFolder}/.devcontainer/.bashrc,target=/home/vlad/.bashrc,type=bind,consistency=cached",
+		"source=${localWorkspaceFolderBasename}-node_modules,target=${containerWorkspaceFolder}/node_modules,type=volume"
+	],
+
+	"runArgs": ["--env-file",".devcontainer/.env"],
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	"forwardPorts": [4200, 8787],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"postCreateCommand": "sudo chown vlad node_modules && npm install",
+	"postStartCommand": "npm run build",
+
+
+	// Configure tool-specific properties.
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"remcohaszing.schemastore",
+				"fabiospampinato.vscode-diff",
+				"IronGeek.vscode-env",
+				"tamasfe.even-better-toml",
+				"github.vscode-github-actions",
+				"GitHub.copilot",
+				"GitHub.copilot-labs",
+				"eamodio.gitlens",
+				"yzhang.markdown-all-in-one",
+				"42Crunch.vscode-openapi",
+				"esbenp.prettier-vscode",
+				"cipchk.cssrem",
+				"redhat.vscode-yaml"
+			],
+			"settings": {
+				"terminal.integrated.defaultProfile.linux": "bash"
+			}
+		}
+	},
+
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	"remoteUser": "vlad"
+}
