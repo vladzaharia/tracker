@@ -24,7 +24,8 @@
 	],
 
 	"containerEnv": {
-		"CLOUDFLARE_API_TOKEN": "${localEnv:CLOUDFLARE_API_TOKEN}"
+		"CLOUDFLARE_API_TOKEN": "${localEnv:CLOUDFLARE_API_TOKEN}",
+		"FONTAWESOME_API_TOKEN": "${localEnv:FONTAWESOME_API_TOKEN}"
 	},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
