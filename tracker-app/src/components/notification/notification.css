@@ -11,8 +11,6 @@
 	background: var(--background);
 	color: var(--notification-foreground);
 	border-radius: 0.5rem;
-	display: grid;
-	grid-template-columns: 1fr 5fr;
 	display: flex;
 	flex-direction: row;
 	align-items: center;

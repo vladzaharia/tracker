@@ -26,9 +26,6 @@
 @media only screen and (max-width: 50rem) {
 	.global-nav {
 		display: none;
-	}
-
-	.global-nav {
 		position: sticky;
 		filter: unset;
 		backdrop-filter: unset;

@@ -1,5 +1,7 @@
 .button {
-	border: 0.0625rem solid var(--grey-dark);
+	border-width: 0.0625rem;
+	border-style: solid;
+	border-color: var(--grey-dark);
 	border-radius: 0.3rem;
 	font-size: 0.9rem;
 	text-decoration: none;

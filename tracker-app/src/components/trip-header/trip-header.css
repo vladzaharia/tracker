@@ -93,9 +93,6 @@
 .trip-header.past .date {
 	background-color: var(--orange-trans-50);
 	color: var(--orange);
-}
-
-.trip-header.past .date {
 	font-size: large;
 }
 
