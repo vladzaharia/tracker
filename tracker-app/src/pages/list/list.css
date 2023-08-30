@@ -70,11 +70,7 @@
 		border-bottom-left-radius: 0;
 		border-bottom-right-radius: 0;
 	}
-
-	.trip-list .trip-header .trip-position-details {
-		width: 100%;
-	}
-
+	
 	.left .trip-position,
 	.left .timestamp {
 		max-width: 90vw;
@@ -82,6 +78,7 @@
 	}
 
 	.trip-list .trip-header .trip-position-details {
+		width: 100%;
 		align-items: center;
 	}
 
