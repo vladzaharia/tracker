@@ -5,11 +5,15 @@
 	],
 	"packageRules": [
 		{
+			"matchConfidence": ["high", "very high"],
+			"groupName": "high merge confidence"
+		},
+		{
 		  "matchPackagePatterns": ["nx"],
 		  "groupName": "nx"
 		},
 		{
-			"matchPackagePatterns": ["vite", "vitest"],
+			"matchPackagePatterns": ["vite", "vitest", "vitejs"],
 			"groupName": "vite"
 		},
 		{
@@ -43,6 +47,18 @@
 		{
 			"matchPackagePatterns": ["cloudflare", "wrangler"],
 			"groupName": "cloudflare"
+		},
+		{
+			"matchPackagePatterns": ["mui"],
+			"groupName": "mui"
+		},
+		{
+			"matchPackagePatterns": ["mapbox", "react-map-gl"],
+			"groupName": "mui"
+		},
+		{
+			"matchUpdateTypes": ["major"],
+			"labels": ["UPDATE-MAJOR"]
 		}
 	  ]
 }
