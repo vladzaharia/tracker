@@ -2,11 +2,16 @@
 // README at: https://github.com/devcontainers/templates/tree/main/src/typescript-node
 {
 	"name": "Tracker Dev",
-	"build": { "dockerfile": "Dockerfile" },
+	// "build": { "dockerfile": "Dockerfile" },
+	"image": "mcr.microsoft.com/devcontainers/typescript-node:1-20-bullseye",
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	"features": {
-		"ghcr.io/devcontainers/features/common-utils:2": {},
+		"ghcr.io/devcontainers/features/common-utils:2": {
+			"username": "vlad",
+			"userUid": "501",
+			"userGid": "501"
+		},
 		"ghcr.io/balazs23/devcontainers-features/nx:1": {},
 		"ghcr.io/devcontainers-contrib/features/cloudflare-wrangler:1": {},
 		"ghcr.io/devcontainers/features/docker-in-docker:2": {},
@@ -20,8 +25,8 @@
 		"ghcr.io/eliises/devcontainer-features/bash-profile:1": {
 			"command": "eval \"$(starship init bash)\""
 		},
-		"ghcr.io/jayree/devcontainer-features/npm-registry:1": {
-			"registry": "@fortawesome:registry=https://npm.fontawesome.com/ //npm.fontawesome.com/:_authToken=${localEnv:FONTAWESOME_API_TOKEN}"
+		"ghcr.io/devcontainers-contrib/features/zsh-plugins:0": {
+			"omzPlugins": ["starship"]
 		}
 	},
 
@@ -67,7 +72,7 @@
 				"PROxZIMA.sweetdracula"
 			],
 			"settings": {
-				"terminal.integrated.defaultProfile.linux": "bash",
+				"terminal.integrated.defaultProfile.linux": "zsh",
 				"workbench.colorTheme": "Sweet Dracula",
 				"workbench.preferredDarkColorTheme": "Default Dark Modern",
 				"diffEditor.ignoreTrimWhitespace": false,
