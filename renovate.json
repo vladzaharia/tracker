@@ -5,8 +5,8 @@
 	],
 	"packageRules": [
 		{
-		  "matchPackagePatterns": ["nx"],
-		  "groupName": "nx"
+			"matchPackagePatterns": ["nx"],
+			"groupName": "nx"
 		},
 		{
 			"matchPackagePatterns": ["vite", "vitest", "vitejs"],
@@ -55,6 +55,11 @@
 		{
 			"matchUpdateTypes": ["major"],
 			"labels": ["UPDATE-MAJOR"]
+		},
+		{
+			"matchUpdateTypes": ["minor", "patch"],
+			"matchCurrentVersion": "!/^0/",
+			"automerge": true
 		}
 	  ]
 }
