@@ -5,10 +5,6 @@
 	],
 	"packageRules": [
 		{
-			"matchConfidence": ["high", "very high"],
-			"groupName": "high merge confidence"
-		},
-		{
 		  "matchPackagePatterns": ["nx"],
 		  "groupName": "nx"
 		},
