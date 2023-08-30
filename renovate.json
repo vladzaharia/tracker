@@ -1,0 +1,60 @@
+{
+	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
+	"extends": [
+		"config:base"
+	],
+	"packageRules": [
+		{
+		  "matchPackagePatterns": ["nx"],
+		  "groupName": "nx"
+		},
+		{
+			"matchPackagePatterns": ["vite", "vitest", "vitejs"],
+			"groupName": "vite"
+		},
+		{
+			"matchPackagePatterns": ["typescript", "ts"],
+			"groupName": "typescript"
+		},
+		{
+			"matchPackagePatterns": ["eslint"],
+			"groupName": "eslint"
+		},
+		{
+			"matchPackagePatterns": ["node"],
+			"groupName": "node"
+		},
+		{
+			"matchPackagePatterns": ["fortawesome"],
+			"groupName": "fontawesome"
+		},
+		{
+			"matchPackagePatterns": ["moment"],
+			"groupName": "moment"
+		},
+		{
+			"matchPackagePatterns": ["react", "use-"],
+			"groupName": "react"
+		},
+		{
+			"matchPackagePatterns": ["kysely"],
+			"groupName": "kysely"
+		},
+		{
+			"matchPackagePatterns": ["cloudflare", "wrangler"],
+			"groupName": "cloudflare"
+		},
+		{
+			"matchPackagePatterns": ["mui"],
+			"groupName": "mui"
+		},
+		{
+			"matchPackagePatterns": ["mapbox", "react-map-gl"],
+			"groupName": "mui"
+		},
+		{
+			"matchUpdateTypes": ["major"],
+			"labels": ["UPDATE-MAJOR"]
+		}
+	  ]
+}
