@@ -55,6 +55,7 @@ You can run local development servers using `npm run serve`. This will run multi
 - Frontend at [http://localhost:4200](http://localhost:4200)
 - Backend at [http://localhost:8787/api](http://localhost:8787/api)
   - _Note: A copy of the frontend will be available at [http://localhost:8787](http://localhost:8787) but will not auto-update on changes._
+  - _Note: On codespaces, only the endpoint at https://{codespaces-id}-8787.app.github.dev will work._
 
 ### `dev` Deployment
 
