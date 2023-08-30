@@ -24,9 +24,6 @@
 		},
 		"ghcr.io/eliises/devcontainer-features/bash-profile:1": {
 			"command": "eval \"$(starship init bash)\""
-		},
-		"ghcr.io/devcontainers-contrib/features/zsh-plugins:0": {
-			"omzPlugins": ["starship"]
 		}
 	},
 
@@ -72,7 +69,7 @@
 				"PROxZIMA.sweetdracula"
 			],
 			"settings": {
-				"terminal.integrated.defaultProfile.linux": "zsh",
+				"terminal.integrated.defaultProfile.linux": "bash",
 				"workbench.colorTheme": "Sweet Dracula",
 				"workbench.preferredDarkColorTheme": "Default Dark Modern",
 				"diffEditor.ignoreTrimWhitespace": false,
