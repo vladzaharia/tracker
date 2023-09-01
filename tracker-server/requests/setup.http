@@ -1,0 +1,64 @@
+###
+# Migrate DB to latest version
+
+PUT {{host}}/db/migrate
+
+###
+# Set Garmin Username
+# @prompt username Garmin username to use
+
+PATCH {{host}}/config/garmin_username
+
+{
+    "value": "{{username}}"
+}
+
+###
+# Set Mapbox API token
+# @prompt token Mapbox API token to use
+
+PATCH {{host}}/config/mapbox_access_token
+
+{
+    "value": "{{token}}"
+}
+
+###
+# Set OIDC authority
+# @prompt authority OIDC authority to use
+
+PATCH {{host}}/config/oidc_authority
+
+{
+    "value": "{{authority}}"
+}
+
+###
+# Set OIDC client ID
+# @prompt client_id OIDC client ID to use
+
+PATCH {{host}}/config/oidc_client_id
+
+{
+    "value": "{{client_id}}"
+}
+
+###
+# Set OIDC scopes
+# @prompt scopes OIDC scopes to use
+
+PATCH {{host}}/config/oidc_scope
+
+{
+    "value": "{{scopes}}"
+}
+
+###
+# Set OIDC client secret
+# @prompt client_secret OIDC client secret to use
+
+PATCH {{host}}/config/oidc_client_secret
+
+{
+    "value": "{{client_secret}}"
+}
