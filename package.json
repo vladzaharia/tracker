@@ -23,7 +23,7 @@
 		"@nx/js": "16.5.3",
 		"@nx/linter": "16.3.2",
 		"@nx/react": "^16.3.2",
-		"@openapitools/openapi-generator-cli": "2.3.7",
+		"@openapitools/openapi-generator-cli": "2.7.0",
 		"@trumbitta/nx-plugin-openapi": "^1.12.1",
 		"@types/jest": "^29.4.0",
 		"@types/node": "18.7.1",
