@@ -10,6 +10,8 @@ jobs:
   fix:
     name: Lint/format with ESLint/Prettier
     runs-on: ubuntu-latest
+    permissions:
+      security-events: write
 
     steps:
     - name: Checkout files
