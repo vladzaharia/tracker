@@ -6,7 +6,7 @@
 	"private": true,
 	"devDependencies": {
 		"@nx/eslint-plugin": "16.3.2",
-		"@nx/js": "16.3.2",
+		"@nx/js": "16.8.1",
 		"@nx/linter": "16.3.2",
 		"@nx/react": "^16.3.2",
 		"@nx/vite": "16.3.2",
