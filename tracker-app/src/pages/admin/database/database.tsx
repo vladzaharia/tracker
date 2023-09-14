@@ -128,6 +128,7 @@ export default function AdminDatabase() {
 								iconProps={{ icon: faArrowRotateLeft }}
 								onClick={() => setShowRollbackModal(true)}
 								disabled={cannotRollback}
+								popoverProps={{ color: 'blue', description: 'Rollback last migration' }}
 							/>
 						</div>
 					</SectionTitle>
@@ -183,6 +184,7 @@ export default function AdminDatabase() {
 								iconProps={{ icon: faCheckDouble }}
 								onClick={() => setShowMigrateModal(true)}
 								disabled={cannotMigrate}
+								popoverProps={{ color: 'blue', description: 'Apply pending migrations' }}
 							/>
 						</div>
 					</SectionTitle>

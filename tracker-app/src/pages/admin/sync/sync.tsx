@@ -42,8 +42,8 @@ export default function AdminSync() {
 				leftActions={<FontAwesomeIcon icon={faCompass} size="lg" />}
 				rightActions={
 					<>
-						<Button color="green" onClick={async () => await runSync()} iconProps={{ icon: faRotate }} />
-						<Button color="green" onClick={async () => await runSync(true)} iconProps={{ icon: faRotateExclamation }} />
+						<Button color="green" onClick={async () => await runSync()} iconProps={{ icon: faRotate }} popoverProps={{ color: 'green', description: 'Sync' }} />
+						<Button color="green" onClick={async () => await runSync(true)} iconProps={{ icon: faRotateExclamation }} popoverProps={{ color: 'green', description: 'Full sync' }} />
 					</>
 				}
 			/>

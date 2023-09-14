@@ -135,7 +135,7 @@ export const WaypointEdit = ({ inModal, onModalClose }: { inModal?: boolean; onM
 						color="green"
 						className="corner-right"
 						leftActions={<Button color="green" onClick={() => navigate(`/admin/waypoint`)} iconProps={{ icon: faChevronLeft }} />}
-						rightActions={<Button color="green" onClick={() => updateWaypoint()} iconProps={{ icon: faCheck }} />}
+						rightActions={<Button color="green" onClick={() => updateWaypoint()} iconProps={{ icon: faCheck }} popoverProps={{ color: 'green', description: 'Save changes' }} />}
 					/>
 				) : undefined}
 

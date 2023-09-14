@@ -43,7 +43,7 @@ export default function AdminConfig() {
 
 	const ConfigAction = ({ config }: { config: Config }) => {
 		return (
-			<Action key={config.id} text={config.name} description={config.description}>
+			<Action className={!config.value || config.value.length > 15 ? 'column' : undefined} key={config.id} text={config.name} description={config.description}>
 				{config.editable ? (
 					<div className="input-wrapper">
 						{config.format === 'text' || config.format === 'number' ? (
@@ -125,7 +125,7 @@ export default function AdminConfig() {
 				color="red"
 				className="corner-right"
 				leftActions={<FontAwesomeIcon icon={faCog} size="lg" />}
-				rightActions={<Button color="green" onClick={async () => await updateValues()} iconProps={{ icon: faCheck }} />}
+				rightActions={<Button color="green" onClick={async () => await updateValues()} iconProps={{ icon: faCheck }} popoverProps={{ color: 'green', description: 'Save changes' }} />}
 			/>
 			{configs
 				?.filter((c) => !c.category || c.category.length === 0)
