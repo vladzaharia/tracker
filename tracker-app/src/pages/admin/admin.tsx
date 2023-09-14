@@ -10,17 +10,18 @@ import { OpenIDScopeProps } from '../../types'
 
 export default function Admin() {
 	const auth = useAuth()
+	const authConfigured = !!auth.settings.authority
 	const location = useLocation()
 	const navigate = useNavigate()
 
 	useEffect(() => {
-		if (!hasAuthParams() && !auth.isAuthenticated && !auth.activeNavigator && !auth.isLoading) {
+		if (authConfigured && !!hasAuthParams() && !auth.isAuthenticated && !auth.activeNavigator && !auth.isLoading) {
 			auth.signinRedirect()
 		}
 	}, [auth.isAuthenticated, auth.activeNavigator, auth.isLoading, auth.signinRedirect])
 
 	useEffect(() => {
-		if (auth.user && !(auth.user?.profile.tracker as OpenIDScopeProps)?.admin) {
+		if (authConfigured && auth.user && !(auth.user?.profile.tracker as OpenIDScopeProps)?.admin) {
 			navigate('/')
 		}
 	}, [auth.user])
@@ -33,7 +34,7 @@ export default function Admin() {
 					className: 'corner-left',
 				}}
 			>
-				{auth.isAuthenticated ? (
+				{!authConfigured || auth.isAuthenticated ? (
 					<>
 						<MenuItem key="sync" color="orange" text="Garmin Sync" icon={faCompass} destination="sync" />
 						<MenuItem key="trip" color="blue" text="Trips" icon={faGlobeAmericas} destination="trip" />
@@ -52,7 +53,7 @@ export default function Admin() {
 					exit={{ opacity: 0 }}
 					transition={{ duration: 0.5 }}
 				>
-					{auth.isAuthenticated ? (
+					{!authConfigured || auth.isAuthenticated ? (
 						<Outlet />
 					) : (
 						<div className="login">{auth.isLoading ? 'Logging in...' : 'Press the login button to continue.'}</div>

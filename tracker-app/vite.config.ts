@@ -2,6 +2,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import viteTsConfigPaths from 'vite-tsconfig-paths'
+import webfontDownload from 'vite-plugin-webfont-dl'
 
 export default defineConfig({
 	cacheDir: '../node_modules/.vite/app',
@@ -25,16 +26,8 @@ export default defineConfig({
 		viteTsConfigPaths({
 			root: '../',
 		}),
+		webfontDownload(),
 	],
-
-	// Uncomment this if you are using workers.
-	// worker: {
-	//  plugins: [
-	//    viteTsConfigPaths({
-	//      root: '../',
-	//    }),
-	//  ],
-	// },
 
 	test: {
 		globals: true,

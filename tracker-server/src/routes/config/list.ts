@@ -21,6 +21,6 @@ export const ListConfigs = async (c: Context<{ Bindings: Bindings }>) => {
 			200
 		)
 	} catch (e) {
-		return c.json({ message: 'Something went wrong!' }, 500)
+		return c.json({ configs: [] }, 200)
 	}
 }

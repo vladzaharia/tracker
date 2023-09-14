@@ -45,16 +45,34 @@
 				"lintFilePatterns": ["./tracker-app/**/*.{ts,tsx,js,jsx}"],
 				"maxWarnings": 0,
 				"fix": true
+			},
+			"defaultConfiguration": "dev",
+			"configurations": {
+				"dev": {
+					"format": "stylish"
+				},
+				"ci": {
+					"format": "@microsoft/eslint-formatter-sarif",
+					"outputFile": "./dist/tracker-app.sarif"
+				}
 			}
 		},
 		"format": {
 			"executor": "nx:run-commands",
 			"options": {
-				"cwd": "tracker-app",
-				"command": "prettier --write ."
+				"cwd": "tracker-app"
 			},
 			"inputs": ["{projectRoot}/**/*"],
-			"outputs": ["{projectRoot}/**/*"]
+			"outputs": ["{projectRoot}/**/*"],
+			"defaultConfiguration": "dev",
+			"configurations": {
+				"dev": {
+					"command": "prettier --write ."
+				},
+				"ci": {
+					"command": "prettier --check ."
+				}
+			}
 		},
 		"serve": {
 			"executor": "@nx/vite:dev-server",

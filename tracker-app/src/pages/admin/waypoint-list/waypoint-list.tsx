@@ -21,7 +21,7 @@ export default function WaypointListAdmin() {
 	useReload(waypoints)
 	const navigate = useNavigate()
 	const auth = useAuth()
-	const api = createAdminApi(auth.user?.access_token || '')
+	const api = createAdminApi(auth.user?.access_token || 'someaccesstoken')
 	const request = useNotificationAwareRequest()
 	const [deleteModalInfo, setDeleteModalInfo] = useState<{ trip_id: string; timestamp: number } | undefined>()
 	const [showCreateModal, setShowCreateModal] = useState<boolean>(false)

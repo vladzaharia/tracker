@@ -26,7 +26,7 @@ export const WaypointEdit = ({ inModal, onModalClose }: { inModal?: boolean; onM
 	const navigate = useNavigate()
 	const request = useNotificationAwareRequest()
 	const auth = useAuth()
-	const api = createAdminApi(auth.user?.access_token || '')
+	const api = createAdminApi(auth.user?.access_token || 'someaccesstoken')
 
 	const [tripId, setTripId] = useState(waypoint.trip_id || '')
 	const [timestamp, setTimestamp] = useState(moment(waypoint.timestamp) || '')
@@ -135,7 +135,14 @@ export const WaypointEdit = ({ inModal, onModalClose }: { inModal?: boolean; onM
 						color="green"
 						className="corner-right"
 						leftActions={<Button color="green" onClick={() => navigate(`/admin/waypoint`)} iconProps={{ icon: faChevronLeft }} />}
-						rightActions={<Button color="green" onClick={() => updateWaypoint()} iconProps={{ icon: faCheck }} />}
+						rightActions={
+							<Button
+								color="green"
+								onClick={() => updateWaypoint()}
+								iconProps={{ icon: faCheck }}
+								popoverProps={{ color: 'green', description: 'Save changes' }}
+							/>
+						}
 					/>
 				) : undefined}
 

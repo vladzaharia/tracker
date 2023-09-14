@@ -45,16 +45,34 @@
 				"lintFilePatterns": ["./tracker-server/**/*.{ts,tsx,js,jsx}"],
 				"maxWarnings": 0,
 				"fix": true
+			},
+			"defaultConfiguration": "dev",
+			"configurations": {
+				"dev": {
+					"format": "stylish"
+				},
+				"ci": {
+					"format": "@microsoft/eslint-formatter-sarif",
+					"outputFile": "./dist/tracker-server.sarif"
+				}
 			}
 		},
 		"format": {
 			"executor": "nx:run-commands",
 			"options": {
-				"cwd": "tracker-server",
-				"command": "prettier --write ."
+				"cwd": "tracker-server"
 			},
 			"inputs": ["{projectRoot}/**/*", "!{projectRoot}/dist/**/*"],
-			"outputs": ["{projectRoot}/**/*", "!{projectRoot}/dist/**/*"]
+			"outputs": ["{projectRoot}/**/*", "!{projectRoot}/dist/**/*"],
+			"defaultConfiguration": "dev",
+			"configurations": {
+				"dev": {
+					"command": "prettier --write ."
+				},
+				"ci": {
+					"command": "prettier --check ."
+				}
+			}
 		},
 		"serve": {
 			"executor": "nx:run-commands",

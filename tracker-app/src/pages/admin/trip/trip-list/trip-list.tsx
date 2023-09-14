@@ -19,12 +19,12 @@ export default function TripListAdmin() {
 	useReload(trips)
 	const navigate = useNavigate()
 	const auth = useAuth()
-	const api = createAdminApi(auth.user?.access_token || '')
+	const api = createAdminApi(auth.user?.access_token || 'someaccesstoken')
 	const request = useNotificationAwareRequest()
 	const [deleteModalTripId, setDeleteModalTripId] = useState<string | undefined>()
 	const [showCreateModal, setShowCreateModal] = useState<boolean>(false)
 
-	// const api = createAdminApi(auth.user?.access_token || '')
+	// const api = createAdminApi(auth.user?.access_token || 'someaccesstoken')
 	const deleteTrip = async (id: string) => {
 		await request(
 			async () => await api.deleteTrip(id),

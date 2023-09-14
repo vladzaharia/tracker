@@ -37,7 +37,7 @@ export default function AdminDatabase() {
 	const [showRollbackModal, setShowRollbackModal] = useState<boolean>(false)
 	const [showResetModal, setShowResetModal] = useState<boolean>(false)
 
-	const api = createDatabaseApi(auth.user?.access_token || '')
+	const api = createDatabaseApi(auth.user?.access_token || 'someaccesstoken')
 
 	const cannotMigrate = (database?.migrations?.available || []).length === 0
 	const cannotRollback = database?.migrations?.current === undefined || database?.migrations?.current?.version === 0
@@ -128,6 +128,7 @@ export default function AdminDatabase() {
 								iconProps={{ icon: faArrowRotateLeft }}
 								onClick={() => setShowRollbackModal(true)}
 								disabled={cannotRollback}
+								popoverProps={{ color: 'blue', description: 'Rollback last migration' }}
 							/>
 						</div>
 					</SectionTitle>
@@ -183,6 +184,7 @@ export default function AdminDatabase() {
 								iconProps={{ icon: faCheckDouble }}
 								onClick={() => setShowMigrateModal(true)}
 								disabled={cannotMigrate}
+								popoverProps={{ color: 'blue', description: 'Apply pending migrations' }}
 							/>
 						</div>
 					</SectionTitle>

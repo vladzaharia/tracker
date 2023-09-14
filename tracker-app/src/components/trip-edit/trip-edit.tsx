@@ -31,7 +31,7 @@ export const TripEdit = ({ inModal, onModalClose }: { inModal?: boolean; onModal
 	const request = useNotificationAwareRequest()
 	const auth = useAuth()
 
-	const api = createAdminApi(auth.user?.access_token || '')
+	const api = createAdminApi(auth.user?.access_token || 'someaccesstoken')
 	const [id, setId] = useState(trip.id || '')
 	const [name, setName] = useState(trip.name || '')
 	const [emoji, setEmoji] = useState(trip.emoji || '')
@@ -91,7 +91,14 @@ export const TripEdit = ({ inModal, onModalClose }: { inModal?: boolean; onModal
 						color="blue"
 						className="corner-right"
 						leftActions={<Button color="blue" onClick={() => navigate(`/admin/trip`)} iconProps={{ icon: faChevronLeft }} />}
-						rightActions={<Button color="green" onClick={() => updateTrip()} iconProps={{ icon: faCheck }} />}
+						rightActions={
+							<Button
+								color="green"
+								onClick={() => updateTrip()}
+								iconProps={{ icon: faCheck }}
+								popoverProps={{ color: 'green', description: 'Save changes' }}
+							/>
+						}
 					/>
 				) : undefined}
 				{inModal ? (

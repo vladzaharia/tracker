@@ -1,0 +1,45 @@
+name: Build
+
+on:
+  workflow_call:
+    secrets:
+      FONTAWESOME_API_TOKEN:
+        required: true
+
+jobs:
+  fix:
+    name: Lint/format with ESLint/Prettier
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout files
+      uses: actions/checkout@v3
+    - name: Use Node.js v18.x
+      uses: actions/setup-node@v3
+      with:
+        node-version: v18.x
+        cache: 'npm'
+    - name: Install NPM packages
+      run: npm ci --ignore-scripts
+      env:
+        FONTAWESOME_API_TOKEN: ${{ secrets.FONTAWESOME_API_TOKEN }}
+    - name: 'Lint with ESLint'
+      run: npx nx run-many -t lint --configuration ci
+      env:
+        NX_BRANCH: "${{ github.ref_name }}"
+    - name: Upload tracker-app ESLint results
+      uses: github/codeql-action/upload-sarif@v2
+      with:
+        sarif_file: dist/tracker-app.sarif
+        wait-for-processing: true
+        category: tracker-app-eslint
+    - name: Upload tracker-server ESLint results
+      uses: github/codeql-action/upload-sarif@v2
+      with:
+        sarif_file: dist/tracker-server.sarif
+        wait-for-processing: true
+        category: tracker-server-eslint
+    - name: 'Format with Prettier'
+      run: npx nx run-many -t format --configuration ci
+      env:
+        NX_BRANCH: "${{ github.ref_name }}"
