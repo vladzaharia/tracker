@@ -32,11 +32,13 @@ jobs:
       with:
         sarif_file: dist/tracker-app.sarif
         wait-for-processing: true
+        category: tracker-app-eslint
     - name: Upload tracker-server ESLint results
       uses: github/codeql-action/upload-sarif@v2
       with:
         sarif_file: dist/tracker-server.sarif
         wait-for-processing: true
+        category: tracker-server-eslint
     - name: 'Format with Prettier'
       run: npx nx run-many -t format --configuration ci
       env:
