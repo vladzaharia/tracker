@@ -12,6 +12,8 @@ jobs:
   fix:
     uses: ./.github/workflows/shared-fix.yml
     secrets: inherit
+    permissions:
+      security-events: write
 
   # test:
   #   uses: ./.github/workflows/shared-test.yml
