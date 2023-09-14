@@ -31,7 +31,7 @@ export const TripEdit = ({ inModal, onModalClose }: { inModal?: boolean; onModal
 	const request = useNotificationAwareRequest()
 	const auth = useAuth()
 
-	const api = createAdminApi(auth.user?.access_token || '')
+	const api = createAdminApi(auth.user?.access_token || 'someaccesstoken')
 	const [id, setId] = useState(trip.id || '')
 	const [name, setName] = useState(trip.name || '')
 	const [emoji, setEmoji] = useState(trip.emoji || '')

@@ -50,7 +50,7 @@ export default function GlobalNav() {
 						navigate('/')
 					}}
 				/>
-				{(auth.user?.profile.tracker as OpenIDScopeProps)?.admin ? (
+				{(!auth.settings.authority || (auth.user?.profile.tracker as OpenIDScopeProps)?.admin) ? (
 					<Button
 						className="admin"
 						color={'blue'}

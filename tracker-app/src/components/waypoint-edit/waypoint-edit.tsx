@@ -26,7 +26,7 @@ export const WaypointEdit = ({ inModal, onModalClose }: { inModal?: boolean; onM
 	const navigate = useNavigate()
 	const request = useNotificationAwareRequest()
 	const auth = useAuth()
-	const api = createAdminApi(auth.user?.access_token || '')
+	const api = createAdminApi(auth.user?.access_token || 'someaccesstoken')
 
 	const [tripId, setTripId] = useState(waypoint.trip_id || '')
 	const [timestamp, setTimestamp] = useState(moment(waypoint.timestamp) || '')

@@ -37,7 +37,7 @@ export default function AdminDatabase() {
 	const [showRollbackModal, setShowRollbackModal] = useState<boolean>(false)
 	const [showResetModal, setShowResetModal] = useState<boolean>(false)
 
-	const api = createDatabaseApi(auth.user?.access_token || '')
+	const api = createDatabaseApi(auth.user?.access_token || 'someaccesstoken')
 
 	const cannotMigrate = (database?.migrations?.available || []).length === 0
 	const cannotRollback = database?.migrations?.current === undefined || database?.migrations?.current?.version === 0

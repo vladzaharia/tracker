@@ -24,7 +24,7 @@ export default function AdminConfig() {
 
 	const [changedValues, setChangedValues] = useState<{ [key: string]: string }>({})
 
-	const api = createConfigApi(auth.user?.access_token || '')
+	const api = createConfigApi(auth.user?.access_token || 'someaccesstoken')
 
 	const updateValues = async () => {
 		if (Object.keys(changedValues).length === 0) return

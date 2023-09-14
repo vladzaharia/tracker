@@ -20,7 +20,7 @@ export default function AdminSync() {
 	const request = useNotificationAwareRequest()
 	const auth = useAuth()
 
-	const api = createSyncApi(auth.user?.access_token || '')
+	const api = createSyncApi(auth.user?.access_token || 'someaccesstoken')
 
 	const runSync = async (updateAll = false) => {
 		await request(
