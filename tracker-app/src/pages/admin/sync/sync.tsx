@@ -42,17 +42,31 @@ export default function AdminSync() {
 				leftActions={<FontAwesomeIcon icon={faCompass} size="lg" />}
 				rightActions={
 					<>
-						<Button color="green" onClick={async () => await runSync()} iconProps={{ icon: faRotate }} popoverProps={{ color: 'green', description: 'Sync' }} />
-						<Button color="green" onClick={async () => await runSync(true)} iconProps={{ icon: faRotateExclamation }} popoverProps={{ color: 'green', description: 'Full sync' }} />
+						<Button
+							color="green"
+							onClick={async () => await runSync()}
+							iconProps={{ icon: faRotate }}
+							popoverProps={{ color: 'green', description: 'Sync' }}
+						/>
+						<Button
+							color="green"
+							onClick={async () => await runSync(true)}
+							iconProps={{ icon: faRotateExclamation }}
+							popoverProps={{ color: 'green', description: 'Full sync' }}
+						/>
 					</>
 				}
 			/>
-			<SectionTitle color="orange"><FontAwesomeIcon icon={faCog} className='mr-05' /> Configuration</SectionTitle>
+			<SectionTitle color="orange">
+				<FontAwesomeIcon icon={faCog} className="mr-05" /> Configuration
+			</SectionTitle>
 			<Action color="orange" text="Garmin username" description="The username of the Garmin account to fetch data from.">
 				{syncConfig.username}
 			</Action>
 
-			<SectionTitle color="orange"><FontAwesomeIcon icon={faTimer} className='mr-05' /> Last fetch</SectionTitle>
+			<SectionTitle color="orange">
+				<FontAwesomeIcon icon={faTimer} className="mr-05" /> Last fetch
+			</SectionTitle>
 			{syncConfig.cron ? (
 				<>
 					<Action color="orange" text="Time fetched" description="When data was last fetched from Garmin.">
@@ -81,7 +95,9 @@ export default function AdminSync() {
 
 			{syncConfig.trips ? (
 				<>
-					<SectionTitle color="orange"><FontAwesomeIcon icon={faGlobeAmericas} className='mr-05' /> Trips</SectionTitle>
+					<SectionTitle color="orange">
+						<FontAwesomeIcon icon={faGlobeAmericas} className="mr-05" /> Trips
+					</SectionTitle>
 					<Action color="orange" text="Number imported" description="Number of trips imported on last fetch.">
 						{syncConfig.trips.imported}
 					</Action>
@@ -95,7 +111,9 @@ export default function AdminSync() {
 			) : undefined}
 			{syncConfig.waypoints ? (
 				<>
-					<SectionTitle color="orange"><FontAwesomeIcon icon={faLocationDot} className='mr-05' /> Waypoints</SectionTitle>
+					<SectionTitle color="orange">
+						<FontAwesomeIcon icon={faLocationDot} className="mr-05" /> Waypoints
+					</SectionTitle>
 					<Action color="orange" text="Number imported" description="Number of waypoints imported on last fetch.">
 						{syncConfig.waypoints.imported}
 					</Action>

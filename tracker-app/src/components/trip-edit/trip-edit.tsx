@@ -91,7 +91,14 @@ export const TripEdit = ({ inModal, onModalClose }: { inModal?: boolean; onModal
 						color="blue"
 						className="corner-right"
 						leftActions={<Button color="blue" onClick={() => navigate(`/admin/trip`)} iconProps={{ icon: faChevronLeft }} />}
-						rightActions={<Button color="green" onClick={() => updateTrip()} iconProps={{ icon: faCheck }} popoverProps={{ color: 'green', description: 'Save changes' }} />}
+						rightActions={
+							<Button
+								color="green"
+								onClick={() => updateTrip()}
+								iconProps={{ icon: faCheck }}
+								popoverProps={{ color: 'green', description: 'Save changes' }}
+							/>
+						}
 					/>
 				) : undefined}
 				{inModal ? (
