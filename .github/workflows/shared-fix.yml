@@ -27,6 +27,16 @@ jobs:
       run: npx nx run-many -t lint --configuration ci
       env:
         NX_BRANCH: "${{ github.ref_name }}"
+    - name: Upload tracker-app ESLint results
+      uses: github/codeql-action/upload-sarif@v2
+      with:
+        sarif_file: dist/tracker-app.sarif
+        wait-for-processing: true
+    - name: Upload tracker-server ESLint results
+      uses: github/codeql-action/upload-sarif@v2
+      with:
+        sarif_file: dist/tracker-server.sarif
+        wait-for-processing: true
     - name: 'Format with Prettier'
       run: npx nx run-many -t format --configuration ci
       env:
