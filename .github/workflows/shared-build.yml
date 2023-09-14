@@ -3,7 +3,7 @@ name: Build
 on:
   workflow_call:
     secrets:
-      FONTAWESOME_TOKEN:
+      FONTAWESOME_API_TOKEN:
         required: true
 
 jobs:
