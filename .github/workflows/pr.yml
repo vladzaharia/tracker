@@ -21,9 +21,10 @@ jobs:
 
   deploy:
     # needs: ['build', 'test']
-    needs: ['build']
+    needs: ['build', 'fix']
     uses: ./.github/workflows/shared-deploy.yml
     with:
       environment: staging
       baseUrl: https://staging.track.vlad.gg
     secrets: inherit
+    if: ${{ github.actor != 'dependabot[bot]' }}
