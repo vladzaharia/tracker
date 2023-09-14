@@ -7,8 +7,8 @@ on:
         required: true
 
 jobs:
-  build:
-    name: Build with TSC/Vite
+  fix:
+    name: Lint/format with ESLint/Prettier
     runs-on: ubuntu-latest
 
     steps:
@@ -23,13 +23,11 @@ jobs:
       run: npm ci --ignore-scripts
       env:
         FONTAWESOME_API_TOKEN: ${{ secrets.FONTAWESOME_API_TOKEN }}
-    - name: 'Build and prepare artifacts'
-      run: npx nx run tracker-server:build-ci
+    - name: 'Lint with ESLint'
+      run: nx run-many -t lint --configuration ci
       env:
         NX_BRANCH: "${{ github.ref_name }}"
-    - name: 'Upload server dist artifacts'
-      uses: actions/upload-artifact@v3
-      with:
-        name: dist
-        path: tracker-server/dist/
-        retention-days: 7
+    - name: 'Format with Prettier'
+      run: nx run-many -t format --configuration ci
+      env:
+        NX_BRANCH: "${{ github.ref_name }}"
