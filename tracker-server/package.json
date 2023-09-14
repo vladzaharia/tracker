@@ -8,7 +8,7 @@
 		"@jest/globals": "^29.6.1",
 		"@types/jest": "^29.5.3",
 		"@types/jsonpath": "^0.2.0",
-		"@types/xmldom": "0.1.31",
+		"@types/xmldom": "0.1.32",
 		"jest-junit": "^16.0.0",
 		"typescript": "^5.0.4",
 		"wrangler": "^3.8.0"
