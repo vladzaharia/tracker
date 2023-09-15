@@ -9,3 +9,112 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    assignees:
+      - vladzaharia
+    commit-message:
+      prefix: "[npm] "
+    labels:
+      - "npm"
+      - "dependencies"
+    open-pull-requests-limit: 5
+    groups:
+      node:
+        patterns:
+          - "*node*"
+      nx:
+        patterns:
+          - "*nx*"
+      typescript:
+        patterns:
+          - "*ts*"
+          - "*typescript*"
+      vitejs:
+        patterns:
+          - "vite*"
+          - "vitest*"
+          - "vitejs*"
+      react:
+        patterns:
+          - "*react*"
+          - "use-*"
+      mui:
+        patterns:
+          - "@mui*"
+          - "@emotion*"
+      mapbox:
+        patterns:
+          - "*mapbox*"
+          - "*react-map-gl*"
+      kysely:
+        patterns:
+          - "kysely*"
+      eslint:
+        patterns:
+          - "*eslint*"
+      fontawesome:
+        patterns:
+          - "@fortawesome*"
+      moment:
+        patterns:
+          - "moment*"
+      cloudflare:
+        patterns:
+          - "*cloudflare*"
+          - "wrangler"
+      production-dependencies:
+        dependency-type: "production"
+        exclude-patterns:
+          - "*node*"
+          - "*nx*"
+          - "*ts*"
+          - "*typescript*"
+          - "vite*"
+          - "vitest*"
+          - "vitejs*"
+          - "*react*"
+          - "use-*"
+          - "@mui*"
+          - "@emotion*"
+          - "*mapbox*"
+          - "*react-map-gl*"
+          - "kysely*"
+          - "*eslint*"
+          - "@fortawesome*"
+          - "moment*"
+          - "*cloudflare*"
+          - "wrangler"
+      dev-dependencies:
+        dependency-type: "development"
+        exclude-patterns:
+          - "*node*"
+          - "*nx*"
+          - "*ts*"
+          - "*typescript*"
+          - "vite*"
+          - "vitest*"
+          - "vitejs*"
+          - "*react*"
+          - "use-*"
+          - "@mui*"
+          - "@emotion*"
+          - "*mapbox*"
+          - "*react-map-gl*"
+          - "kysely*"
+          - "*eslint*"
+          - "@fortawesome*"
+          - "moment*"
+          - "*cloudflare*"
+          - "wrangler"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    assignees:
+      - vladzaharia
+    commit-message:
+      prefix: "[Github Actions] "
+    labels:
+      - "gha"
+      - "dependencies"
+    open-pull-requests-limit: 0
