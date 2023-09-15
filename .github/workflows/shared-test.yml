@@ -36,10 +36,9 @@ jobs:
         path: coverage/
         retention-days: 7
     - name: Report test results
-      uses: EnricoMi/publish-unit-test-result-action@v2
+      uses: dorny/test-reporter@v1
       if: always()
       with:
-        check_name: Unit test results
-        files: |
-          coverage/tracker-app/junit.xml
-          coverage/tracker-server/junit.xml
+        name: Unit test results
+        path: "coverage/tracker-app/junit.xml,coverage/tracker-server/junit.xml"
+        reporter: jest-junit
