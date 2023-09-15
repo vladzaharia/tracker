@@ -18,20 +18,18 @@ updates:
       - "dependencies"
     open-pull-requests-limit: 5
     groups:
-      node:
-        patterns:
-          - "*node*"
       nx:
         patterns:
           - "*nx*"
       typescript:
         patterns:
-          - "*ts*"
-          - "*typescript*"
+          - "tslib"
+          - "typescript"
+          - "ts-node"
       vitejs:
         patterns:
           - "vite*"
-          - "vitest*"
+          - "*vitest*"
           - "vitejs*"
       react:
         patterns:
@@ -69,7 +67,7 @@ updates:
           - "*ts*"
           - "*typescript*"
           - "vite*"
-          - "vitest*"
+          - "*vitest*"
           - "vitejs*"
           - "*react*"
           - "use-*"
@@ -91,7 +89,7 @@ updates:
           - "*ts*"
           - "*typescript*"
           - "vite*"
-          - "vitest*"
+          - "*vitest*"
           - "vitejs*"
           - "*react*"
           - "use-*"
