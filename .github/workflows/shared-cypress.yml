@@ -27,7 +27,7 @@ jobs:
     - name: Install NPM packages
       run: npm ci --ignore-scripts
     - name: Run Cypress tests (${{ inputs.environment }})
-      run: npx nx run-many -t cypress --configuration ${{ inputs.environment }} --skip-nx-cache
+      run: npx nx run-many -t test:cypress --configuration ${{ inputs.environment }} --skip-nx-cache
       env:
         NX_BRANCH: "${{ github.ref_name }}"
     - name: Upload test artifacts
