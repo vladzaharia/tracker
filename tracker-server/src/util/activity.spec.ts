@@ -45,12 +45,12 @@ describe('GetActivity', () => {
 			...point,
 			properties: {
 				...point.properties,
-				timestamp: moment().subtract(1, 'day').toISOString()
-			}
+				timestamp: moment().subtract(1, 'day').toISOString(),
+			},
 		}
 		const localTrip: Trip = {
 			...trip,
-			end_date: moment().add(1, 'day').toDate()
+			end_date: moment().add(1, 'day').toDate(),
 		}
 
 		const activity = GetActivity(localPoint, localTrip, true)
@@ -62,7 +62,7 @@ describe('GetActivity', () => {
 			properties: {
 				...point.properties,
 				timestamp: '2021-01-01 00:00:00',
-			}
+			},
 		}
 
 		const activity = GetActivity(localPoint, trip, false)
@@ -74,7 +74,7 @@ describe('GetActivity', () => {
 			properties: {
 				...point.properties,
 				timestamp: '2021-01-01 00:00:00',
-			}
+			},
 		}
 
 		const localTrip: Trip = {
@@ -91,7 +91,7 @@ describe('GetActivity', () => {
 			properties: {
 				...point.properties,
 				Velocity: '3.9 km/h',
-			}
+			},
 		}
 
 		const activity = GetActivity(localPoint, trip, false)
@@ -103,7 +103,7 @@ describe('GetActivity', () => {
 			properties: {
 				...point.properties,
 				Velocity: '3.9 km/h',
-			}
+			},
 		}
 
 		const localTrip: Trip = {
@@ -120,7 +120,7 @@ describe('GetActivity', () => {
 			properties: {
 				...point.properties,
 				Velocity: '4.9 km/h',
-			}
+			},
 		}
 
 		const activity = GetActivity(localPoint, trip, false)
@@ -132,7 +132,7 @@ describe('GetActivity', () => {
 			properties: {
 				...point.properties,
 				Velocity: '4.9 km/h',
-			}
+			},
 		}
 
 		const localTrip: Trip = {
