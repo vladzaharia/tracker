@@ -15,9 +15,10 @@ jobs:
     permissions:
       security-events: write
 
-  # test:
-  #   uses: ./.github/workflows/shared-test.yml
-  #   secrets: inherit
+  test:
+    uses: ./.github/workflows/shared-test.yml
+    secrets: inherit
+    permissions: write-all
 
   deploy:
     # needs: ['build', 'fix', 'test']

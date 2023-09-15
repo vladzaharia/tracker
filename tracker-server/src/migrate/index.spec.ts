@@ -63,6 +63,7 @@ vi.mock('../tables/migration', () => {
 		getCurrentMigration: mocks.getCurrentMigration,
 		insertMigration: mocks.insertMigration,
 		updateRollback: mocks.updateRollback,
+		createMigrationTable: vi.fn(),
 	}
 })
 
