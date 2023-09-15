@@ -34,7 +34,8 @@ export async function findCurrentTrip(db: D1Database) {
 	return await getKyselyDb(db)
 		.selectFrom('trip')
 		.selectAll()
-		.where(({ and, cmpr }) => and([cmpr('start_date', '<', currentDate), cmpr('end_date', '>', currentDate)]))
+		.where('start_date', '<', currentDate)
+		.where('end_date', '>', currentDate)
 		.executeTakeFirst()
 }
 
@@ -46,7 +47,8 @@ export async function listTripsForTimestamp(db: D1Database, timestamp: number) {
 	return await getKyselyDb(db)
 		.selectFrom('trip')
 		.selectAll()
-		.where(({ and, cmpr }) => and([cmpr('start_date', '<', timestamp), cmpr('end_date', '>', timestamp)]))
+		.where('start_date', '<', timestamp)
+		.where('end_date', '>', timestamp)
 		.execute()
 }
 
