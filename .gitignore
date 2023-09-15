@@ -45,5 +45,5 @@ Thumbs.db
 **/coverage
 
 # Cypress
-cypress/videos
-cypress/screenshots
+**/cypress/videos/*
+**/cypress/screenshots/*
