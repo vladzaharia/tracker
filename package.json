@@ -53,6 +53,6 @@
 		"tracker-server/lib/**"
 	],
 	"dependencies": {
-		"tslib": "^2.3.0"
+		"tslib": "^2.6.2"
 	}
 }
