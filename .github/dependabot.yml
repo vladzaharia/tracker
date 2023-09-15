@@ -9,15 +9,3 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/tracker-app"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/tracker-server"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/tracker-server/lib/tracker-server-client"
-    schedule:
-      interval: "weekly"
