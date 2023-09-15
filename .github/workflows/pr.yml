@@ -18,6 +18,7 @@ jobs:
   test:
     uses: ./.github/workflows/shared-test.yml
     secrets: inherit
+    permissions: write-all
 
   deploy:
     # needs: ['build', 'test']
