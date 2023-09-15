@@ -1,0 +1,46 @@
+name: Test
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+    secrets:
+      FONTAWESOME_API_TOKEN:
+        required: true
+
+jobs:
+  test:
+    name: Test with Cypress
+    runs-on: ubuntu-latest
+    permissions: write-all
+
+    steps:
+    - name: Checkout files
+      uses: actions/checkout@v3
+    - name: Use Node.js v20.x
+      uses: actions/setup-node@v3
+      with:
+        node-version: v20.x
+        cache: 'npm'
+    - name: Install NPM packages
+      run: npm ci --ignore-scripts
+    - name: Run Cypress tests (${{ inputs.environment }})
+      run: npx nx run-many -t cypress --configuration ${{ inputs.environment }} --skip-nx-cache
+      env:
+        NX_BRANCH: "${{ github.ref_name }}"
+    - name: Upload test artifacts
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: test
+        path: coverage/
+        retention-days: 7
+    - name: Report test results
+      uses: dorny/test-reporter@v1
+      if: always()
+      with:
+        name: Test results
+        path: "coverage/tracker-server/cypress/junit.xml"
+        reporter: jest-junit

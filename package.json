@@ -17,6 +17,7 @@
 	"private": true,
 	"devDependencies": {
 		"@microsoft/eslint-formatter-sarif": "^3.0.0",
+		"@nx-extend/e2e-runner": "^7.0.0",
 		"@nx/cypress": "16.3.2",
 		"@nx/eslint-plugin": "16.3.2",
 		"@nx/jest": "^16.5.3",
@@ -28,8 +29,10 @@
 		"@types/jest": "^29.4.0",
 		"@types/node": "20.6.0",
 		"@vitest/ui": "^0.33.0",
+		"cypress": "^12.17.4",
 		"eslint": "~8.15.0",
 		"eslint-config-prettier": "8.1.0",
+		"eslint-plugin-cypress": "^2.14.0",
 		"eslint-plugin-import": "2.27.5",
 		"eslint-plugin-jsx-a11y": "6.7.1",
 		"eslint-plugin-react": "7.32.2",
