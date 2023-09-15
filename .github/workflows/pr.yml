@@ -10,12 +10,14 @@ jobs:
     secrets: inherit
 
   fix:
+    needs: ['build']
     uses: ./.github/workflows/shared-fix.yml
     secrets: inherit
     permissions:
       security-events: write
 
   test:
+    needs: ['build']
     uses: ./.github/workflows/shared-test.yml
     secrets: inherit
     permissions: write-all

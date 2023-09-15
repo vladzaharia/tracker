@@ -10,21 +10,30 @@ jobs:
     secrets: inherit
 
   fix:
+    needs: ['build']
     uses: ./.github/workflows/shared-fix.yml
     secrets: inherit
     permissions:
       security-events: write
 
   test:
+    needs: ['build']
     uses: ./.github/workflows/shared-test.yml
     secrets: inherit
     permissions: write-all
 
   deploy:
-    # needs: ['build', 'fix', 'test']
-    needs: ['build']
+    needs: ['build', 'fix', 'test']
     uses: ./.github/workflows/shared-deploy.yml
     with:
       environment: live
       baseUrl: https://track.vlad.gg
     secrets: inherit
+
+  cypress:
+      needs: ['deploy']
+      uses: ./.github/workflows/shared-cypress.yml
+      with:
+        environment: staging
+      secrets: inherit
+      permissions: write-all
