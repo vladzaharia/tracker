@@ -42,14 +42,14 @@
 			"dependsOn": ["build"],
 			"executor": "@nx/cypress:cypress",
 			"options": {
-	      "cypressConfig": "./tracker-server/cypress.config.ts",
-	      "testingType": "e2e",
+				"cypressConfig": "./tracker-server/cypress.config.ts",
+				"testingType": "e2e",
 				"record": false,
 				"reporter": "junit",
 				"reporterOptions": {
 					"mochaFile": "../coverage/tracker-server/cypress/junit.xml"
 				}
-	    },
+			},
 			"defaultConfiguration": "local",
 			"configurations": {
 				"production": {
@@ -87,10 +87,10 @@
 						"rejectUnauthorized": true
 					}
 				],
-	      "cypressConfig": "./tracker-server/cypress.config.ts",
-	      "testingType": "e2e",
+				"cypressConfig": "./tracker-server/cypress.config.ts",
+				"testingType": "e2e",
 				"record": false
-	    }
+			}
 		},
 		"lint": {
 			"executor": "@nx/linter:eslint",
