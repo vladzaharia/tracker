@@ -2,8 +2,8 @@ import { defineConfig } from 'cypress'
 
 export default defineConfig({
 	e2e: {
-		// setupNodeEvents(on, config) {
-		//   // implement node event listeners here
-		// },
+		videosFolder: '../coverage/tracker-server/cypress/videos',
+		screenshotsFolder: '../coverage/tracker-server/cypress/screenshots',
+		specPattern: ['./src/**/*.cy.ts'],
 	},
 })

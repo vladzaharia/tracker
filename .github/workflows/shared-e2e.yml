@@ -39,7 +39,7 @@ jobs:
       uses: actions/upload-artifact@v3
       if: always()
       with:
-        name: test
+        name: e2e
         path: coverage/
         retention-days: 7
     - name: Report test results
