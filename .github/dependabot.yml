@@ -18,20 +18,18 @@ updates:
       - "dependencies"
     open-pull-requests-limit: 5
     groups:
-      node:
-        patterns:
-          - "*node*"
       nx:
         patterns:
           - "*nx*"
       typescript:
         patterns:
-          - "*ts*"
-          - "*typescript*"
+          - "tslib"
+          - "typescript"
+          - "ts-node"
       vitejs:
         patterns:
           - "vite*"
-          - "vitest*"
+          - "*vitest*"
           - "vitejs*"
       react:
         patterns:
@@ -59,50 +57,6 @@ updates:
           - "moment*"
       cloudflare:
         patterns:
-          - "*cloudflare*"
-          - "wrangler"
-      production-dependencies:
-        dependency-type: "production"
-        exclude-patterns:
-          - "*node*"
-          - "*nx*"
-          - "*ts*"
-          - "*typescript*"
-          - "vite*"
-          - "vitest*"
-          - "vitejs*"
-          - "*react*"
-          - "use-*"
-          - "@mui*"
-          - "@emotion*"
-          - "*mapbox*"
-          - "*react-map-gl*"
-          - "kysely*"
-          - "*eslint*"
-          - "@fortawesome*"
-          - "moment*"
-          - "*cloudflare*"
-          - "wrangler"
-      dev-dependencies:
-        dependency-type: "development"
-        exclude-patterns:
-          - "*node*"
-          - "*nx*"
-          - "*ts*"
-          - "*typescript*"
-          - "vite*"
-          - "vitest*"
-          - "vitejs*"
-          - "*react*"
-          - "use-*"
-          - "@mui*"
-          - "@emotion*"
-          - "*mapbox*"
-          - "*react-map-gl*"
-          - "kysely*"
-          - "*eslint*"
-          - "@fortawesome*"
-          - "moment*"
           - "*cloudflare*"
           - "wrangler"
 
