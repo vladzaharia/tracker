@@ -5,7 +5,7 @@ const point: Point = {
 	type: 'Feature',
 	geometry: {
 		coordinates: [1, 2, 3],
-		type: 'Point'
+		type: 'Point',
 	},
 	properties: {
 		visibility: true,
@@ -16,8 +16,8 @@ const point: Point = {
 		Elevation: '3.0 m MSL',
 		Time: '2021-01-01 00:00:00',
 		timestamp: '2021-01-01 00:00:00',
-		"Time UTC": '2021-01-01 00:00:00'
-	}
+		'Time UTC': '2021-01-01 00:00:00',
+	},
 }
 
 const trip: Trip = {
@@ -25,8 +25,8 @@ const trip: Trip = {
 	name: 'Test trip',
 	emoji: '🧪',
 	type: 'scuba',
-	start_date: new Date(2021,1,1,0,0,0),
-	end_date: new Date(2021,1,1,1,0,0),
+	start_date: new Date(2021, 1, 1, 0, 0, 0),
+	end_date: new Date(2021, 1, 1, 1, 0, 0),
 	time_zone: 'America/New_York',
 }
 
