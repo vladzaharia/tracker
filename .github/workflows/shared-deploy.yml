@@ -21,6 +21,7 @@ jobs:
   deploy:
     name: Deploy to ${{ inputs.environment }} with Wrangler
     runs-on: ubuntu-latest
+    concurrency: ${{ inputs.environment }}
     environment:
       name: ${{ inputs.environment }}
       url: ${{ inputs.baseUrl }}
