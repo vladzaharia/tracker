@@ -27,7 +27,7 @@ export interface Point {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const GetActivity = (point: Point, trip: Trip, showTimeBasedStatuses = true) => {
 	const velocityMatch = point?.properties?.Velocity?.match(VelocityRegex)
-	const pointDate = moment(point?.properties?.timestamp).tz(trip.time_zone)
+	const pointDate = moment.tz(point?.properties?.timestamp, trip.time_zone)
 
 	if (showTimeBasedStatuses) {
 		// Check if trip has ended

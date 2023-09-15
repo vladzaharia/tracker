@@ -1,3 +1,4 @@
+import moment from 'moment'
 import { Trip } from '../types'
 import { GetActivity, Point } from './activity'
 
@@ -34,5 +35,112 @@ describe('GetActivity', () => {
 	test('returns activity', () => {
 		const activity = GetActivity(point, trip, false)
 		expect(activity).toBe('stopped')
+	})
+	test('ended trip', () => {
+		const activity = GetActivity(point, trip, true)
+		expect(activity).toBe('ended')
+	})
+	test('outdated point', () => {
+		const localPoint: Point = {
+			...point,
+			properties: {
+				...point.properties,
+				timestamp: moment().subtract(1, 'day').toISOString()
+			}
+		}
+		const localTrip: Trip = {
+			...trip,
+			end_date: moment().add(1, 'day').toDate()
+		}
+
+		const activity = GetActivity(localPoint, localTrip, true)
+		expect(activity).toBe('outdated')
+	})
+	test('sleeping', () => {
+		const localPoint: Point = {
+			...point,
+			properties: {
+				...point.properties,
+				timestamp: '2021-01-01 00:00:00',
+			}
+		}
+
+		const activity = GetActivity(localPoint, trip, false)
+		expect(activity).toBe('sleeping')
+	})
+	test('sleeping with non-diving trip', () => {
+		const localPoint: Point = {
+			...point,
+			properties: {
+				...point.properties,
+				timestamp: '2021-01-01 00:00:00',
+			}
+		}
+
+		const localTrip: Trip = {
+			...trip,
+			type: 'road',
+		}
+
+		const activity = GetActivity(localPoint, localTrip, false)
+		expect(activity).toBe('sleeping')
+	})
+	test('diving', () => {
+		const localPoint: Point = {
+			...point,
+			properties: {
+				...point.properties,
+				Velocity: '3.9 km/h',
+			}
+		}
+
+		const activity = GetActivity(localPoint, trip, false)
+		expect(activity).toBe('diving')
+	})
+	test('diving does not show up on non-diving trip', () => {
+		const localPoint: Point = {
+			...point,
+			properties: {
+				...point.properties,
+				Velocity: '3.9 km/h',
+			}
+		}
+
+		const localTrip: Trip = {
+			...trip,
+			type: 'road',
+		}
+
+		const activity = GetActivity(localPoint, localTrip, false)
+		expect(activity).not.toBe('diving')
+	})
+	test('moving', () => {
+		const localPoint: Point = {
+			...point,
+			properties: {
+				...point.properties,
+				Velocity: '4.9 km/h',
+			}
+		}
+
+		const activity = GetActivity(localPoint, trip, false)
+		expect(activity).toBe('moving')
+	})
+	test('moving with other trip type', () => {
+		const localPoint: Point = {
+			...point,
+			properties: {
+				...point.properties,
+				Velocity: '4.9 km/h',
+			}
+		}
+
+		const localTrip: Trip = {
+			...trip,
+			type: 'road',
+		}
+
+		const activity = GetActivity(localPoint, localTrip, false)
+		expect(activity).toBe('moving')
 	})
 })
