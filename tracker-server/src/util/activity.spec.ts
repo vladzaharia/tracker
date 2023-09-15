@@ -14,9 +14,9 @@ const point: Point = {
 		Latitude: '1.000000',
 		Longitude: '2.000000',
 		Elevation: '3.0 m MSL',
-		Time: '2021-01-01 00:00:00',
-		timestamp: '2021-01-01 00:00:00',
-		'Time UTC': '2021-01-01 00:00:00',
+		Time: '2021-01-01 12:00:00',
+		timestamp: '2021-01-01 12:00:00',
+		'Time UTC': '2021-01-01 12:00:00',
 	},
 }
 
@@ -27,12 +27,12 @@ const trip: Trip = {
 	type: 'scuba',
 	start_date: new Date(2021, 1, 1, 0, 0, 0),
 	end_date: new Date(2021, 1, 1, 1, 0, 0),
-	time_zone: 'America/New_York',
+	time_zone: 'GMT',
 }
 
 describe('GetActivity', () => {
 	test('returns activity', () => {
 		const activity = GetActivity(point, trip, false)
-		expect(activity).toBe('sleeping')
+		expect(activity).toBe('stopped')
 	})
 })
