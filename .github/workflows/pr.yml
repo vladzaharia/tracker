@@ -21,8 +21,7 @@ jobs:
     permissions: write-all
 
   deploy:
-    # needs: ['build', 'test']
-    needs: ['build', 'fix']
+    needs: ['build', 'fix', 'test']
     uses: ./.github/workflows/shared-deploy.yml
     with:
       environment: staging
