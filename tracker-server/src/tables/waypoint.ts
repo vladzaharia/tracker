@@ -48,9 +48,5 @@ export async function updateWaypoint(
 }
 
 export async function deleteWaypoint(db: D1Database, tripId: string, timestamp: number) {
-	return await getKyselyDb(db)
-		.deleteFrom('waypoint')
-		.where('trip_id', '=', tripId)
-		.where('timestamp', '=', timestamp)
-		.execute()
+	return await getKyselyDb(db).deleteFrom('waypoint').where('trip_id', '=', tripId).where('timestamp', '=', timestamp).execute()
 }
