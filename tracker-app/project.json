@@ -28,7 +28,8 @@
 			"outputs": ["{workspaceRoot}/coverage/tracker-app"],
 			"options": {
 				"reportsDirectory": "../coverage/tracker-app",
-				"coverage": true
+				"coverage": true,
+				"coverageProvider": "v8"
 			}
 		},
 		"test:ui": {
