@@ -42,6 +42,7 @@ export async function updateRollback(db: D1Database, version: number) {
 		.set({
 			rolledBack: Date.now(),
 		})
-		.where(({ and, cmpr }) => and([cmpr('version', '=', version), cmpr('rolledBack', 'is', null)]))
+		.where('version', '=', version)
+		.where('rolledBack', 'is', null)
 		.execute()
 }

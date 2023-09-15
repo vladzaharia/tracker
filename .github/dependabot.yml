@@ -14,7 +14,7 @@ updates:
     commit-message:
       prefix: "[npm] "
     labels:
-      - "npm"
+      - "dependencies/npm"
       - "dependencies"
     open-pull-requests-limit: 5
     groups:
@@ -115,6 +115,6 @@ updates:
     commit-message:
       prefix: "[Github Actions] "
     labels:
-      - "gha"
+      - "dependencies/gha"
       - "dependencies"
     open-pull-requests-limit: 0

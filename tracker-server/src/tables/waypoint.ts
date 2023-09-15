@@ -18,7 +18,8 @@ export async function findWaypointInTrip(db: D1Database, tripId: string, timesta
 	return await getKyselyDb(db)
 		.selectFrom('waypoint')
 		.selectAll()
-		.where(({ and, cmpr }) => and([cmpr('trip_id', '=', tripId), cmpr('timestamp', '=', timestamp)]))
+		.where('trip_id', '=', tripId)
+		.where('timestamp', '=', timestamp)
 		.executeTakeFirst()
 }
 
@@ -41,13 +42,11 @@ export async function updateWaypoint(
 	return await getKyselyDb(db)
 		.updateTable('waypoint')
 		.set(waypoint)
-		.where(({ and, cmpr }) => and([cmpr('trip_id', '=', tripId), cmpr('timestamp', '=', timestamp)]))
+		.where('trip_id', '=', tripId)
+		.where('timestamp', '=', timestamp)
 		.execute()
 }
 
 export async function deleteWaypoint(db: D1Database, tripId: string, timestamp: number) {
-	return await getKyselyDb(db)
-		.deleteFrom('waypoint')
-		.where(({ and, cmpr }) => and([cmpr('trip_id', '=', tripId), cmpr('timestamp', '=', timestamp)]))
-		.execute()
+	return await getKyselyDb(db).deleteFrom('waypoint').where('trip_id', '=', tripId).where('timestamp', '=', timestamp).execute()
 }
