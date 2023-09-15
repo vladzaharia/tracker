@@ -48,7 +48,7 @@ const mocks = vi.hoisted(() => {
 			} as MigrationTable
 		}),
 		insertMigration: vi.fn(),
-		updateRollback: vi.fn(),
+		updateRollback: vi.fn()
 	}
 })
 
@@ -63,6 +63,7 @@ vi.mock('../tables/migration', () => {
 		getCurrentMigration: mocks.getCurrentMigration,
 		insertMigration: mocks.insertMigration,
 		updateRollback: mocks.updateRollback,
+		createMigrationTable: vi.fn()
 	}
 })
 
