@@ -15,6 +15,7 @@ jobs:
     name: Test with Cypress
     runs-on: ubuntu-latest
     permissions: write-all
+    concurrency: ${{ inputs.environment }}
 
     steps:
     - name: Checkout files
@@ -26,6 +27,8 @@ jobs:
         cache: 'npm'
     - name: Install NPM packages
       run: npm ci --ignore-scripts
+    - name: Install cypress binaries
+      run: npx cypress install
     - name: Run Cypress tests (${{ inputs.environment }})
       run: npx nx run-many -t test:cypress --configuration ${{ inputs.environment }} --skip-nx-cache
       env:
