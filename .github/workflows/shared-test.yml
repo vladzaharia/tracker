@@ -39,6 +39,6 @@ jobs:
       uses: dorny/test-reporter@v1
       if: always()
       with:
-        name: Test results
+        name: Unit test results
         path: "coverage/tracker-app/junit.xml,coverage/tracker-server/junit.xml"
         reporter: jest-junit

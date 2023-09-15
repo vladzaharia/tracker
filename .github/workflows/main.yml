@@ -30,9 +30,9 @@ jobs:
       baseUrl: https://track.vlad.gg
     secrets: inherit
 
-  cypress:
+  e2e:
       needs: ['deploy']
-      uses: ./.github/workflows/shared-cypress.yml
+      uses: ./.github/workflows/shared-e2e.yml
       with:
         environment: staging
       secrets: inherit
