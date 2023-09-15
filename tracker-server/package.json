@@ -10,7 +10,7 @@
 		"@types/jsonpath": "^0.2.0",
 		"@types/xmldom": "0.1.31",
 		"jest-junit": "^16.0.0",
-		"typescript": "^5.0.4",
+		"typescript": "^5.2.2",
 		"wrangler": "^3.8.0"
 	},
 	"dependencies": {
