@@ -33,3 +33,10 @@ jobs:
         name: test
         path: coverage/
         retention-days: 7
+    - name: Report test results
+      uses: dorny/test-reporter@v1
+      if: always()
+      with:
+        name: Test results
+        path: "coverage/tracker-app/junit.xml,coverage/tracker-server/junit.xml"
+        reporter: jest-junit
