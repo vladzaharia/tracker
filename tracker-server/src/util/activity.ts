@@ -54,6 +54,4 @@ export const GetActivity = (point: Point, trip: Trip, showTimeBasedStatuses = tr
 			return 'moving'
 		}
 	}
-
-	return 'unknown'
 }
