@@ -9,21 +9,28 @@ jobs:
     uses: ./.github/workflows/shared-build.yml
     secrets: inherit
 
-  fix:
-    needs: ['build']
-    uses: ./.github/workflows/shared-fix.yml
-    secrets: inherit
-    permissions:
-      security-events: write
-
   test:
     needs: ['build']
     uses: ./.github/workflows/shared-test.yml
     secrets: inherit
     permissions: write-all
 
+  lint:
+    needs: ['build']
+    uses: ./.github/workflows/shared-lint.yml
+    secrets: inherit
+    permissions:
+      security-events: write
+
+  format:
+    needs: ['build']
+    uses: ./.github/workflows/shared-format.yml
+    secrets: inherit
+    permissions:
+      security-events: write
+
   deploy:
-    needs: ['build', 'fix', 'test']
+    needs: ['build', 'test', 'lint', 'format']
     uses: ./.github/workflows/shared-deploy.yml
     with:
       environment: live
