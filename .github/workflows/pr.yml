@@ -27,7 +27,6 @@ jobs:
       environment: staging
       baseUrl: https://staging.track.vlad.gg
     secrets: inherit
-    if: ! contains(github.event.pull_request.labels.*.name, 'dependencies')
 
   cypress:
     needs: ['deploy']
