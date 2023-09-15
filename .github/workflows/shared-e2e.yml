@@ -43,9 +43,9 @@ jobs:
         path: coverage/
         retention-days: 7
     - name: Report test results
-      uses: dorny/test-reporter@v1
+      uses: EnricoMi/publish-unit-test-result-action@v2
       if: always()
       with:
-        name: E2E test results
-        path: "coverage/tracker-server/cypress/junit.xml"
-        reporter: jest-junit
+        check_name: E2E test results
+        files: |
+          coverage/tracker-server/cypress/junit.xml
