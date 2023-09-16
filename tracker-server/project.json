@@ -38,6 +38,63 @@
 				"command": "vitest --coverage --ui"
 			}
 		},
+		"test:cypress": {
+			"dependsOn": ["build"],
+			"executor": "@nx/cypress:cypress",
+			"options": {
+				"cypressConfig": "./tracker-server/cypress.config.ts",
+				"testingType": "e2e",
+				"record": true,
+				"reporter": "junit",
+				"reporterOptions": {
+					"mochaFile": "../coverage/tracker-server/cypress/junit.xml"
+				}
+			},
+			"defaultConfiguration": "local",
+			"configurations": {
+				"production": {
+					"env": {
+						"API_URL": "https://track.vlad.gg/api",
+						"ENVIRONMENT": "live"
+					}
+				},
+				"staging": {
+					"env": {
+						"API_URL": "https://staging.track.vlad.gg/api",
+						"ENVIRONMENT": "staging"
+					}
+				},
+				"dev": {
+					"env": {
+						"API_URL": "https://dev.track.vlad.gg/api",
+						"ENVIRONMENT": "dev"
+					}
+				},
+				"local": {
+					"env": {
+						"API_URL": "http://localhost:8787/api",
+						"ENVIRONMENT": "local"
+					}
+				}
+			}
+		},
+		"test:cypress:start": {
+			"dependsOn": ["build"],
+			"executor": "@nx-extend/e2e-runner:run",
+			"options": {
+				"runner": "cypress",
+				"targets": [
+					{
+						"target": "tracker-server:serve",
+						"checkUrl": "http://localhost:8787/api/",
+						"checkMaxTries": 50,
+						"rejectUnauthorized": true
+					}
+				],
+				"cypressConfig": "./tracker-server/cypress.config.ts",
+				"testingType": "e2e"
+			}
+		},
 		"lint": {
 			"executor": "@nx/linter:eslint",
 			"outputs": ["{options.outputFile}"],

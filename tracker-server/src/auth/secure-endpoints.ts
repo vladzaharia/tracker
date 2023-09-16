@@ -7,7 +7,7 @@ export interface SecureEndpoint {
 	authTypes: AuthType[]
 }
 
-export function getSecureEndpoints(): SecureEndpoint[] {
+export function GetSecureEndpoints(): SecureEndpoint[] {
 	return [
 		{
 			path: /config.*$/,

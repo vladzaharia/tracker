@@ -21,6 +21,7 @@ jobs:
   deploy:
     name: Deploy to ${{ inputs.environment }} with Wrangler
     runs-on: ubuntu-latest
+    concurrency: ${{ inputs.environment }}
     environment:
       name: ${{ inputs.environment }}
       url: ${{ inputs.baseUrl }}
@@ -35,6 +36,8 @@ jobs:
         cache: 'npm'
     - name: Install NPM packages
       run: npm ci --ignore-scripts
+      env:
+        FONTAWESOME_API_TOKEN: ${{ secrets.FONTAWESOME_API_TOKEN }}
     - name: Download build artifacts
       uses: actions/download-artifact@v3
       with:

@@ -22,8 +22,10 @@ jobs:
         cache: 'npm'
     - name: Install NPM packages
       run: npm ci --ignore-scripts
-    - name: Run Jest/Vitest tests
-      run: npx nx run-many -t test --configuration ci --skip-nx-cache
+      env:
+        FONTAWESOME_API_TOKEN: ${{ secrets.FONTAWESOME_API_TOKEN }}
+    - name: Run Vitest tests
+      run: npx nx run-many -t test --configuration ci
       env:
         NX_BRANCH: "${{ github.ref_name }}"
     - name: Upload test artifacts
@@ -37,6 +39,6 @@ jobs:
       uses: dorny/test-reporter@v1
       if: always()
       with:
-        name: Test results
+        name: Unit test results
         path: "coverage/tracker-app/junit.xml,coverage/tracker-server/junit.xml"
         reporter: jest-junit

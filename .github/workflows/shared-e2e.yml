@@ -1,0 +1,67 @@
+name: Test
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+    secrets:
+      FONTAWESOME_API_TOKEN:
+        required: true
+      CYPRESS_GARMIN_USERNAME:
+        required: true
+      CYPRESS_MAPBOX_API_TOKEN:
+        required: true
+      CYPRESS_OIDC_AUTHORITY:
+        required: true
+      CYPRESS_OIDC_CLIENT_ID:
+        required: true
+      CYPRESS_OIDC_SCOPE:
+        required: true
+      CYPRESS_OIDC_SECRET:
+        required: true
+      CYPRESS_TRACKER_API_TOKEN:
+        required: true
+      CYPRESS_RECORD_KEY:
+        required: true
+jobs:
+  e2e:
+    name: Test with Cypress
+    runs-on: ubuntu-latest
+    permissions: write-all
+    concurrency: ${{ inputs.environment }}
+
+    steps:
+    - name: Checkout files
+      uses: actions/checkout@v3
+    - name: Use Node.js v20.x
+      uses: actions/setup-node@v3
+      with:
+        node-version: v20.x
+        cache: 'npm'
+    - name: Install NPM packages
+      run: npm ci --ignore-scripts
+      env:
+        FONTAWESOME_API_TOKEN: ${{ secrets.FONTAWESOME_API_TOKEN }}
+    - name: Install cypress binaries
+      run: npx cypress install
+    - name: Run Cypress tests (${{ inputs.environment }})
+      run: npx nx run-many -t test:cypress --configuration ${{ inputs.environment }}
+      env:
+        NX_BRANCH: "${{ github.ref_name }}"
+        CYPRESS_GARMIN_USERNAME: ${{ secrets.CYPRESS_GARMIN_USERNAME }}
+        CYPRESS_MAPBOX_API_TOKEN: ${{ secrets.CYPRESS_MAPBOX_API_TOKEN }}
+        CYPRESS_OIDC_AUTHORITY: ${{ secrets.CYPRESS_OIDC_AUTHORITY }}
+        CYPRESS_OIDC_CLIENT_ID: ${{ secrets.CYPRESS_OIDC_CLIENT_ID }}
+        CYPRESS_OIDC_SCOPE: ${{ secrets.CYPRESS_OIDC_SCOPE }}
+        CYPRESS_OIDC_SECRET: ${{ secrets.CYPRESS_OIDC_SECRET }}
+        CYPRESS_TRACKER_API_TOKEN: ${{ secrets.CYPRESS_TRACKER_API_TOKEN }}
+        CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+    - name: Upload test artifacts
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: e2e
+        path: coverage/
+        retention-days: 7

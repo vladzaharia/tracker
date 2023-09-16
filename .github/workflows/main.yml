@@ -9,20 +9,44 @@ jobs:
     uses: ./.github/workflows/shared-build.yml
     secrets: inherit
 
-  fix:
-    uses: ./.github/workflows/shared-fix.yml
-    secrets: inherit
-    permissions:
-      security-events: write
-
   test:
+    needs: ['build']
     uses: ./.github/workflows/shared-test.yml
     secrets: inherit
     permissions: write-all
 
-  deploy:
-    # needs: ['build', 'fix', 'test']
+  lint:
     needs: ['build']
+    uses: ./.github/workflows/shared-lint.yml
+    secrets: inherit
+    permissions:
+      security-events: write
+
+  format:
+    needs: ['build']
+    uses: ./.github/workflows/shared-format.yml
+    secrets: inherit
+    permissions:
+      security-events: write
+
+  deploy-ci:
+    needs: ['build', 'test', 'lint', 'format']
+    uses: ./.github/workflows/shared-deploy.yml
+    with:
+      environment: ci
+      baseUrl: https://ci.track.vlad.gg
+    secrets: inherit
+
+  e2e:
+    needs: ['deploy-ci']
+    uses: ./.github/workflows/shared-e2e.yml
+    with:
+      environment: staging
+    secrets: inherit
+    permissions: write-all
+
+  deploy:
+    needs: ['e2e']
     uses: ./.github/workflows/shared-deploy.yml
     with:
       environment: live
