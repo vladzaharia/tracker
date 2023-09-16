@@ -45,7 +45,7 @@ jobs:
     - name: Install cypress binaries
       run: npx cypress install
     - name: Run Cypress tests (${{ inputs.environment }})
-      run: npx nx run-many -t test:cypress --configuration ${{ inputs.environment }} --skip-nx-cache
+      run: npx nx run-many -t test:cypress --configuration ${{ inputs.environment }}
       env:
         NX_BRANCH: "${{ github.ref_name }}"
         CYPRESS_GARMIN_USERNAME: ${{ secrets.CYPRESS_GARMIN_USERNAME }}
