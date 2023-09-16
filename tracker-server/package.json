@@ -15,10 +15,10 @@
 		"wrangler": "^3.8.0"
 	},
 	"dependencies": {
-		"@tmcw/togeojson": "^5.7.0",
+		"@tmcw/togeojson": "^5.8.1",
 		"cron-parser": "^4.9.0",
-		"hono": "^3.2.5",
-		"jose": "^4.14.4",
+		"hono": "^3.6.3",
+		"jose": "^4.14.6",
 		"kysely": "^0.26.3",
 		"kysely-d1": "^0.3.0",
 		"moment": "^2.29.0",
