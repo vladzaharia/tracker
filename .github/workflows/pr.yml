@@ -46,6 +46,7 @@ jobs:
     permissions: write-all
 
   dependabot:
+    name: Auto-merge Dependabot PRs
     runs-on: ubuntu-latest
     if: contains(github.event.pull_request.labels.*.name, 'dependencies')
     steps:
