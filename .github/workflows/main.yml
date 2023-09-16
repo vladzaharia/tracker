@@ -36,11 +36,3 @@ jobs:
       environment: live
       baseUrl: https://track.vlad.gg
     secrets: inherit
-
-  e2e:
-      needs: ['deploy']
-      uses: ./.github/workflows/shared-e2e.yml
-      with:
-        environment: staging
-      secrets: inherit
-      permissions: write-all
