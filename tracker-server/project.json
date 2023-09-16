@@ -44,6 +44,7 @@
 			"options": {
 				"cypressConfig": "./tracker-server/cypress.config.ts",
 				"testingType": "e2e",
+				"record": true,
 				"reporter": "junit",
 				"reporterOptions": {
 					"mochaFile": "../coverage/tracker-server/cypress/junit.xml"
