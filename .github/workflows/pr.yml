@@ -47,6 +47,7 @@ jobs:
 
   dependabot:
     name: Auto-merge Dependabot PRs
+    needs: ['e2e']
     runs-on: ubuntu-latest
     if: contains(github.event.pull_request.labels.*.name, 'dependencies')
     steps:
