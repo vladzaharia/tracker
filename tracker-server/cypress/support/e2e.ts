@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import './authorization'
-
 import './commands'
 import './database'
 
