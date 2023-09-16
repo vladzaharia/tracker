@@ -23,6 +23,8 @@ on:
         required: true
       CYPRESS_TRACKER_API_TOKEN:
         required: true
+      CYPRESS_RECORD_KEY:
+        required: true
 jobs:
   e2e:
     name: Test with Cypress
@@ -56,8 +58,6 @@ jobs:
         CYPRESS_OIDC_SECRET: ${{ secrets.CYPRESS_OIDC_SECRET }}
         CYPRESS_TRACKER_API_TOKEN: ${{ secrets.CYPRESS_TRACKER_API_TOKEN }}
         CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-
-
     - name: Upload test artifacts
       uses: actions/upload-artifact@v3
       if: always()
