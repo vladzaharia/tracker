@@ -55,6 +55,8 @@ jobs:
         CYPRESS_OIDC_SCOPE: ${{ secrets.CYPRESS_OIDC_SCOPE }}
         CYPRESS_OIDC_SECRET: ${{ secrets.CYPRESS_OIDC_SECRET }}
         CYPRESS_TRACKER_API_TOKEN: ${{ secrets.CYPRESS_TRACKER_API_TOKEN }}
+        CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+
 
     - name: Upload test artifacts
       uses: actions/upload-artifact@v3
