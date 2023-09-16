@@ -46,7 +46,7 @@ describe('RollbackDb', () => {
 		const resultJson = await result.json()
 
 		expect(result.status).toEqual(200)
-		expect(resultJson.message).toEqual('Migrations rolled back successfully!')
+		expect(resultJson.message).toEqual('Migration rolled back successfully!')
 		expect(mocks.rollback).toBeCalledTimes(1)
 	})
 
