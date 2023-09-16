@@ -29,8 +29,24 @@ jobs:
     permissions:
       security-events: write
 
-  deploy:
+  deploy-ci:
     needs: ['build', 'test', 'lint', 'format']
+    uses: ./.github/workflows/shared-deploy.yml
+    with:
+      environment: ci
+      baseUrl: https://ci.track.vlad.gg
+    secrets: inherit
+
+  e2e:
+    needs: ['deploy-ci']
+    uses: ./.github/workflows/shared-e2e.yml
+    with:
+      environment: staging
+    secrets: inherit
+    permissions: write-all
+
+  deploy:
+    needs: ['e2e']
     uses: ./.github/workflows/shared-deploy.yml
     with:
       environment: live

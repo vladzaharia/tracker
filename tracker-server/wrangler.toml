@@ -35,6 +35,17 @@ d1_databases = [
     { binding = "D1DATABASE", database_name = "tracker-staging", database_id = "385c260b-87aa-4714-b4b1-6d95e4769a56" },
 ]
 
+[env.ci]
+route = { pattern = "ci.track.vlad.gg", custom_domain = true }
+vars = { ENVIRONMENT = "ci", BASE_URL="https://ci.track.vlad.gg" }
+triggers = { crons = ["0 0 * * *"] }
+kv_namespaces = [
+    { binding = "GEOJSON", id = "018909cdf49744439faa528b68eb0fb4", preview_id = "018909cdf49744439faa528b68eb0fb4" },
+]
+d1_databases = [
+    { binding = "D1DATABASE", database_name = "tracker-ci", database_id = "6e7e662d-c25c-40ab-8370-86d27bc8242d" },
+]
+
 [env.live]
 route = { pattern = "track.vlad.gg", custom_domain = true }
 vars = { ENVIRONMENT = "live", BASE_URL="https://track.vlad.gg" }
