@@ -53,22 +53,26 @@
 			"configurations": {
 				"production": {
 					"env": {
-						"API_URL": "https://track.vlad.gg/api"
+						"API_URL": "https://track.vlad.gg/api",
+						"ENVIRONMENT": "live"
 					}
 				},
 				"staging": {
 					"env": {
-						"API_URL": "https://staging.track.vlad.gg/api"
+						"API_URL": "https://staging.track.vlad.gg/api",
+						"ENVIRONMENT": "staging"
 					}
 				},
 				"dev": {
 					"env": {
-						"API_URL": "https://dev.track.vlad.gg/api"
+						"API_URL": "https://dev.track.vlad.gg/api",
+						"ENVIRONMENT": "dev"
 					}
 				},
 				"local": {
 					"env": {
-						"API_URL": "http://localhost:8787/api"
+						"API_URL": "http://localhost:8787/api",
+						"ENVIRONMENT": "local"
 					}
 				}
 			}
