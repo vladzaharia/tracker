@@ -72,7 +72,7 @@ jobs:
       uses: JarvusInnovations/background-action@v1
       if:  ${{ inputs.environment == 'local' }}
       with:
-        run: wrangler dev
+        run: npx wrangler dev
         wait-on: |
           http-get://localhost:8787/api/
         tail: true
