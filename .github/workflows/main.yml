@@ -41,7 +41,7 @@ jobs:
     needs: ['deploy-ci']
     uses: ./.github/workflows/shared-e2e.yml
     with:
-      environment: staging
+      environment: ci
     secrets: inherit
     permissions: write-all
 
