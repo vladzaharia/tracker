@@ -74,7 +74,6 @@ jobs:
         run: npm run serve
         wait-on: |
           http-get://localhost:8787/api/
-          http-get://localhost:4200
         tail: true
         log-output-resume: stderr
         wait-for: 5m
