@@ -51,12 +51,38 @@ jobs:
       with:
         name: dist
         path: tracker-server/dist
-    - name: Run tracker-server Cypress tests
-      uses: cypress-io/github-action@v6
+
+    # - name: Run tracker-server Cypress tests
+    #   uses: cypress-io/github-action@v6
+    #   with:
+    #     working-directory: tracker-server
+    #     start: wrangler dev
+    #     browser: electron
+    #   env:
+    #     CYPRESS_GARMIN_USERNAME: ${{ secrets.CYPRESS_GARMIN_USERNAME }}
+    #     CYPRESS_MAPBOX_API_TOKEN: ${{ secrets.CYPRESS_MAPBOX_API_TOKEN }}
+    #     CYPRESS_OIDC_AUTHORITY: ${{ secrets.CYPRESS_OIDC_AUTHORITY }}
+    #     CYPRESS_OIDC_CLIENT_ID: ${{ secrets.CYPRESS_OIDC_CLIENT_ID }}
+    #     CYPRESS_OIDC_SCOPE: ${{ secrets.CYPRESS_OIDC_SCOPE }}
+    #     CYPRESS_OIDC_SECRET: ${{ secrets.CYPRESS_OIDC_SECRET }}
+    #     CYPRESS_TRACKER_API_TOKEN: ${{ secrets.CYPRESS_TRACKER_API_TOKEN }}
+    #     CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+
+    - name: Run development server
+      uses: JarvusInnovations/background-action@v1
       with:
-        working-directory: tracker-server
-        start: wrangler dev
-        browser: electron
+        run: npm run serve
+        wait-on: |
+          http://localhost:8787/api/
+          http://localhost:4200
+        tail: true
+        log-output-resume: stderr
+        wait-for: 5m
+        log-output: true
+        log-output-if: failure
+
+    - name: Run Cypress tests (local)
+      run: npx nx run-many -t test:cypress --configuration local
       env:
         CYPRESS_GARMIN_USERNAME: ${{ secrets.CYPRESS_GARMIN_USERNAME }}
         CYPRESS_MAPBOX_API_TOKEN: ${{ secrets.CYPRESS_MAPBOX_API_TOKEN }}
@@ -66,6 +92,7 @@ jobs:
         CYPRESS_OIDC_SECRET: ${{ secrets.CYPRESS_OIDC_SECRET }}
         CYPRESS_TRACKER_API_TOKEN: ${{ secrets.CYPRESS_TRACKER_API_TOKEN }}
         CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+
     - name: Upload test artifacts
       uses: actions/upload-artifact@v3
       if: always()
