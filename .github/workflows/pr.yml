@@ -49,7 +49,10 @@ jobs:
     name: Auto-merge Dependabot PRs
     needs: ['e2e']
     runs-on: ubuntu-latest
-    if: contains(github.event.pull_request.labels.*.name, 'dependencies')
+    if: ${{ github.actor == 'dependabot[bot]' }}
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - name: Dependabot metadata
         id: metadata
