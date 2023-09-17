@@ -58,6 +58,12 @@
 						"ENVIRONMENT": "live"
 					}
 				},
+				"ci": {
+					"env": {
+						"API_URL": "https://ci.track.vlad.gg/api",
+						"ENVIRONMENT": "ci"
+					}
+				},
 				"staging": {
 					"env": {
 						"API_URL": "https://staging.track.vlad.gg/api",
