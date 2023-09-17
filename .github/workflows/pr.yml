@@ -41,7 +41,7 @@ jobs:
     needs: ['deploy']
     uses: ./.github/workflows/shared-e2e.yml
     with:
-      environment: staging
+      environment: local
     secrets: inherit
     permissions: write-all
 

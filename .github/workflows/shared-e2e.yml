@@ -27,7 +27,7 @@ on:
         required: true
 jobs:
   e2e:
-    name: Test with Cypress
+    name: Test with Cypress (${{ inputs.environment }})
     runs-on: ubuntu-latest
     permissions: write-all
     concurrency: ${{ inputs.environment }}
@@ -70,8 +70,9 @@ jobs:
 
     - name: Run development server
       uses: JarvusInnovations/background-action@v1
+      if:  ${{ inputs.environment == 'local' }}
       with:
-        run: npm run serve
+        run: wrangler dev
         wait-on: |
           http-get://localhost:8787/api/
         tail: true
@@ -79,9 +80,10 @@ jobs:
         wait-for: 5m
         log-output: true
         log-output-if: failure
+        working-directory: tracker-server
 
-    - name: Run Cypress tests (local)
-      run: npx nx run-many -t test:cypress --configuration local
+    - name: Run Cypress tests (${{ inputs.environment }})
+      run: npx nx run-many -t test:cypress --configuration ${{ inputs.environment }}
       env:
         CYPRESS_GARMIN_USERNAME: ${{ secrets.CYPRESS_GARMIN_USERNAME }}
         CYPRESS_MAPBOX_API_TOKEN: ${{ secrets.CYPRESS_MAPBOX_API_TOKEN }}
