@@ -45,21 +45,16 @@ jobs:
     secrets: inherit
     permissions: write-all
 
-  dependabot:
-    name: Auto-merge Dependabot PRs
+  merge:
+    name: Auto-merge PR
     needs: ['e2e']
     runs-on: ubuntu-latest
-    if: ${{ github.actor == 'dependabot[bot]' }}
+    if: ${{ github.actor == 'dependabot[bot]' || (github.triggering_actor == 'vladzaharia' && contains(github.event.pull_request.labels.*.name, 'auto-merge')) }}
     permissions:
       contents: write
       pull-requests: write
     steps:
-      - name: Dependabot metadata
-        id: metadata
-        uses: dependabot/fetch-metadata@v1
-        with:
-          github-token: "${{ secrets.GITHUB_TOKEN }}"
-      - name: Enable auto-merge for Dependabot PRs
+      - name: Merge PR
         run: gh pr merge --auto --merge "$PR_URL"
         env:
           PR_URL: ${{github.event.pull_request.html_url}}
