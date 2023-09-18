@@ -52,7 +52,7 @@ jobs:
       - run: echo ${{ github.actor }}
       - run: echo ${{ github.triggering_actor }}
       - run: echo ${{ github.event.pull_request.labels.*.name }}
-
+      - run: echo ${{ contains(github.event.pull_request.labels.*.name, 'auto-merge') }}
   merge:
     name: Auto-merge PR
     needs: ['e2e']
