@@ -45,14 +45,6 @@ jobs:
     secrets: inherit
     permissions: write-all
 
-  merge-debug:
-    name: Debug auto-merger
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo ${{ github.actor }}
-      - run: echo ${{ github.triggering_actor }}
-      - run: echo ${{ github.event.pull_request.labels.*.name }}
-      - run: echo ${{ contains(github.event.pull_request.labels.*.name, 'auto-merge') }}
   merge:
     name: Auto-merge PR
     needs: ['e2e']
