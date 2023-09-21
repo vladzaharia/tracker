@@ -8,6 +8,6 @@ export const MIGRATION_9_TRIP_POINTS: Migration = {
 		await db.exec(`ALTER TABLE trip ADD COLUMN num_points INTEGER;`)
 	},
 	down: async (db: D1Database) => {
-		await db.exec(`ALTER TABLE waypoint DROP COLUMN num_points;`)
+		await db.exec(`ALTER TABLE trip DROP COLUMN num_points;`)
 	},
 }
