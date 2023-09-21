@@ -55,7 +55,7 @@ jobs:
 
   merge:
     name: Auto-merge PR
-    needs: ['e2e']
+    needs: ['deploy']
     runs-on: ubuntu-latest
     if: ${{ github.actor == 'dependabot[bot]' || (github.triggering_actor == 'vladzaharia' && contains(github.event.pull_request.labels.*.name, 'auto-merge')) }}
     permissions:
