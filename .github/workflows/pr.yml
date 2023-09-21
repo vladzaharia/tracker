@@ -29,6 +29,14 @@ jobs:
     permissions:
       security-events: write
 
+  deploy:
+    needs: ['build', 'test']
+    uses: ./.github/workflows/shared-deploy.yml
+    with:
+      environment: staging
+      baseUrl: https://staging.track.vlad.gg
+    secrets: inherit
+
   deploy-e2e:
     needs: ['build', 'test']
     uses: ./.github/workflows/shared-deploy.yml
@@ -45,17 +53,9 @@ jobs:
     secrets: inherit
     permissions: write-all
 
-  deploy:
-    needs: ['e2e']
-    uses: ./.github/workflows/shared-deploy.yml
-    with:
-      environment: staging
-      baseUrl: https://staging.track.vlad.gg
-    secrets: inherit
-
   merge:
     name: Auto-merge PR
-    needs: ['deploy']
+    needs: ['deploy', 'e2e']
     runs-on: ubuntu-latest
     if: ${{ github.actor == 'dependabot[bot]' || (github.triggering_actor == 'vladzaharia' && contains(github.event.pull_request.labels.*.name, 'auto-merge')) }}
     permissions:
