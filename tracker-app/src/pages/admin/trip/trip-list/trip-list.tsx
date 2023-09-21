@@ -106,8 +106,8 @@ export default function TripListAdmin() {
 								),
 								className: 'show-mobile',
 							},
-							{ element: trip.total_points.toString() },
-							{ element: trip.total_waypoints.toString() },
+							{ element: trip.num_points.toString() },
+							{ element: trip.num_waypoints.toString() },
 							{
 								element: (
 									<div className="buttons">

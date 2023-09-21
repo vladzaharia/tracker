@@ -1,12 +1,12 @@
 openapi: 3.0.0
 info:
   title: Tracker Tracker API
-  description: API for tracking Vlad while tracker diving, on https://tracker.vlad.gg
+  description: API for tracking Vlad while tracker diving, on https://track.vlad.gg
   version: 1.0.0
 
 servers:
   - description: Live
-    url: https://tracker.vlad.gg/api
+    url: https://track.vlad.gg/api
   - description: Local
     url: http://localhost:8787/api
 
@@ -970,11 +970,11 @@ components:
           required:
             - latitude
             - longitude
-        total_points:
+        num_points:
           type: number
           description: Total number of points for this trip.
           example: 1234
-        total_waypoints:
+        num_waypoints:
           type: number
           description: Total number of waypoints for this trip.
           example: 1234
@@ -993,8 +993,8 @@ components:
         - time_zone
         - status
         - center_point
-        - total_points
-        - total_waypoints
+        - num_points
+        - num_waypoints
         - waypoints
     AddTripBody:
       type: object
