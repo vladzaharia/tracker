@@ -22,6 +22,7 @@ export interface TripTable {
 	start_date: NumberColumn
 	end_date: NumberColumn
 	time_zone: StringColumn
+	num_points?: NumberColumn
 }
 
 export interface WaypointTable {

@@ -1,9 +1,9 @@
 import { kml } from '@tmcw/togeojson'
 import { getTripKML } from '../inreach/kml'
-import { DOMParser } from 'xmldom'
+import { DOMParser } from '@xmldom/xmldom'
 import { Bindings } from '../bindings'
 import moment from 'moment'
-import { listTrips } from '../tables/trip'
+import { listTrips, updateTrip } from '../tables/trip'
 
 export const FetchGeoJSON = async (env: Bindings, updateAll = false) => {
 	const allTrips = await listTrips(env.D1DATABASE)
@@ -22,6 +22,8 @@ export const FetchGeoJSON = async (env: Bindings, updateAll = false) => {
 
 			await env.GEOJSON.put(`${trip.id}-points`, JSON.stringify({ ...geojson, features: points }))
 			await env.GEOJSON.put(`${trip.id}-track`, JSON.stringify({ ...geojson, features: track }))
+
+			updateTrip(env.D1DATABASE, trip.id, { num_points: points.length })
 
 			console.log(`${trip.id} imported successfully with ${points.length} points!`)
 			importedTrips++

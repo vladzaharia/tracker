@@ -39,7 +39,7 @@ export const ConvertTrip = async (
 
 	return {
 		...convertedTrip,
-		total_waypoints: showTotals ? (await listWaypointsForTrip(c.env.D1DATABASE, trip.id)).length : undefined,
+		num_waypoints: showTotals ? (await listWaypointsForTrip(c.env.D1DATABASE, trip.id)).length : undefined,
 		...(showStatus ? await GetTripStatus(c, convertedTrip, showTotals, showCenterPoint) : {}),
 	}
 }
@@ -51,9 +51,7 @@ export const GetTripStatus = async (c: Context<{ Bindings: Bindings }>, tripDeta
 		const points = JSON.parse(jsonString).features
 
 		if (points.length === 0) {
-			return {
-				total_points: showTotals ? 0 : undefined,
-			}
+			return {}
 		}
 
 		const lastPoint = points && points[points.length - 1]
@@ -77,7 +75,6 @@ export const GetTripStatus = async (c: Context<{ Bindings: Bindings }>, tripDeta
 
 		return {
 			last_point: showTotals ? lastPoint : undefined,
-			total_points: showTotals ? points.length : undefined,
 			center_point: showCenterPoint ? getCenterPoint() : undefined,
 			status: {
 				activity: GetActivity(lastPoint, tripDetails),
@@ -91,8 +88,6 @@ export const GetTripStatus = async (c: Context<{ Bindings: Bindings }>, tripDeta
 			},
 		}
 	} else {
-		return {
-			total_points: 0,
-		}
+		return {}
 	}
 }

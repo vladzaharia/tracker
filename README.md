@@ -84,9 +84,9 @@ Deployments initiated using local `npm run deploy` command.
 
 | Name           | URL                                                                                                                  |
 |----------------|----------------------------------------------------------------------------------------------------------------------|
-| Frontend       | [https://dev.tracker.vlad.gg/](https://dev.tracker.vlad.gg/)                                                       |
-| API            | [https://dev.tracker.vlad.gg/api/](https://dev.tracker.vlad.gg/api)                                                |
-| OpenAPI Schema | [https://dev.tracker.vlad.gg/api/openapi/openapi.swagger](https://dev.tracker.vlad.gg/api/openapi/openapi.swagger) |
+| Frontend       | [https://dev.track.vlad.gg/](https://dev.track.vlad.gg/)                                                       |
+| API            | [https://dev.track.vlad.gg/api/](https://dev.track.vlad.gg/api)                                                |
+| OpenAPI Schema | [https://dev.track.vlad.gg/api/openapi/openapi.swagger](https://dev.track.vlad.gg/api/openapi/openapi.swagger) |
 
 ### `staging`
 
@@ -94,9 +94,9 @@ Deployments initiated by Github Actions when a PR is created against the `main` 
 
 | Name           | URL                                                                                                                          |
 |----------------|------------------------------------------------------------------------------------------------------------------------------|
-| Frontend       | [https://staging.tracker.vlad.gg/](https://staging.tracker.vlad.gg/)                                                       |
-| API            | [https://staging.tracker.vlad.gg/api/](https://staging.tracker.vlad.gg/api)                                                |
-| OpenAPI Schema | [https://staging.tracker.vlad.gg/api/openapi/openapi.swagger](https://staging.tracker.vlad.gg/api/openapi/openapi.swagger) |
+| Frontend       | [https://staging.track.vlad.gg/](https://staging.track.vlad.gg/)                                                       |
+| API            | [https://staging.track.vlad.gg/api/](https://staging.track.vlad.gg/api)                                                |
+| OpenAPI Schema | [https://staging.track.vlad.gg/api/openapi/openapi.swagger](https://staging.track.vlad.gg/api/openapi/openapi.swagger) |
 
 ### `live`
 
@@ -104,6 +104,6 @@ Deployments initiated by Github Actions on pushes to `main` branch.
 
 | Name           | URL                                                                                                          |
 |----------------|--------------------------------------------------------------------------------------------------------------|
-| Frontend       | [https://tracker.vlad.gg/](https://tracker.vlad.gg/)                                                       |
-| API            | [https://tracker.vlad.gg/api/](https://tracker.vlad.gg/api)                                                |
-| OpenAPI Schema | [https://tracker.vlad.gg/api/openapi/openapi.swagger](https://tracker.vlad.gg/api/openapi/openapi.swagger) |
+| Frontend       | [https://track.vlad.gg/](https://track.vlad.gg/)                                                       |
+| API            | [https://track.vlad.gg/api/](https://track.vlad.gg/api)                                                |
+| OpenAPI Schema | [https://track.vlad.gg/api/openapi/openapi.swagger](https://track.vlad.gg/api/openapi/openapi.swagger) |

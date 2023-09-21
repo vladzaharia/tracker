@@ -29,37 +29,58 @@ jobs:
     permissions:
       security-events: write
 
-  deploy:
+  deploy-e2e:
     needs: ['build', 'test']
+    uses: ./.github/workflows/shared-deploy.yml
+    with:
+      environment: pr
+      baseUrl: https://pr.track.vlad.gg
+    secrets: inherit
+
+  e2e:
+    needs: ['deploy-e2e']
+    uses: ./.github/workflows/shared-e2e.yml
+    with:
+      environment: pr
+    secrets: inherit
+    permissions: write-all
+
+  deploy:
+    needs: ['e2e']
     uses: ./.github/workflows/shared-deploy.yml
     with:
       environment: staging
       baseUrl: https://staging.track.vlad.gg
     secrets: inherit
 
-  e2e:
+  merge:
+    name: Auto-merge PR
     needs: ['deploy']
-    uses: ./.github/workflows/shared-e2e.yml
-    with:
-      environment: local
-    secrets: inherit
-    permissions: write-all
-
-  dependabot:
-    name: Auto-merge Dependabot PRs
-    needs: ['e2e']
     runs-on: ubuntu-latest
-    if: ${{ github.actor == 'dependabot[bot]' }}
+    if: ${{ github.actor == 'dependabot[bot]' || (github.triggering_actor == 'vladzaharia' && contains(github.event.pull_request.labels.*.name, 'auto-merge')) }}
     permissions:
       contents: write
       pull-requests: write
     steps:
-      - name: Dependabot metadata
-        id: metadata
-        uses: dependabot/fetch-metadata@v1
+      - name: Comment on PR (dependabot)
+        uses: mshick/add-pr-comment@v2
+        if: ${{ github.actor == 'dependabot[bot]' }}
         with:
-          github-token: "${{ secrets.GITHUB_TOKEN }}"
-      - name: Enable auto-merge for Dependabot PRs
+          message: |
+            # ✅ Auto-merging PR
+            This PR passed all checks and is being merged automatically.
+
+            **Reason:** Dependabot update
+      - name: Comment on PR (auto-merge label)
+        uses: mshick/add-pr-comment@v2
+        if: ${{ github.triggering_actor == 'vladzaharia' && contains(github.event.pull_request.labels.*.name, 'auto-merge') }}
+        with:
+          message: |
+            # ✅ Auto-merging PR
+            This PR passed all checks and is being merged automatically.
+
+            **Reason:** Tagged with `auto-merge` label and initiated by trusted user
+      - name: Merge PR
         run: gh pr merge --auto --merge "$PR_URL"
         env:
           PR_URL: ${{github.event.pull_request.html_url}}
