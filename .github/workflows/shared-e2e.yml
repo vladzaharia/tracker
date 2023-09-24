@@ -28,7 +28,7 @@ on:
 jobs:
   e2e:
     name: Test with Cypress (${{ inputs.environment }})
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     permissions: write-all
     concurrency: ${{ inputs.environment }}
 
