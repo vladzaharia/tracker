@@ -38,7 +38,7 @@ jobs:
     secrets: inherit
 
   e2e:
-    needs: ['deploy-e2e']
+    needs: ['build']
     uses: ./.github/workflows/shared-e2e.yml
     with:
       environment: pr
