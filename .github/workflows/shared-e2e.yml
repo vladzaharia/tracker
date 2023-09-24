@@ -32,6 +32,10 @@ jobs:
     permissions: write-all
     concurrency: ${{ inputs.environment }}
 
+    container:
+      image: cypress/browsers:latest
+      options: --user 1001
+
     steps:
     - name: Checkout files
       uses: actions/checkout@v3
