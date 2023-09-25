@@ -46,8 +46,7 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: v20.x
-    - name: Remove existing node_modules
-      run: rm -rf **/node_modules
+        cache: 'npm'
     - name: Install NPM packages
       run: npm ci
       env:
