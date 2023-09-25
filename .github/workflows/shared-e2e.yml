@@ -43,6 +43,8 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: v20.x
+    - name: Remove existing node_modules
+      run: rm -rf **/node_modules
     - name: Install NPM packages
       run: npm ci --ignore-scripts
       env:
@@ -96,6 +98,7 @@ jobs:
         CYPRESS_OIDC_SECRET: ${{ secrets.CYPRESS_OIDC_SECRET }}
         CYPRESS_TRACKER_API_TOKEN: ${{ secrets.CYPRESS_TRACKER_API_TOKEN }}
         CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+        COMMIT_INFO_MESSAGE: ${{ github.event.pull_request.title }}
 
     - name: Upload test artifacts
       uses: actions/upload-artifact@v3
