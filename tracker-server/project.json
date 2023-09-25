@@ -39,7 +39,6 @@
 			}
 		},
 		"test:cypress": {
-			"dependsOn": ["build"],
 			"executor": "@nx/cypress:cypress",
 			"options": {
 				"cypressConfig": "./tracker-server/cypress.config.ts",
@@ -52,18 +51,6 @@
 			},
 			"defaultConfiguration": "local",
 			"configurations": {
-				"ci": {
-					"env": {
-						"API_URL": "https://ci.track.vlad.gg/api",
-						"ENVIRONMENT": "ci"
-					}
-				},
-				"pr": {
-					"env": {
-						"API_URL": "https://pr.track.vlad.gg/api",
-						"ENVIRONMENT": "pr"
-					}
-				},
 				"staging": {
 					"env": {
 						"API_URL": "https://staging.track.vlad.gg/api",
@@ -85,7 +72,6 @@
 			}
 		},
 		"test:cypress:start": {
-			"dependsOn": ["build"],
 			"executor": "@nx-extend/e2e-runner:run",
 			"options": {
 				"runner": "cypress",

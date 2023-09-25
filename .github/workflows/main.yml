@@ -15,6 +15,15 @@ jobs:
     secrets: inherit
     permissions: write-all
 
+  local-e2e:
+    needs: ['build']
+    uses: ./.github/workflows/shared-e2e.yml
+    with:
+      environment: local
+      info_message: "${{ github.event.head_commit.message }} (local)"
+    secrets: inherit
+    permissions: write-all
+
   lint:
     needs: ['build']
     uses: ./.github/workflows/shared-lint.yml
@@ -29,24 +38,8 @@ jobs:
     permissions:
       security-events: write
 
-  deploy-e2e:
-    needs: ['build', 'test', 'lint', 'format']
-    uses: ./.github/workflows/shared-deploy.yml
-    with:
-      environment: ci
-      baseUrl: https://ci.track.vlad.gg
-    secrets: inherit
-
-  e2e:
-    needs: ['deploy-e2e']
-    uses: ./.github/workflows/shared-e2e.yml
-    with:
-      environment: ci
-    secrets: inherit
-    permissions: write-all
-
   deploy:
-    needs: ['e2e']
+    needs: ['build', 'test', 'lint', 'format', 'local-e2e']
     uses: ./.github/workflows/shared-deploy.yml
     with:
       environment: live

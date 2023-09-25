@@ -20,6 +20,6 @@ export const ResetDb = async (c: Context<{ Bindings: Bindings }>) => {
 		})
 	} catch (e) {
 		console.error('err', e)
-		return c.json({ message: 'Something went wrong!' }, 500)
+		return c.json({ message: 'Something went wrong!', error: e }, 500)
 	}
 }
