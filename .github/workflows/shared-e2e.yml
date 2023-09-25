@@ -6,6 +6,9 @@ on:
       environment:
         required: true
         type: string
+      info_message:
+        required: true
+        type: string
     secrets:
       FONTAWESOME_API_TOKEN:
         required: true
@@ -57,23 +60,6 @@ jobs:
         name: dist
         path: tracker-server/dist
 
-    # - name: Run tracker-server Cypress tests
-    #   uses: cypress-io/github-action@v6
-    #   with:
-    #     project: tracker-server
-    #     spec: tracker-server/src/**/*.cy.ts
-    #     start: npx nx run tracker-server:serve
-    #     browser: electron
-    #   env:
-    #     CYPRESS_GARMIN_USERNAME: ${{ secrets.CYPRESS_GARMIN_USERNAME }}
-    #     CYPRESS_MAPBOX_API_TOKEN: ${{ secrets.CYPRESS_MAPBOX_API_TOKEN }}
-    #     CYPRESS_OIDC_AUTHORITY: ${{ secrets.CYPRESS_OIDC_AUTHORITY }}
-    #     CYPRESS_OIDC_CLIENT_ID: ${{ secrets.CYPRESS_OIDC_CLIENT_ID }}
-    #     CYPRESS_OIDC_SCOPE: ${{ secrets.CYPRESS_OIDC_SCOPE }}
-    #     CYPRESS_OIDC_SECRET: ${{ secrets.CYPRESS_OIDC_SECRET }}
-    #     CYPRESS_TRACKER_API_TOKEN: ${{ secrets.CYPRESS_TRACKER_API_TOKEN }}
-    #     CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-
     - name: Run development server
       uses: JarvusInnovations/background-action@v1
       if:  ${{ inputs.environment == 'local' }}
@@ -98,7 +84,7 @@ jobs:
         CYPRESS_OIDC_SECRET: ${{ secrets.CYPRESS_OIDC_SECRET }}
         CYPRESS_TRACKER_API_TOKEN: ${{ secrets.CYPRESS_TRACKER_API_TOKEN }}
         CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-        COMMIT_INFO_MESSAGE: ${{ github.event.pull_request.title }}
+        COMMIT_INFO_MESSAGE: ${{ inputs.info_message }}
 
     - name: Upload test artifacts
       uses: actions/upload-artifact@v3

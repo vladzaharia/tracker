@@ -51,18 +51,6 @@
 			},
 			"defaultConfiguration": "local",
 			"configurations": {
-				"ci": {
-					"env": {
-						"API_URL": "https://ci.track.vlad.gg/api",
-						"ENVIRONMENT": "ci"
-					}
-				},
-				"pr": {
-					"env": {
-						"API_URL": "https://pr.track.vlad.gg/api",
-						"ENVIRONMENT": "pr"
-					}
-				},
 				"staging": {
 					"env": {
 						"API_URL": "https://staging.track.vlad.gg/api",

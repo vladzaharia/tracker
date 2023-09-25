@@ -29,19 +29,12 @@ jobs:
     permissions:
       security-events: write
 
-  # deploy-e2e:
-  #   needs: ['build', 'test']
-  #   uses: ./.github/workflows/shared-deploy.yml
-  #   with:
-  #     environment: pr
-  #     baseUrl: https://pr.track.vlad.gg
-  #   secrets: inherit
-
   e2e:
     needs: ['build']
     uses: ./.github/workflows/shared-e2e.yml
     with:
       environment: local
+      info_message: ${{ github.event.pull_request.title }}
     secrets: inherit
     permissions: write-all
 
