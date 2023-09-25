@@ -77,7 +77,7 @@ jobs:
       uses: JarvusInnovations/background-action@v1
       if:  ${{ inputs.environment == 'local' }}
       with:
-        run: npx wrangler dev
+        run: npm run serve &
         wait-on: |
           http-get://localhost:8787/api/
         tail: true
@@ -85,7 +85,6 @@ jobs:
         wait-for: 5m
         log-output: true
         log-output-if: true
-        working-directory: tracker-server
 
     - name: Run Cypress tests (${{ inputs.environment }})
       run: npx nx run-many -t test:cypress --configuration ${{ inputs.environment }}
