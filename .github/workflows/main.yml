@@ -15,12 +15,11 @@ jobs:
     secrets: inherit
     permissions: write-all
 
-  local-e2e:
+  e2e:
     needs: ['build']
     uses: ./.github/workflows/shared-e2e.yml
     with:
       environment: local
-      info_message: "${{ github.event.head_commit.message }} (local)"
     secrets: inherit
     permissions: write-all
 
@@ -39,7 +38,7 @@ jobs:
       security-events: write
 
   deploy:
-    needs: ['build', 'test', 'lint', 'format', 'local-e2e']
+    needs: ['build', 'test', 'lint', 'format', 'e2e']
     uses: ./.github/workflows/shared-deploy.yml
     with:
       environment: live
