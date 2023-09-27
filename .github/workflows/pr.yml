@@ -34,7 +34,6 @@ jobs:
     uses: ./.github/workflows/shared-e2e.yml
     with:
       environment: local
-      info_message: ${{ github.event.pull_request.title }}
     secrets: inherit
     permissions: write-all
 
@@ -48,7 +47,7 @@ jobs:
 
   merge:
     name: Auto-merge PR
-    needs: ['deploy']
+    needs: ['lint', 'format', 'deploy']
     runs-on: ubuntu-latest
     if: ${{ github.actor == 'dependabot[bot]' || (github.triggering_actor == 'vladzaharia' && contains(github.event.pull_request.labels.*.name, 'auto-merge')) }}
     permissions:
