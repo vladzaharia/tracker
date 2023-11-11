@@ -45,7 +45,7 @@
 		"@mui/material": "^5.14.17",
 		"@mui/x-date-pickers": "^6.18.0",
 		"@swc/helpers": "~0.5.2",
-		"axios": "^1.4.0",
+		"axios": "^1.6.0",
 		"framer-motion": "^10.16.4",
 		"is-mobile": "^4.0.0",
 		"mapbox-gl": "^2.15.0",
