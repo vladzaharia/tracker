@@ -6,6 +6,12 @@ export default defineConfig({
 	cacheDir: '../node_modules/.vite/server',
 	base: '/',
 
+	build: {
+		rollupOptions: {
+			external: ['__STATIC_CONTENT_MANIFEST']
+		}
+	},
+
 	plugins: [
 		viteTsConfigPaths({
 			root: '../',

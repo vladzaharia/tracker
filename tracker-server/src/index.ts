@@ -27,6 +27,8 @@ import { UpdateConfig } from './routes/config/update'
 import { GetSync } from './routes/sync/get'
 import { ExecuteSync, RunSync } from './routes/sync/run'
 
+import manifest from '__STATIC_CONTENT_MANIFEST'
+
 const app = new Hono<{ Bindings: Bindings }>()
 
 // #region Middlewares
@@ -92,6 +94,7 @@ app.get(
 	'/api/openapi/openapi.swagger',
 	serveStatic({
 		path: './openapi/openapi.swagger',
+		manifest,
 	})
 )
 
@@ -100,60 +103,70 @@ app.get(
 	'/:tripId',
 	serveStatic({
 		path: './app/index.html',
+		manifest,
 	})
 )
 app.get(
 	'/admin',
 	serveStatic({
 		path: './app/index.html',
+		manifest,
 	})
 )
 app.get(
 	'/admin/trip',
 	serveStatic({
 		path: './app/index.html',
+		manifest,
 	})
 )
 app.get(
 	'/admin/trip/:tripIdAdmin',
 	serveStatic({
 		path: './app/index.html',
+		manifest,
 	})
 )
 app.get(
 	'/admin/waypoint',
 	serveStatic({
 		path: './app/index.html',
+		manifest,
 	})
 )
 app.get(
 	'/admin/waypoint/:waypointTrip/:waypointTimestamp',
 	serveStatic({
 		path: './app/index.html',
+		manifest,
 	})
 )
 app.get(
 	'/admin/config',
 	serveStatic({
 		path: './app/index.html',
+		manifest,
 	})
 )
 app.get(
 	'/admin/sync',
 	serveStatic({
 		path: './app/index.html',
+		manifest,
 	})
 )
 app.get(
 	'/admin/database',
 	serveStatic({
 		path: './app/index.html',
+		manifest,
 	})
 )
 app.get(
 	'/*',
 	serveStatic({
 		root: './app',
+		manifest,
 	})
 )
 
