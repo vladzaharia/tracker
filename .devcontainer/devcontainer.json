@@ -26,13 +26,13 @@
 		}
 	},
 
-	"mounts": [
-		// "source=${localEnv:HOME}${localEnv:USERPROFILE},target=/home/vlad,type=bind,consistency=cached",
-		"source=${localEnv:HOME}${localEnv:USERPROFILE}/.config,target=/home/vlad/.config,type=bind,consistency=cached",
-		"source=${localEnv:HOME}${localEnv:USERPROFILE}/.gitconfig,target=/home/vlad/.gitconfig,type=bind,consistency=cached",
-		"source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/vlad/.ssh,type=bind,consistency=cached",
-		"source=${localWorkspaceFolderBasename}-node_modules,target=${containerWorkspaceFolder}/node_modules,type=volume"
-	],
+	// "mounts": [
+	// 	// "source=${localEnv:HOME}${localEnv:USERPROFILE},target=/home/vlad,type=bind,consistency=cached",
+	// 	"source=${localEnv:HOME}${localEnv:USERPROFILE}/.config,target=/home/vlad/.config,type=bind,consistency=cached",
+	// 	"source=${localEnv:HOME}${localEnv:USERPROFILE}/.gitconfig,target=/home/vlad/.gitconfig,type=bind,consistency=cached",
+	// 	"source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/vlad/.ssh,type=bind,consistency=cached",
+	// 	"source=${localWorkspaceFolderBasename}-node_modules,target=${containerWorkspaceFolder}/node_modules,type=volume"
+	// ],
 
 	"containerEnv": {
 		"CLOUDFLARE_API_TOKEN": "${localEnv:CLOUDFLARE_API_TOKEN}",
@@ -87,7 +87,7 @@
 				"[markdown]": {
 					"editor.defaultFormatter": "esbenp.prettier-vscode"
 				},
-			    "files.associations": {
+				"files.associations": {
 					"*.swagger": "yaml"
 				}
 			}
