@@ -1,0 +1,21 @@
+{
+    "recommendations": [
+      "BeardedBear.beardedicons",
+      "BeardedBear.beardedtheme",
+      "eamodio.gitlens",
+      "GitHub.vscode-pull-request-github",
+      "stkb.rewrap",
+      "remcohaszing.schemastore",
+      "fabiospampinato.vscode-diff",
+      "IronGeek.vscode-env",
+      "tamasfe.even-better-toml",
+      "github.vscode-github-actions",
+      "GitHub.copilot",
+      "GitHub.copilot-labs",
+      "yzhang.markdown-all-in-one",
+      "42Crunch.vscode-openapi",
+      "esbenp.prettier-vscode",
+      "cipchk.cssrem",
+      "redhat.vscode-yaml",
+    ]
+  }

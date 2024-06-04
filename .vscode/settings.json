@@ -1,22 +1,14 @@
 {
-	"rest-client.environmentVariables": {
-		"$shared": {
-		},
-		"local": {
-			"host": "http://localhost:8787/api",
-		},
-		"staging": {
-			"host": "https://staging.track.vlad.gg/api",
-		},
-		"prod": {
-			"host": "https://track.vlad.gg/api",
-		}
-	},
-	"yaml.schemas": {
-		"https://json.schemastore.org/github-workflow.json": [
-			"file:///Users/vlad/Documents/Repos/tracker/.github/workflows/deploy.yml",
-			"file:///Users/vlad/Documents/Repos/tracker/.github/workflows/templates/deploy.yml",
-			"file:///Users/vlad/Documents/Repos/tracker/.github/workflows/shared/deploy.yml"
-		]
-	}
+	"editor.tabSize": 2,
+	"workbench.colorTheme": "Bearded Theme Void",
+	"workbench.preferredDarkColorTheme": "Bearded Theme Void",
+	"workbench.preferredLightColorTheme": "Quiet Light",
+	"workbench.iconTheme": "bearded-icons",
+  
+	"editor.fontFamily": "'MonoLisa Nerd Font', MonoLisa, Menlo, Monaco, 'Courier New', monospace",
+  
+	"git.enableSmartCommit": true,
+	"git.autofetch": true,
+	"git.confirmSync": false, 
 }
+  
