@@ -11,14 +11,14 @@
 		"jest-junit": "^16.0.0",
 		"jsonpath": "^1.1.1",
 		"typescript": "^5.2.2",
-		"wrangler": "^3.8.0"
+		"wrangler": "^3.19.0"
 	},
 	"dependencies": {
 		"@tmcw/togeojson": "^5.8.1",
 		"@xmldom/xmldom": "^0.8.10",
 		"cron-parser": "^4.9.0",
-		"hono": "^3.6.3",
-		"jose": "^4.14.6",
+		"hono": "^4.2.7",
+		"jose": "^5.1.1",
 		"kysely": "^0.26.3",
 		"kysely-d1": "^0.3.0",
 		"moment": "^2.29.0",
